@@ -7,6 +7,7 @@
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ../../modules/nixos/syncthing.nix
+      ../../modules/nixos/wayland.nix
     ];
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ]; 
@@ -55,29 +56,29 @@
   # Select internationalisation properties.
   i18n.defaultLocale = "fr_CA.UTF-8";
 
-  # Wayland and Sway config
-  ## Hardware Support for Wayland Sway
-  hardware = {
-    opengl = {
-      enable = true;
-      driSupport = true;
-    };
-  };
-  ## XDG config for wayland 
-  xdg = {
-    portal = {
-      enable = true;
-      config.common.default = "*";
-      extraPortals = with pkgs; [
-        xdg-desktop-portal-wlr
-        xdg-desktop-portal-gtk
-      ];
-    };
-  };
-  ## Allow swaylock to unlock the computer for us
-  security.pam.services.swaylock = {
-    text = "auth include login";
-  };
+# # Wayland and Sway config
+# ## Hardware Support for Wayland (Sway+Hyprland)
+# hardware = {
+#   opengl = {
+#     enable = true;
+#     driSupport = true;
+#   };
+# };
+# ## XDG config for wayland 
+# xdg = {
+#   portal = {
+#     enable = true;
+#     config.common.default = "*";
+#     extraPortals = with pkgs; [
+#       xdg-desktop-portal-wlr
+#       xdg-desktop-portal-gtk
+#     ];
+#   };
+# };
+# ## Allow swaylock to unlock the computer for us
+# security.pam.services.swaylock = {
+#   text = "auth include login";
+# };
 
   # Configure console keymap
   console.keyMap = "cf";
