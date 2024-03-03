@@ -36,6 +36,7 @@
     10.0.0.202 phone
     10.0.0.203 tablette
   '';
+
   # Setting environment Variables for all users
   environment.sessionVariables = {
     EDITOR = "nvim";
@@ -44,6 +45,7 @@
     alias phone='ssh u0_a450@phone -p8022'
     alias portable='ssh portable'
   '';
+
   # Enabling bluetooth
   hardware.bluetooth.enable = true;
 
@@ -53,40 +55,8 @@
   # Select internationalisation properties.
   i18n.defaultLocale = "fr_CA.UTF-8";
 
-# # Service de synchronisation Syncthing
-# services.syncthing = {
-#   enable = true;
-#   dataDir = "/home/cheon/Documents";
-#   openDefaultPorts = true;
-#   configDir = "/home/cheon/.config/syncthing";
-#   user = "cheon";
-#   #group = "users";
-#   guiAddress = "127.0.0.1:8384";
-#     overrideDevices = true;
-#     overrideFolders = true;
-#     settings.devices = {
-#       "portable" = { id = "WOSHMB7-N5YIJTM-VLAPPHS-HUQS2QO-CEO67WO-MF4LJIW-4HGO563-LPEVCAZ"; };
-#       "phone" = { id = "WNJ5NHU-FCEJGLJ-TBESUFK-XPMKGBN-H225KSH-JZB7XB5-FGAQUWH-4WXIVQF"; };
-#       "DESKTOP-UEM9CA3" = { id = "FWKDNXG-UIMQA6F-FTBAGSP-VKD34DH-DFGQDWO-ZOPEKOJ-KV54A6J-IVU44AM"; };
-#     };
-#     settings.folders = {
-#       "Cerveau" = { 
-#         id = "mbh3e-b0zp2";
-#         path = "/home/cheon/Documents/Cerveau"; 
-#         devices = [ "portable" "phone" ]; 
-#         versioning = { 
-#           type = "simple"; 
-#           params = { 
-#             keep = "10"; 
-#           }; 
-#         }; 
-#       };
-#     };
-# };
-
   # Wayland and Sway config
   ## Hardware Support for Wayland Sway
-
   hardware = {
     opengl = {
       enable = true;
@@ -112,7 +82,7 @@
   # Configure console keymap
   console.keyMap = "cf";
   console.font = "sun12x22";
-  # Pour échager Capslock et Escape
+  # Pour échanger Capslock et Escape
   services.interception-tools = {
     enable = true;
     plugins = with pkgs; [
@@ -173,7 +143,6 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-  #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
   neovim
   git
   gh #github CLI pour faciliter l'authentification avec github.
