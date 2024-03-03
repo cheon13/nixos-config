@@ -1,6 +1,6 @@
-{ config, pkgs, ... }:
+#{ ... }:
 
-{
+#{
   # Wayland and Sway config
   ## Hardware Support for Wayland (Sway+Hyprland)
   hardware = {
@@ -27,4 +27,4 @@
     text = "auth include login";
   };
 
-}
+#}

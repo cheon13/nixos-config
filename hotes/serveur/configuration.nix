@@ -6,8 +6,8 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
-      ../../modules/nixos/syncthing.nix
       ../../modules/nixos/wayland.nix
+      ../../modules/nixos/syncthing.nix
     ];
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ]; 
