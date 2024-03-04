@@ -43,9 +43,11 @@
   environment.sessionVariables = {
     EDITOR = "nvim";
   };
+
   environment.interactiveShellInit = ''
     alias phone='ssh u0_a450@phone -p8022'
     alias portable='ssh portable'
+    alias serveur='ssh serveur'
   '';
 
   # Enabling bluetooth
@@ -127,9 +129,6 @@
   pass
   rclone
   xdg-utils
-  # Library nécessaire pour le plugin de taskwiki?
-  #python310Packages.tasklib
-  #python310Packages.six
   ];
 
   # Installation de fonts supplémentaires
