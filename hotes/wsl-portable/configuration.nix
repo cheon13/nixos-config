@@ -9,7 +9,10 @@
 
 { imports = [
     # include NixOS-WSL modules
-    <nixos-wsl/modules> ];
+    inputs.nixos-wsl.url = "github:nix-community/NixOS-WSL";
+    inputs.nixos-wsl.inputs.nixpkgs.follows = "nixpkgs";
+    #<nixos-wsl/modules>
+    ];
 
   wsl.enable = true; wsl.defaultUser = "cheon"; wsl.wslConf.network.generateHosts = false;
 
