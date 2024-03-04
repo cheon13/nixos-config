@@ -1,11 +1,6 @@
 { pkgs, ... }:
 
 {
-  imports =
-    [ 
-      ../../modules/home-manager/neovim.nix
-    ];
-
   programs.neovim = {
     enable = true;
     defaultEditor = true;

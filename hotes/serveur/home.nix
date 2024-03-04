@@ -3,6 +3,11 @@
 { config, pkgs, ... }:
 
 {
+  imports =
+    [ 
+      ../../modules/home-manager/neovim.nix
+    ];
+
   home.username = "cheon";
   home.homeDirectory = "/home/cheon";
 
