@@ -8,6 +8,7 @@
       ./hardware-configuration.nix
       ../../modules/nixos/wayland.nix
       ../../modules/nixos/syncthing.nix
+      ../../modules/nixos/hyprland.nix
     ];
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ]; 
