@@ -15,11 +15,6 @@
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
-# Setting environment Variables for all users
-  environment.sessionVariables = {
-    EDITOR = "nvim";
-  };
-
 # List packages installede in system profile
   environment.systemPackages = [
     pkgs.neovim
