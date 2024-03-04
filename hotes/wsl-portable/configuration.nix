@@ -9,8 +9,6 @@
 
 { imports = [
     # include NixOS-WSL modules
-    inputs.nixos-wsl.url = "github:nix-community/NixOS-WSL";
-    inputs.nixos-wsl.inputs.nixpkgs.follows = "nixpkgs";
     #<nixos-wsl/modules>
     ];
 
