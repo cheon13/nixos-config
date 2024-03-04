@@ -15,11 +15,6 @@
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
-# List packages installede in system profile
-  environment.systemPackages = [
-    pkgs.neovim
-  ];  
-
   networking.hostName = "wsl-portable"; # Define your hostname.
   #networking.hostName = "DESKTOP-UEM9CA3"; # Define your hostname.
 
