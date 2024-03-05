@@ -44,7 +44,7 @@
 
        modules = [
         ./hotes/wsl-portable/configuration.nix
-        nixos-wsl.nixosModules.wslL
+        nixos-wsl.nixosModules.wsl
         home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
