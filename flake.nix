@@ -10,7 +10,8 @@
     nixos-wsl.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { self, nixpkgs, home-manager, ... }: 
+  #outputs = { self, nixpkgs, home-manager, ... }: 
+  outputs = inputs: 
   let
     system = "x86_64-linux";
 
