@@ -45,7 +45,7 @@
        specialArgs = { inherit system; };
 
        modules = [
-        nixos-wsl.nixosModules.wsl (import ./hotes/wsl-portable/configuration.nix)
+        nixos-wsl.nixosModules.wsl (import ./hotes/wsl-portable/configuration.nix inputs)
         home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
