@@ -10,7 +10,7 @@
     nixos-wsl.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { self, nixpkgs, home-manager, nixos-wsl, nixos-wsl.inputs.nixpkgs,... }: 
+  outputs = { self, nixpkgs, home-manager, nixos-wsl, ... }: 
   #outputs = { self, nixpkgs, home-manager, ... }: 
   #outputs = inputs: 
   let
