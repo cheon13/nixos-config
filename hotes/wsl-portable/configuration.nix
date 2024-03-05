@@ -11,6 +11,7 @@ inputs:
     # include NixOS-WSL modules
     #<nixos-wsl/modules>
     ];
+  nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 
   wsl.enable = true; wsl.defaultUser = "cheon"; wsl.wslConf.network.generateHosts = false;
 
