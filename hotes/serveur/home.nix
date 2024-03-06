@@ -12,6 +12,8 @@
       ../../modules/home-manager/wofi.nix
     ];
 
+  wayland.windowManager.hyprland.enable = true;
+  
   home.username = "cheon";
   home.homeDirectory = "/home/cheon";
 
