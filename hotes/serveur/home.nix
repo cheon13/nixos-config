@@ -19,6 +19,7 @@
     fortune
     killall
     ranger
+    tree
     neofetch
     htop
     tmux
