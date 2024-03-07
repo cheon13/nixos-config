@@ -6,6 +6,24 @@
   wayland.windowManager.hyprland.enable = true;
 
   wayland.windowManager.hyprland.settings = {
+    exec-once = 
+      [
+        "waybar -c ~/.config/waybar/config.hyprland"
+        "swaybg -i /home/cheon/Images/Wallpapers/hyprland.jpg"
+      ]
+
+  
+    input = {
+        kb_layout = "ca";
+        #kb_variant =
+        #kb_model =
+        #kb_options = 
+        #kb_rules =
+    
+        follow_mouse = "1";
+        sensitivity = "0"; # -1.0 - 1.0, 0 means no modification.
+    };
+    
     "$mod" = "SUPER";
     bind =
       [
@@ -76,18 +94,5 @@
           )
           10)
       );
-  
-    input = {
-        kb_layout = "ca";
-        #kb_variant =
-        #kb_model =
-        #kb_options = 
-        #kb_rules =
-    
-        follow_mouse = "1";
-        sensitivity = "0"; # -1.0 - 1.0, 0 means no modification.
-    };
-    
   };
-
 }
