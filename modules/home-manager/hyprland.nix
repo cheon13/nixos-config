@@ -10,7 +10,7 @@
       [
         "waybar -c ~/.config/waybar/config.hyprland"
         "swaybg -i /home/cheon/Images/Wallpapers/hyprland.jpg"
-      ]
+      ];
   
     input = {
         kb_layout = "ca";
