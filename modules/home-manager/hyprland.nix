@@ -62,7 +62,14 @@
 	  ];  
     };
 
+    # -----Bindings------
     "$mod" = "SUPER";
+    # Move/resize windows with mainMod + LMB/RMB and dragging
+    bindm = 
+      [
+        "$mainMod, mouse:272, movewindow"
+        "$mainMod, mouse:273, resizewindow"
+      ];
     bind =
       [
         "$mod, Return, exec, kitty"
