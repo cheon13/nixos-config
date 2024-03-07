@@ -22,7 +22,17 @@
         follow_mouse = "1";
         sensitivity = "0"; # -1.0 - 1.0, 0 means no modification.
     };
-    
+
+    general = {
+       gaps_in = "5";
+       gaps_out = "20";
+       border_size = "2";
+       "col.active_border" = "rgba(8ec07cee)";
+       "col.inactive_border" = "rgba(595959aa)";
+       layout = "dwindle";
+       allow_tearing = "false";
+    };
+   
     "$mod" = "SUPER";
     bind =
       [
