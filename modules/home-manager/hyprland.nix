@@ -9,7 +9,8 @@
     exec-once = 
       [
         "waybar -c ~/.config/waybar/config.hyprland"
-        "swaybg -i /home/cheon/Images/Wallpapers/hyprland.jpg"
+        "hyprpaper"
+        #"swaybg -i /home/cheon/Images/Wallpapers/hyprland.jpg"
       ];
   
     input = {
