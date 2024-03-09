@@ -1,3 +1,5 @@
+{ pkgs, lib, config, ... }:
+
 let
   swaylock = "${config.programs.swaylock.package}/bin/swaylock";
   pgrep = "${pkgs.procps}/bin/pgrep";
