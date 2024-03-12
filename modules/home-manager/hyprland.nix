@@ -10,7 +10,7 @@
       [
         "waybar -c ~/.config/waybar/config.hyprland"
         "hyprpaper"
-       ''swayidle -w timeout 300 'swaylock -f' timeout 600 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' before-sleep 'swaylock' ''
+       ''swayidle -w timeout 300 'swaylock -f' timeout 600 'hyprctl dispatch dpms off' resume 'hyprctl dispatch dpms on' before-sleep 'swaylock -f' ''
         #"swaybg -i /home/cheon/Images/Wallpapers/hyprland.jpg"
       ];
   

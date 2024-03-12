@@ -45,7 +45,7 @@
     		timeout 300 'swaylock -f' \
     		timeout 600 'swaymsg "output * dpms off"' \
 		resume 'swaymsg "output * dpms on"' \
-    		before-sleep 'swaylock' '';}
+    		before-sleep 'swaylock -f' '';}
      ];
     };
     # End of Sway-specific Configuration
