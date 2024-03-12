@@ -24,7 +24,8 @@ in
       # Lock screen
       [{
         timeout = lockTime;
-        command = "${swaylock}  --daemonize --grace 15";
+        command = "${swaylock} --daemonize";
+        #command = "${swaylock} --daemonize --grace 15";
       }] ++
       # Mute mic
       #(afterLockTimeout {
@@ -33,11 +34,11 @@ in
       #  resumeCommand = "${pactl} set-source-mute @DEFAULT_SOURCE@ no";
       #}) ++
       # Turn off displays (hyprland)
-      (lib.optionals config.wayland.windowManager.hyprland.enable (afterLockTimeout {
-        timeout = 40;
-        command = "${hyprctl} dispatch dpms off";
-        resumeCommand = "${hyprctl} dispatch dpms on";
-      })) ++
+      #(lib.optionals config.wayland.windowManager.hyprland.enable (afterLockTimeout {
+      #  timeout = 40;
+      #  command = "${hyprctl} dispatch dpms off";
+      #  resumeCommand = "${hyprctl} dispatch dpms on";
+      #})) ++
       # Turn off displays (sway)
       (lib.optionals config.wayland.windowManager.sway.enable (afterLockTimeout {
         timeout = 40;
