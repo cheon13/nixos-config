@@ -1,3 +1,9 @@
+# swayidle.nix
+
+## Notes: finalement, j'ai décidé de ne pas utiliser swayidle sous forme de service.
+## J'appelle maintenant swayidle directement dans les fichiers de configuration de
+## sway et d'hyprland. C'est plus simple et plus stable.
+
 { pkgs, lib, config, ... }:
 
 let
@@ -19,7 +25,7 @@ in
 {
   services.swayidle = {
     enable = true;
-    #systemdTarget = "graphical-session.target";
+    systemdTarget = "graphical-session.target";
     timeouts =
       # Lock screen
       [{
@@ -33,13 +39,13 @@ in
       #  command = "${pactl} set-source-mute @DEFAULT_SOURCE@ yes";
       #  resumeCommand = "${pactl} set-source-mute @DEFAULT_SOURCE@ no";
       #}) ++
-      # Turn off displays (hyprland)
-      #(lib.optionals config.wayland.windowManager.hyprland.enable (afterLockTimeout {
-      #  timeout = 40;
-      #  command = "${hyprctl} dispatch dpms off";
-      #  resumeCommand = "${hyprctl} dispatch dpms on";
-      #})) ++
-      # Turn off displays (sway)
+       Turn off displays (hyprland)
+      (lib.optionals config.wayland.windowManager.hyprland.enable (afterLockTimeout {
+        timeout = 40;
+        command = "${hyprctl} dispatch dpms off";
+        resumeCommand = "${hyprctl} dispatch dpms on";
+      })) ++
+       Turn off displays (sway)
       (lib.optionals config.wayland.windowManager.sway.enable (afterLockTimeout {
         timeout = 40;
         command = "${swaymsg} 'output * dpms off'";
