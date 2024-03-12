@@ -42,11 +42,11 @@
        # Lancer l'application de fond d'écran au démarrage 
        {command = "swaybg -i /home/cheon/Images/Wallpapers/sway.png";}
        # Lancer swayidle et swaylock 
-       {command = "swayidle -w\
+       {command = ''swayidle -w\
     		timeout 300 'swaylock -f \
     		timeout 600 'swaymsg "output * power off"' \
 		resume 'swaymsg "output * power on"' \
-    		before-sleep 'swaylock ";}
+    		before-sleep 'swaylock '';}
      ];
     };
     # End of Sway-specific Configuration
