@@ -13,6 +13,8 @@
       ../../modules/nixos/syncthing.nix
     ];
 
+  programs.hyprland.enable = true; 
+
   nix.settings.experimental-features = [ "nix-command" "flakes" ]; 
 
   # Bootloader.
