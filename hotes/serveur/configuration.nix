@@ -7,9 +7,9 @@
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ../../modules/nixos/wayland.nix
-      ../../modules/nixos/sddm.nix
+      ../../modules/nixos/gdm.nix
+      #../../modules/nixos/sddm.nix
       ../../modules/nixos/syncthing.nix
-      #../../modules/nixos/hyprland.nix
     ];
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ]; 
