@@ -7,7 +7,8 @@
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ../../modules/nixos/wayland.nix
-      ../../modules/nixos/gdm.nix
+      ../../modules/nixos/gnome.nix
+      #../../modules/nixos/gdm.nix
       #../../modules/nixos/sddm.nix
       ../../modules/nixos/syncthing.nix
     ];
