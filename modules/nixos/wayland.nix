@@ -17,7 +17,7 @@
       config.common.default = "*";
       extraPortals = with pkgs; [
         xdg-desktop-portal-wlr
-#        xdg-desktop-portal-gtk
+        xdg-desktop-portal-gtk # déactiver cet ligne si utilisation de gnome
       ];
     };
   };
