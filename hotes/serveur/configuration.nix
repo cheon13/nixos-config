@@ -14,6 +14,7 @@
     ];
 
   programs.hyprland.enable = true; 
+  programs.sway.enable = true; 
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ]; 
 
