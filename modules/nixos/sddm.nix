@@ -8,4 +8,8 @@
     #wayland.enable = true;
     #theme = " "  ;
   }; 
+  
+  environment.systemPackages = [
+    pkgs.sddm-chili-theme
+  ];
 }
