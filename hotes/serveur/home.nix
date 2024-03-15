@@ -55,7 +55,7 @@
       enable = true;
       userName  = "cheon13";
       userEmail = "cheon.cv@gmail.com";
-      extraconfig = {
+      extraConfig = {
         init.defaultBranch = "main";
       };
   };
