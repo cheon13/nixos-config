@@ -55,6 +55,9 @@
       enable = true;
       userName  = "cheon13";
       userEmail = "cheon.cv@gmail.com";
+      extraconfig = {
+        init.defaultBranch = "main";
+      };
   };
 
   programs.bash = {
