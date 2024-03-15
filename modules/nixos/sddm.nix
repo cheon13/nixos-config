@@ -5,7 +5,8 @@
   services.xserver.enable = true;
   services.xserver.displayManager.sddm = {
     enable = true;
-    theme = "chili";
+    theme = "${import ./sddm-theme.nix { inherit pkgs; }}";
+    #theme = "chili";
   }; 
   
   environment.systemPackages = [
