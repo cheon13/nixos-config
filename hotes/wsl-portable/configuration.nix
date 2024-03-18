@@ -56,7 +56,7 @@ inputs:
   users.users.cheon = {
     isNormalUser = true;
     description = "Christian Héon";
-    # extraGroups = [ "networkmanager" "wheel" "audio"];
+    extraGroups = [ "networkmanager" "wheel" "audio"];
     packages = with pkgs; [
      # firefox
      neofetch
@@ -95,7 +95,7 @@ inputs:
   # List services that you want to enable:
 
   # Enable the OpenSSH daemon.
-  #services.openssh.enable = true;
+  services.openssh.enable = true;
 
   # This value determines the NixOS release from which the default settings for stateful data, 
   # like file locations and database versions on your system were taken. It's perfectly fine 
