@@ -60,11 +60,11 @@
   programs.bash = {
       enable = true;
       enableCompletion  = true;
-      shellAliases = {pp="pass $1 | clip.exe";};
       bashrcExtra = ''
         set -o vi
         bind '"\e[A": history-search-backward'
         bind '"\e[B": history-search-forward'
+	pp() { pass "$1" | clip.exe; }
       '';
   };
 
