@@ -64,7 +64,7 @@
         set -o vi
         bind '"\e[A": history-search-backward'
         bind '"\e[B": history-search-forward'
-	pp() { pass "$1" | clip.exe; }
+	pp() {  pass "$1" | head -n 1 | sed 's/\n//g' | clip.exe; }
       '';
   };
 
