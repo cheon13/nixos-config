@@ -61,6 +61,7 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
   neovim
+  bat
   git
   gh #github CLI pour faciliter l'authentification avec github.
   gnupg

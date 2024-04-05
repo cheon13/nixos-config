@@ -20,6 +20,7 @@
   home.packages = with pkgs; [ 
     fortune
     killall
+    bat
     ranger
     tree
     neofetch

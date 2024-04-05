@@ -18,6 +18,7 @@
   home.packages = with pkgs; [ 
     fortune
     killall
+    bat
     ranger
     neofetch
     htop
