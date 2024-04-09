@@ -3,19 +3,14 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
-    nixpkgs-stable.url = "github:nixos/nixpkgs/release-23.11";
     #nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-23.11";
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     nixos-wsl.url = "github:nix-community/NixOS-WSL";
     nixos-wsl.inputs.nixpkgs.follows = "nixpkgs";
-    nix-on-droid = {
-      url = "github:nix-community/nix-on-droid/release-23.11";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
-  outputs = { self, nixpkgs, home-manager, nixos-wsl, nix-on-droid, ... }@inputs: 
+  outputs = { self, nixpkgs, home-manager, nixos-wsl, ... }@inputs: 
   #outputs = { self, nixpkgs, home-manager, ... }: 
   #outputs = inputs: 
   let
@@ -67,10 +62,6 @@
        ];
      };
 
-    };
-
-    nixOnDroidConfigurations.default = nix-on-droid.lib.nixOnDroidConfiguration {
-      modules = [ ./hotes/phone/nix-on-droid.nix ];
     };
 
     };
