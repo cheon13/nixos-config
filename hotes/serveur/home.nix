@@ -32,6 +32,8 @@
     trashy
     starship
     zellij
+    glow
+    zoxide
     yazi
     zathura
     pandoc
