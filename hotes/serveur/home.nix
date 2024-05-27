@@ -29,6 +29,10 @@
     fzf
     fd
     ripgrep
+    trashy
+    starship
+    zellij
+    yazi
     zathura
     pandoc
     texlive.combined.scheme-small
