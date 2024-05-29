@@ -74,6 +74,8 @@
         set -o vi
         bind '"\e[A": history-search-backward'
         bind '"\e[B": history-search-forward'
+	eval "$(zoxide init bash)"
+	eval "$(starship init bash)"
       '';
   };
 
