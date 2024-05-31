@@ -26,6 +26,12 @@
     fzf
     fd
     ripgrep
+    trashy
+    starship
+    zellij
+    glow
+    zoxide
+    yazi
     zathura
     pandoc
     texlive.combined.scheme-small
@@ -65,6 +71,8 @@
         set -o vi
         bind '"\e[A": history-search-backward'
         bind '"\e[B": history-search-forward'
+	eval "$(zoxide init bash)"
+	eval "$(starship init bash)"
 	pp() {  pass "$1" | head -n 1 | sed 's/\n//g' | clip.exe; }
       '';
   };
