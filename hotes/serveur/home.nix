@@ -24,7 +24,9 @@
     ranger
     tree
     neofetch
+    fastfetch
     htop
+    btop
     tmux
     fzf
     fd
