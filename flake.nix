@@ -33,13 +33,13 @@
        specialArgs = { inherit system; };
        modules = [
         ./hotes/serveur/configuration.nix
+        stylix.nixosModules.stylix
         home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.users.cheon = import ./hotes/serveur/home.nix;
 	  }
-       #stylix.nixosModules.stylix
        ];
      };
      wsl-portable = nixpkgs.lib.nixosSystem {
