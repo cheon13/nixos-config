@@ -50,6 +50,7 @@
     wl-clipboard
     mako
     wofi
+    tofi
     waybar
     swaybg
     grim
