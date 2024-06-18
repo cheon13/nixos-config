@@ -33,7 +33,7 @@
        specialArgs = { inherit system; };
 
        modules = [
-       #stylix.nixosModules.stylix
+       inputs.stylix.nixosModules.stylix
        ./hotes/serveur/configuration.nix
         home-manager.nixosModules.home-manager
           {
