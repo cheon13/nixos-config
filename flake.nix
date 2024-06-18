@@ -31,9 +31,7 @@
     nixosConfigurations = {
      serveur = nixpkgs.lib.nixosSystem {
        specialArgs = { inherit system; };
-
        modules = [
-       inputs.stylix.nixosModules.stylix
        ./hotes/serveur/configuration.nix
         home-manager.nixosModules.home-manager
           {
@@ -41,6 +39,7 @@
             home-manager.useUserPackages = true;
             home-manager.users.cheon = import ./hotes/serveur/home.nix;
 	  }
+       inputs.stylix.nixosModules.stylix
        ];
      };
      wsl-portable = nixpkgs.lib.nixosSystem {
