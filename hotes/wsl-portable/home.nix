@@ -21,7 +21,9 @@
     bat
     ranger
     neofetch
+    fastfetch
     htop
+    btop
     tmux
     fzf
     fd
