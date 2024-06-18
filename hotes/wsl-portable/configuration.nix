@@ -48,7 +48,7 @@ inputs:
   # Installation de gnugp avec une configuration de base
   programs.gnupg.agent = {
     enable = true;
-    pinentryFlavor = "curses";
+    pinentryPackage = pkgs.pinentry-curses;
     enableSSHSupport = true;
   };
 
@@ -88,7 +88,7 @@ inputs:
     noto-fonts-emoji
     jetbrains-mono
     nerdfonts
-    powerline-fonts # pour utiliser airline
+    #powerline-fonts # pour utiliser airline
     font-awesome
   ];
     
