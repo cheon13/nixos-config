@@ -39,7 +39,7 @@
             home-manager.useUserPackages = true;
             home-manager.users.cheon = import ./hotes/serveur/home.nix;
 	  }
-       stylix.nixosModules.stylix
+       #stylix.nixosModules.stylix
        ];
      };
      wsl-portable = nixpkgs.lib.nixosSystem {
