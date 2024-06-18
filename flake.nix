@@ -10,7 +10,6 @@
     nixos-wsl.inputs.nixpkgs.follows = "nixpkgs";
     stylix.url = "github:danth/stylix";
   };
-  };
 
   outputs = { self, nixpkgs, home-manager, nixos-wsl, stylix, ... }@inputs: 
   #outputs = { self, nixpkgs, home-manager, ... }: 
