@@ -33,8 +33,8 @@
        specialArgs = { inherit system; };
 
        modules = [
-       ./hotes/serveur/configuration.nix
        stylix.nixosModules.stylix
+       ./hotes/serveur/configuration.nix
         home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
