@@ -83,11 +83,11 @@
 	eval "$(starship init bash)"
       '';
       shellAliases = {
-        ls='eza --icons --group-directories-first';
-        lt='eza --icons -T';
-        la='eza -a --icons --group-directories-first';
-        ll='eza -l --icons --group-directories-first';  
-        lla='eza -la --icons --group-directories-first';
+        ls = "eza --icons --group-directories-first";
+        lt = "eza --icons -T";
+        la = "eza -a --icons --group-directories-first";
+        ll = "eza -l --icons --group-directories-first";  
+        lla = "eza -la --icons --group-directories-first";
       };
   };
 
