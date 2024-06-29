@@ -15,13 +15,15 @@
           };
       };
       window.titlebar = false;
-      modifier = "Mod4";
-      keybindings  = let modifier = "Mod4";
+      modifier = "Mod1";
+      keybindings  = let modifier = "Mod1";
       in pkgs.lib.mkOptionDefault {
         "${modifier}+t" = "layout tabbed";
+        "Mod5+t" = "layout tabbed";
         "${modifier}+w" = "exec firefox";
         "Mod5+w" = "exec firefox";
         "${modifier}+Shift+e" = "exec ~/.config/sway/scripts/power-menu.sh";
+        "Mod5+Shift+e" = "exec ~/.config/sway/scripts/power-menu.sh";
         # "${modifier}+Shift+e" = "exec swaymsg exit";
         # "${modifier}+Shift+e" = "exec swaynag -t warning -m 'Voulez-vous vraiment quitter ?' -b 'Yes, exit sway' 'swaymsg exit'";
       };
