@@ -22,6 +22,8 @@
         "${modifier2}+t" = "layout tabbed";
         "${modifier1}+w" = "exec firefox";
         "${modifier2}+w" = "exec firefox";
+	"${modifier1}+Shift+q" = "kill";
+	"${modifier2}+Shift+q" = "kill";
         "${modifier1}+Shift+e" = "exec ~/.config/sway/scripts/power-menu.sh";
         "${modifier2}+Shift+e" = "exec ~/.config/sway/scripts/power-menu.sh";
         # "${modifier}+Shift+e" = "exec swaymsg exit";
