@@ -78,9 +78,17 @@
         set -o vi
         bind '"\e[A": history-search-backward'
         bind '"\e[B": history-search-forward'
+	eval "$(fzf --bash)"
 	eval "$(zoxide init bash)"
 	eval "$(starship init bash)"
       '';
+      shellAliases = {
+        ls='eza --icons --group-directories-first';
+        lt='eza --icons -T';
+        la='eza -a --icons --group-directories-first';
+        ll='eza -l --icons --group-directories-first';  
+        lla='eza -la --icons --group-directories-first';
+      };
   };
 
   # This value determines the Home Manager release that your
