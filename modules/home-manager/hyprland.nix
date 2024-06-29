@@ -65,7 +65,8 @@
     };
 
     # -----Bindings------
-    "$mod" = "SUPER";
+    "$mod" = "ALT";
+    "$mod2" = "MOD5";
     # Move/resize windows with mainMod + LMB/RMB and dragging
     bindm = 
       [
@@ -80,6 +81,12 @@
 	"$mod SHIFT, E, exit,"
 	"$mod, V, togglefloating,"
 	"$mod, D, exec, wofi --show drun"
+        "$mod2, Return, exec, kitty"
+        "$mod2, W, exec, firefox"
+	"$mod2 SHIFT, Q, killactive,"
+	"$mod2 SHIFT, E, exit,"
+	"$mod2, V, togglefloating,"
+	"$mod2, D, exec, wofi --show drun"
 
         # Move focus with mainMod + arrow keys
         "$mod, left, movefocus, l"

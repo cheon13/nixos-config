@@ -30,6 +30,7 @@
     tmux
     fzf
     fd
+    eza
     ripgrep
     trashy
     starship
