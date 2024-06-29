@@ -47,7 +47,7 @@
         "${modifier2}+f7" = "workspace number 7";
         "${modifier2}+f8" = "workspace number 8";
         "${modifier2}+f9" = "workspace number 9";
-        "${modifier2}+f0" = "workspace number 10";
+        "${modifier2}+f10" = "workspace number 10";
       };
       terminal = "kitty";
       menu = "wofi --show drun";
