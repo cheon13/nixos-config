@@ -16,14 +16,14 @@
       };
       window.titlebar = false;
       modifier = "Mod1";
-      keybindings  = let modifier = "Mod1";
+      keybindings  = let modifier1 = "Mod1"; modifier2 = "Mod5";
       in pkgs.lib.mkOptionDefault {
-        "${modifier}+t" = "layout tabbed";
-        "Mod5+t" = "layout tabbed";
-        "${modifier}+w" = "exec firefox";
-        "Mod5+w" = "exec firefox";
-        "${modifier}+Shift+e" = "exec ~/.config/sway/scripts/power-menu.sh";
-        "Mod5+Shift+e" = "exec ~/.config/sway/scripts/power-menu.sh";
+        "${modifier1}+t" = "layout tabbed";
+        "${modifier2}+t" = "layout tabbed";
+        "${modifier1}+w" = "exec firefox";
+        "${modifier2}+w" = "exec firefox";
+        "${modifier1}+Shift+e" = "exec ~/.config/sway/scripts/power-menu.sh";
+        "${modifier2}+Shift+e" = "exec ~/.config/sway/scripts/power-menu.sh";
         # "${modifier}+Shift+e" = "exec swaymsg exit";
         # "${modifier}+Shift+e" = "exec swaynag -t warning -m 'Voulez-vous vraiment quitter ?' -b 'Yes, exit sway' 'swaymsg exit'";
       };
