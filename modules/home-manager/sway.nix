@@ -33,7 +33,6 @@
         "${modifier2}+a" = "focus parent";
 
         "${modifier2}+s" = "layout stacking";
-        "${modifier2}+w" = "layout tabbed";
         "${modifier2}+e" = "layout toggle split";
 
         "${modifier2}+Shift+space" = "floating toggle";
