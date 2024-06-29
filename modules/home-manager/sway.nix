@@ -20,6 +20,7 @@
       in pkgs.lib.mkOptionDefault {
         "${modifier}+t" = "layout tabbed";
         "${modifier}+w" = "exec firefox";
+        "Mod5+w" = "exec firefox";
         "${modifier}+Shift+e" = "exec ~/.config/sway/scripts/power-menu.sh";
         # "${modifier}+Shift+e" = "exec swaymsg exit";
         # "${modifier}+Shift+e" = "exec swaynag -t warning -m 'Voulez-vous vraiment quitter ?' -b 'Yes, exit sway' 'swaymsg exit'";
