@@ -127,6 +127,16 @@
         "$mod, f8, workspace, 8"
         "$mod, f9, workspace, 9"
         "$mod, f10, workspace, 10"
+        "$mod2, f1, workspace, 1"
+        "$mod2, f2, workspace, 2"
+        "$mod2, f3, workspace, 3"
+        "$mod2, f4, workspace, 4"
+        "$mod2, f5, workspace, 5"
+        "$mod2, f6, workspace, 6"
+        "$mod2, f7, workspace, 7"
+        "$mod2, f8, workspace, 8"
+        "$mod2, f9, workspace, 9"
+        "$mod2, f10, workspace, 10"
         
         # Move active window to a workspace with mainMod + SHIFT + [0-9]
         "$mod SHIFT, 1, movetoworkspace, 1"
