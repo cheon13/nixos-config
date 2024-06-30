@@ -82,7 +82,7 @@
           autocmd FileType text         call pencil#init()
         augroup END
       '';
-      plugins = with pkgs.vimPlugins; [ goyo-vim limelight-vim vim-pencil vimwiki gruvbox lualine-nvim fzf-vim ];
+      plugins = with pkgs.vimPlugins; [ goyo-vim limelight-vim vim-pencil vimwiki gruvbox lualine-nvim fzf-vim vim-grammarous];
   };
 
 }
