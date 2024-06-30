@@ -58,7 +58,7 @@
         set spelllang=en_us,fr
         autocmd FileType markdown setlocal spell
 
-	-- Configuration pour régler un bug dans vim-grammarous 
+	" Configuration pour régler un bug dans vim-grammarous  (https://github.com/rhysd/vim-grammarous/issues/110#issuecomment-1746071473)
 	let g:grammarous#jar_url = 'https://www.languagetool.org/download/LanguageTool-5.9.zip'
 	let g:grammarous#default_lang = 'fr'
 
