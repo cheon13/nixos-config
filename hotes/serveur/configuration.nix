@@ -134,6 +134,7 @@
   pass
   rclone
   xdg-utils
+  nodePackages.nodejs
   ];
   
   # Installation d'un package pour ricer nixos 
@@ -150,9 +151,9 @@
   ];
     
   # installation de nodejs pour utiliser le plugin coc-nvim
-  environment.systemPackages = [
-    pkgs.nodePackages.nodejs
-  ];
+  #environment.systemPackages = [
+  #  pkgs.nodePackages.nodejs
+  #];
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
