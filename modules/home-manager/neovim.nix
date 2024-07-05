@@ -91,8 +91,4 @@
       plugins = with pkgs.vimPlugins; [ goyo-vim limelight-vim vim-pencil vimwiki gruvbox lualine-nvim fzf-vim coc-nvim];
       #plugins = with pkgs.vimPlugins; [ goyo-vim limelight-vim vim-pencil vimwiki gruvbox lualine-nvim fzf-vim ];
   };
-  # installation de nodejs pour utiliser le plugin coc-nvim
-  #environment.systemPackages = [
-  #  pkgs.nodePackages.nodejs
-  #];
 }

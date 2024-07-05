@@ -134,7 +134,8 @@
   pass
   rclone
   xdg-utils
-  nodePackages.nodejs
+  nodePackages.nodejs  # pour utiliser le plugin coc.nvim
+  ltex-ls              # pour utiliser coc-ltex
   ];
   
   # Installation d'un package pour ricer nixos 
