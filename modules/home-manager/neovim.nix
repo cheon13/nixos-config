@@ -6,7 +6,7 @@
     defaultEditor = true;
     vimAlias = true;
     viAlias = true;
-    extraConfig = 
+    extraLuaConfig = 
     	''
 	  -- Mon fichier de configuration inspiré de celui dépôt Github numToStr/dotfiles 
           -- Dernier changement: 30 juin 2023
