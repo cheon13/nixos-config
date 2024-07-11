@@ -135,6 +135,7 @@
   pass
   rclone
   xdg-utils
+  xorg.xinit
   nodePackages.nodejs  # pour utiliser le plugin coc.nvim
   ltex-ls              # pour utiliser coc-ltex
   ];
