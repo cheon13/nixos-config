@@ -12,6 +12,7 @@
       #../../modules/nixos/sddm.nix
       ../../modules/nixos/syncthing.nix
     ];
+  services.xserver.windowManager.dwm.enable = true;
 
   programs.hyprland.enable = true; 
   programs.sway.enable = true; 
