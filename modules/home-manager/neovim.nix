@@ -96,7 +96,8 @@
           map ('i', '<c-x><c-f>', '<plug>(fzf-complete-path)')
           --------Pour ouvrir un fichier de Vimwiki
           map ('n', '<Leader>wp', ':Files ~/Documents/Cerveau/<CR>')
-          
+          ----Activation du plugin lualine
+	  require 'lualine'.setup()
 	'';
     #extraConfig = 
     #   ''
