@@ -18,8 +18,8 @@
   services.xserver.windowManager.dwm.enable = true;
   services.xserver.xkb = {
     layout = "ca";
-    # xkbVariant = "fr";
-    xkbOptions = "caps:swapescape";
+    # variant = "fr";
+    options = "caps:swapescape";
   };
   programs.hyprland.enable = true; 
   programs.sway.enable = true; 
