@@ -148,6 +148,8 @@
   #xorg.xinit
   st
   dmenu
+  slstatus
+  nitrogen
   nodePackages.nodejs  # pour utiliser le plugin coc.nvim
   ltex-ls              # pour utiliser coc-ltex
   ];
