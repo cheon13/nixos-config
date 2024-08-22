@@ -16,8 +16,9 @@
   services.xserver.enable = true;
   services.xserver.displayManager.startx.enable = true;
   services.xserver.windowManager.dwm.enable = true;
-  services.xserver = {
-    layout = "cf";
+  services.xserver.xkb = {
+    layout = "ca";
+    # xkbVariant = "fr";
     xkbOptions = "caps:swapescape";
   };
   programs.hyprland.enable = true; 
