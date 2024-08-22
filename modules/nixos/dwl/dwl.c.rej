@@ -1,0 +1,13 @@
+--- dwl.c
++++ dwl.c
+@@ -1628,6 +1638,10 @@ mapnotify(struct wl_listener *listener, void *data)
+ 	} else {
+ 		applyrules(c);
+ 	}
++	c->output = strdup(c->mon->wlr_output->name);
++	if (c->output == NULL) {
++		die("oom");
++	}
+ 	printstatus();
+ 
+ unset_fullscreen:
