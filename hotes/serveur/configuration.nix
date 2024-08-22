@@ -19,7 +19,7 @@
   services.xserver.xkb = {
     layout = "ca";
     # variant = "fr";
-    options = "caps:swapescape";
+    #options = "caps:swapescape";
   };
   programs.hyprland.enable = true; 
   programs.sway.enable = true; 
