@@ -145,12 +145,11 @@
   pass
   rclone
   xdg-utils
-  #xorg.xinit
+  st.enable = true;
   st.package = pkgs.st.overrideAttrs
   {
     src = ../../modules/nixos/st;
   };
-
   dmenu
   slstatus
   xclip
