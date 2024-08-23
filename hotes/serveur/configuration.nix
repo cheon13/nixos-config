@@ -145,7 +145,7 @@
   pass
   rclone
   xdg-utils
-  st
+  #st
   #st.override { conf = ../../modules/nixos/st/config.h; }
   (st.overrideAttrs (oldAttrs: rec {
     src = ../../modules/nixos/st;
