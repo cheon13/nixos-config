@@ -1,13 +1,37 @@
 --- dwl.c
 +++ dwl.c
-@@ -1628,6 +1638,10 @@ mapnotify(struct wl_listener *listener, void *data)
- 	} else {
- 		applyrules(c);
- 	}
-+	c->output = strdup(c->mon->wlr_output->name);
-+	if (c->output == NULL) {
-+		die("oom");
-+	}
- 	printstatus();
+@@ -4,6 +4,7 @@
+ #include <getopt.h>
+ #include <libinput.h>
+ #include <linux/input-event-codes.h>
++#include <libdrm/drm_fourcc.h>
+ #include <signal.h>
+ #include <stdio.h>
+ #include <stdlib.h>
+@@ -2334,24 +2496,16 @@ run(char *startup_cmd)
  
- unset_fullscreen:
+ 	/* Now that the socket exists and the backend is started, run the startup command */
+ 	if (startup_cmd) {
+-		int piperw[2];
+-		if (pipe(piperw) < 0)
+-			die("startup: pipe:");
+ 		if ((child_pid = fork()) < 0)
+ 			die("startup: fork:");
+ 		if (child_pid == 0) {
++			close(STDIN_FILENO);
+ 			setsid();
+-			dup2(piperw[0], STDIN_FILENO);
+-			close(piperw[0]);
+-			close(piperw[1]);
+ 			execl("/bin/sh", "/bin/sh", "-c", startup_cmd, NULL);
+ 			die("startup: execl:");
+ 		}
+-		dup2(piperw[1], STDOUT_FILENO);
+-		close(piperw[1]);
+-		close(piperw[0]);
+ 	}
+-	printstatus();
++	drawbars();
+ 
+ 	/* At this point the outputs are initialized, choose initial selmon based on
+ 	 * cursor position, and set default cursor image */
