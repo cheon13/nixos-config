@@ -145,7 +145,7 @@
   pass
   rclone
   xdg-utils
-  st.override { conf = ../../modules/nixos/st/config.def.h; }
+  st.override { conf = ../../modules/nixos/st/config.h; }
   dmenu
   slstatus
   xclip
