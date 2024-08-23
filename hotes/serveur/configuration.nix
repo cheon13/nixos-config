@@ -154,7 +154,9 @@
   dmenu
   xclip
   nitrogen
-  dwl
+  (dwl.overrideAttrs (oldAttrs: rec {
+    src = ../../modules/nixos/dwl;
+  }))
   nodePackages.nodejs  # pour utiliser le plugin coc.nvim
   ltex-ls              # pour utiliser coc-ltex
   ];
