@@ -145,11 +145,7 @@
   pass
   rclone
   xdg-utils
-  st.enable = true;
-  st.package = pkgs.st.overrideAttrs
-  {
-    src = ../../modules/nixos/st;
-  };
+  st.override { conf = ../../modules/st/config.def.h; };
   dmenu
   slstatus
   xclip
@@ -158,7 +154,7 @@
   nodePackages.nodejs  # pour utiliser le plugin coc.nvim
   ltex-ls              # pour utiliser coc-ltex
   ];
-  
+
   # Installation d'un package pour ricer nixos 
   stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-dark-medium.yaml";
 
