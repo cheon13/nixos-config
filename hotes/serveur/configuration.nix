@@ -154,10 +154,11 @@
   dmenu
   xclip
   nitrogen
-  fcft
-  (dwl.overrideAttrs (oldAttrs: rec {
-    src = ../../modules/nixos/dwl;
-  }))
+  #fcft
+  #(dwl.overrideAttrs (oldAttrs: rec {
+  #  src = ../../modules/nixos/dwl;
+  #}))
+  dwl
   nodePackages.nodejs  # pour utiliser le plugin coc.nvim
   ltex-ls              # pour utiliser coc-ltex
   ];
