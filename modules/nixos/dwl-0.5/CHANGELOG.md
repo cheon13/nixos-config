@@ -1,6 +1,6 @@
 # Changelog
 
-* [0.6](#0.6)
+* [Unreleased](#unreleased)
 * [0.5](#0.5)
 
 
