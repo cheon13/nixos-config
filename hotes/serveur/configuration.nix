@@ -154,6 +154,7 @@
   dmenu
   xclip
   nitrogen
+  fcft
   (dwl.overrideAttrs (oldAttrs: rec {
     src = ../../modules/nixos/dwl;
   }))
