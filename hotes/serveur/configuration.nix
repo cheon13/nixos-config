@@ -158,7 +158,7 @@
   (dwl.overrideAttrs (oldAttrs: rec {
     src = ../../modules/nixos/dwl;
   }))
-  #dwl
+  somebar
   nodePackages.nodejs  # pour utiliser le plugin coc.nvim
   ltex-ls              # pour utiliser coc-ltex
   ];
