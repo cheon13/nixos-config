@@ -158,7 +158,7 @@
     src = ../../modules/nixos/dwl;
   }))
   wlr-randr
-  widevine-cdm
+  #widevine-cdm
   nodePackages.nodejs  # pour utiliser le plugin coc.nvim
   ltex-ls              # pour utiliser coc-ltex
   ];
