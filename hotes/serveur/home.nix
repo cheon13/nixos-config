@@ -63,11 +63,11 @@
     libreoffice
   ];
 # pour permettre de se brancher sur Netflix
-{
+
   nixpkgs.overlays = [
     (final: prev: { qutebrowser = prev.qutebrowser.override { enableWideVine = true; }; })
   ];
-}
+
   programs.git = {
       enable = true;
       userName  = "cheon13";

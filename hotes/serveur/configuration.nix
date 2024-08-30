@@ -154,10 +154,10 @@
   dmenu
   xclip
   nitrogen
-  #fcft
   (dwl.overrideAttrs (oldAttrs: rec {
     src = ../../modules/nixos/dwl;
   }))
+
   wlr-randr
   nodePackages.nodejs  # pour utiliser le plugin coc.nvim
   ltex-ls              # pour utiliser coc-ltex
