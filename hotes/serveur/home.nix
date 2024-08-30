@@ -57,6 +57,7 @@
     grim
     imv
     firefox-wayland
+    qutebrowser
     kitty
     wezterm
     libreoffice
