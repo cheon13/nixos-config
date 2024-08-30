@@ -131,7 +131,7 @@
   };
 
   # Allow unfree packages
-  # nixpkgs.config.allowUnfree = true;
+  nixpkgs.config.allowUnfree = true;
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
@@ -157,8 +157,8 @@
   (dwl.overrideAttrs (oldAttrs: rec {
     src = ../../modules/nixos/dwl;
   }))
-
   wlr-randr
+  widevine-cdm
   nodePackages.nodejs  # pour utiliser le plugin coc.nvim
   ltex-ls              # pour utiliser coc-ltex
   ];
