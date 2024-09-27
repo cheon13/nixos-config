@@ -45,6 +45,7 @@
     lynx	
     taskwarrior
     python3
+    lua
           # All of the below is for sway
     swaylock
     swayidle
