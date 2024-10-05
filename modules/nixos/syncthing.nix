@@ -21,7 +21,7 @@
         "Cerveau" = { 
           id = "mbh3e-b0zp2";
           path = "/home/cheon/Documents/Cerveau"; 
-          devices = [ "portable" "phone" ]; 
+          devices = [ "portable" "phone" "DESKTOP-UEM9CA3"]; 
           versioning = { 
             type = "simple"; 
             params = { 
