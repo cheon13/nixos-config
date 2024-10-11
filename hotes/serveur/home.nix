@@ -51,6 +51,7 @@
     swayidle
     wl-clipboard
     mako
+    libnotify
     wofi
     tofi
     waybar
