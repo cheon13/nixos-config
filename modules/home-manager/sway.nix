@@ -14,7 +14,7 @@
           # xkb_Options = "caps:swapescape";
           };
       };
-      defaultWorkspace = "1";
+      defaultWorkspace = "workspace number 1";
       window.titlebar = false;
       modifier = "Mod1";
       keybindings  = let modifier1 = "Mod1"; modifier2 = "Mod5";
