@@ -4,9 +4,9 @@
   # Wayland and Sway config
   ## Hardware Support for Wayland (Sway+Hyprland)
   hardware = {
-    opengl = {
+    graphics = { # changé opengl à graphics
       enable = true;
-      driSupport = true;
+      # driSupport = true; the option definition 'hardware.opengl.driSupport  no longer  has any effect
     };
   };
 

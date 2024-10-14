@@ -43,7 +43,7 @@
     texlive.combined.scheme-small
     slides
     lynx	
-    taskwarrior
+    # taskwarrior # à changer pour taskwarrior3
     python3
     lua
           # All of the below is for sway
