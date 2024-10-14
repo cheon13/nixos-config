@@ -80,7 +80,7 @@
         "${modifier1}+Shift+f9" =
           "move container to workspace number 9";
         #"${modifier1}+Shift+f10" =
-          "move container to workspace number 10";
+        #  "move container to workspace number 10";
 
 	"${modifier2}+Shift+f1" =
           "move container to workspace number 1";
@@ -101,7 +101,7 @@
         "${modifier2}+Shift+f9" =
           "move container to workspace number 9";
         #"${modifier2}+Shift+f10" =
-          "move container to workspace number 10";
+          #"move container to workspace number 10";
 
         "${modifier1}+Shift+c" = "reload";
         "${modifier2}+Shift+c" = "reload";
