@@ -154,9 +154,9 @@
   dmenu
   xclip
   nitrogen
-  (dwl.overrideAttrs (oldAttrs: rec {
-    src = ../../modules/nixos/dwl;
-  }))
+  #(dwl.overrideAttrs (oldAttrs: rec {
+  #  src = ../../modules/nixos/dwl;
+  #}))
   wlr-randr
   #widevine-cdm
   nodePackages.nodejs  # pour utiliser le plugin coc.nvim
