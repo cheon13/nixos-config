@@ -39,7 +39,8 @@
         rounding = "10";
         
         blur = {
-            enabled = "true";
+            enabled = "false";
+            #enabled = "true";
             size = "3";
             passes = "1";
         };
@@ -51,7 +52,8 @@
     };
 
     animations = {
-        enabled = "yes";
+        enabled = "no";
+        #enabled = "yes";
         bezier = "myBezier, 0.05, 0.9, 0.1, 1.05";
         animation = 
 	  [
