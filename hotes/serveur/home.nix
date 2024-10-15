@@ -59,6 +59,7 @@
     grim
     imv
     hyprcursor
+    capitaine-cursors-themed
     firefox-wayland
     qutebrowser
     kitty
