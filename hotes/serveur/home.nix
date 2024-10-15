@@ -46,7 +46,7 @@
     # taskwarrior # à changer pour taskwarrior3
     python3
     lua
-          # All of the below is for sway
+          # All of the below is for sway and Hyprland
     swaylock
     swayidle
     wl-clipboard
@@ -58,6 +58,7 @@
     swaybg
     grim
     imv
+    hyprcursor
     firefox-wayland
     qutebrowser
     kitty
