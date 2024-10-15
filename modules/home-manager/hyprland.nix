@@ -5,8 +5,6 @@
 {
   wayland.windowManager.hyprland.enable = true;
 
-  environment.systemPackages = [pkgs.hyprcursor];
-
   wayland.windowManager.hyprland.settings = {
     exec-once = 
       [
