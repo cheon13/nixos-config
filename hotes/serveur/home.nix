@@ -65,6 +65,9 @@
     kitty
     wezterm
     libreoffice
+    # pour utiliser les images Docker
+    podman
+    fuse-overlayfs
   ];
 
   programs.git = {
