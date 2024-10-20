@@ -66,8 +66,8 @@
     wezterm
     libreoffice
     # pour utiliser les images Docker
-    podman
-    fuse-overlayfs
+    #podman
+    #fuse-overlayfs
   ];
 
   programs.git = {
