@@ -25,7 +25,7 @@
         "${modifier2}+w" = "exec firefox";
 	"${modifier1}+Shift+q" = "kill";
 	"${modifier2}+Shift+q" = "kill";
-	"${modifier2}+d" = "exec ${menu}";
+	"${modifier2}+d" = "exec menu";
 	"${modifier1}+Shift+d" = "kill";
 	"${modifier2}+Shift+d" = "kill";
         "${modifier1}+Shift+e" = "exec ~/.config/sway/scripts/power-menu.sh";
