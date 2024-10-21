@@ -42,9 +42,21 @@
 	  }
        ];
      };
+     portable = nixpkgs.lib.nixosSystem {
+       specialArgs = { inherit system; };
+       modules = [
+        ./hotes/portable/configuration.nix
+        stylix.nixosModules.stylix
+        home-manager.nixosModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.users.cheon = import ./hotes/portable/home.nix;
+	  }
+       ];
+     };
      wsl-portable = nixpkgs.lib.nixosSystem {
        specialArgs = { inherit system; };
-
        modules = [
         nixos-wsl.nixosModules.wsl (import ./hotes/wsl-portable/configuration.nix inputs)
         home-manager.nixosModules.home-manager
@@ -55,7 +67,6 @@
 	  }
        ];
      };
-
      customIso = nixpkgs.lib.nixosSystem {
        specialArgs = { inherit inputs; };
        modules = [
