@@ -168,7 +168,7 @@
   ];
 
   # Installation d'un package pour ricer nixos 
-  stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-dark-medium.yaml";
+  #stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-dark-medium.yaml";
 
   # Installation de fonts supplémentaires
   fonts.packages = with pkgs; [
