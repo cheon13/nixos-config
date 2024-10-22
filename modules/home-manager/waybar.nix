@@ -14,9 +14,9 @@
           #   "eDP-1"
           #  "HDMI-A-1"
           #];
-          modules-left = [ "sway/workspaces"  ];
-          modules-center = [ "clock" ];
-          modules-right = [ "idle_inhibitor" "pulseaudio" "network" "tray" ];
+          modules-left = [ "sway/workspaces"  "sway/mode" "sway/window"];
+          #modules-center = [ "clock" ];
+          modules-right = [ "idle_inhibitor" "pulseaudio" "network" "tray" "clock"];
           "sway/workspaces" = {
             disable-scroll = true;
             all-outputs = true;
