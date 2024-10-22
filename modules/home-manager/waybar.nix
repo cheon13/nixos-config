@@ -1,7 +1,6 @@
 { config, pkgs, ... }:
 
 {
-
   # Configuration de la waybar
   programs.waybar = {
       enable = true;
@@ -129,6 +128,73 @@
         }
         '';
   };
+
+  xdg.configFile."waybar/config.hyprland".text = ''
+[
+  {
+    "clock": {
+      "format-alt": "{:%Y-%m-%d}",
+      "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>"
+    },
+    "height": 30,
+    "idle_inhibitor": {
+      "format": "{icon}",
+      "format-icons": {
+        "activated": "",
+        "deactivated": ""
+      }
+    },
+    "layer": "top",
+    "modules-center": [
+      "hyprland/window"
+    ],
+    "modules-left": [
+      "hyprland/workspaces",
+    ],
+    "modules-right": [
+      "idle_inhibitor",
+      "pulseaudio",
+      "network",
+      "tray",
+      "clock"
+    ],
+    "network": {
+      "format-alt": "{ifname}: {ipaddr}/{cidr}",
+      "format-disconnected": "Disconnected ⚠",
+      "format-ethernet": "{ipaddr}/{cidr} ",
+      "format-linked": "{ifname} (No IP) ",
+      "format-wifi": "{essid} ({signalStrength}%) ",
+      "tooltip-format": "{ifname} via {gwaddr} "
+    },
+    //"output": [
+    //  "HDMI-A-1"
+    //],
+    "position": "top",
+    "pulseaudio": {
+      "format": "{volume}% {icon} {format_source}",
+      "format-bluetooth": "{volume}% {icon} {format_source}",
+      "format-bluetooth-muted": " {icon} {format_source}",
+      "format-icons": {
+        "car": "",
+        "default": "",
+        "hands-free": "",
+        "headphone": "",
+        "headset": "",
+        "phone": "",
+        "portable": ""
+      },
+      "format-muted": " {format_source}",
+      "format-source": "{volume}% ",
+      "format-source-muted": "",
+      "on-click": "pavucontrol"
+    },
+    "hyprland/workspaces": {
+      "all-outputs": true,
+      "disable-scroll": true
+    }
+  }
+]
+  '';
 
 
 }
