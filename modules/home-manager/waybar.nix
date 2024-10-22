@@ -103,6 +103,11 @@
             border-color: #ebdbb2;
         }
         
+        #workspaces button.active {
+            border:  1px solid;
+            border-color: #ebdbb2;
+        }
+        
         #workspaces button.urgent {
             background-color: #eb4d4b;
         }
