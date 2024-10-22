@@ -11,7 +11,7 @@
           position = "top";
           height = 30;
           #output = [
-          #  # "eDP-1"
+          #   "eDP-1"
           #  "HDMI-A-1"
           #];
           modules-left = [ "sway/workspaces"  ];
