@@ -65,6 +65,7 @@
     kitty
     wezterm
     libreoffice
+    jdk # nécessaire pour installer les extensions libreoffice
   ];
 
   programs.git = {
