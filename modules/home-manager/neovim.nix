@@ -36,6 +36,7 @@ g.vimwiki_list = {{path = '~/Documents/Cerveau', syntax = 'markdown', ext = '.md
 
 ---- Configuration pour le colorscheme
 vim.o.background = "dark" -- or "dark" or "light" for light mode
+vim.cmd([[colorscheme gruvbox]])
 
 -- Set highlight on search
 vim.o.hlsearch = false
