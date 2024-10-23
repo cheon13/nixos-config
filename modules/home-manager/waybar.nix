@@ -20,6 +20,10 @@
             disable-scroll = true;
             all-outputs = true;
           };
+	  "sway/mode" = {
+              format = " {}";
+              max-length = "50";
+          };
           "clock" = {
               tooltip-format = "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>";
               format-alt = "{:%Y-%m-%d}";
