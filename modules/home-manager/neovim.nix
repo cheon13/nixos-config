@@ -114,6 +114,9 @@ map ('n', '<Leader>d', ':r! date \\+\\%A" "\\%d" "\\%B" "\\%Y<cr>')
 ----------------
 ---- 4 Plugins 
 ----------------
+	
+----Activation du plugin lualine
+require 'lualine'.setup()
 	'';
 #    extraLuaConfig = 
 #    	''
