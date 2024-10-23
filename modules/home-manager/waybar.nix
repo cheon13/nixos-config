@@ -22,7 +22,7 @@
           };
 	  "sway/mode" = {
               format = " {}";
-              max-length = "50";
+              max-length = 50;
           };
           "clock" = {
               tooltip-format = "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>";
