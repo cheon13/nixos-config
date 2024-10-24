@@ -13,7 +13,9 @@
        ''swayidle -w timeout 300 'swaylock -f' timeout 600 'hyprctl dispatch dpms off' resume 'hyprctl dispatch dpms on' before-sleep 'swaylock -f' ''
         #"swaybg -i /home/cheon/Images/Wallpapers/hyprland.jpg"
       ];
-  
+    env = [
+      "XCURSOR_SIZE,24"
+    ];
     input = {
         kb_layout = "ca";
         #kb_variant =
