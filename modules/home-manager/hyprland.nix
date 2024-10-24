@@ -13,8 +13,12 @@
        ''swayidle -w timeout 300 'swaylock -f' timeout 600 'hyprctl dispatch dpms off' resume 'hyprctl dispatch dpms on' before-sleep 'swaylock -f' ''
         #"swaybg -i /home/cheon/Images/Wallpapers/hyprland.jpg"
       ];
+    monitor = [
+      "eDP-1, 1920x1080, 0x0,1"
+      "HDMI-A-1, 1920x1080, 1920x0,1"
+    ];
     env = [
-      "XCURSOR_SIZE,24"
+      #"XCURSOR_SIZE,24"
       "XDG_CURRENT_DESKTOP,Hyprland"
       "XDG_SESSION_TYPE,wayland"
       "XDG_SESSION_DESKTOP,Hyprland"
