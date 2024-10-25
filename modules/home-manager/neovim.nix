@@ -109,7 +109,7 @@ map ('n', '<Up>', '<Plug>VimwikiPrevLink')
 map ('n', '<Down>', '<Plug>VimwikiNextLink')
 
 -----Pour insérer la date
-map ('n', '<Leader>d', ':r! date \\+\\%A" "\\%d" "\\%B" "\\%Y<cr>')
+map ('n', '<Leader>d', ':r! date \\+\\%A" "\\%d" "\\%B" "\\%Y| sed "s/\b\(.\)/\u\1/"<cr>')
 
 ----------------
 ---- 4 Plugins 
