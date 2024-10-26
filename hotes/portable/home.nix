@@ -118,6 +118,19 @@
       themeFile = "gruvbox-dark";
   };
 
+  programs.foot = {
+      enable = true;
+      settings = {
+	main = {
+	  term = "foot";
+          font = "JetBrainsMono Nerd Font Mono:size=14";
+	};
+	colors = { 
+	  alpha = 0.9;
+	};
+      };
+  };
+
   # This value determines the Home Manager release that your
   # configuration is compatible with. This helps avoid breakage
   # when a new Home Manager release introduces backwards
