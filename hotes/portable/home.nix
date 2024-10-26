@@ -104,9 +104,9 @@
       font.name  = "JetBrainsMono Nerd Font Mono";
       font.size = "14";
       keybingings = {
-        "ctrl+shift+¨" next_window
-        "ctrl+shift+^" previous_window
-        "ctrl+shift+enter" new_window_with_cwd
+        "ctrl+shift+¨" = "next_window";
+        "ctrl+shift+^" = "previous_window";
+        "ctrl+shift+enter" = "new_window_with_cwd";
       };
       theme = "Gruvbox Dark";
   };
