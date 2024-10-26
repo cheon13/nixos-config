@@ -105,10 +105,10 @@
       font.size = 14.0;
       settings = {
         background_opacity = 0.9;
-        enable_audio_bell = no;
+        enable_audio_bell = "no";
         #editor /etc/profiles/per-user/cheon/bin/nvim;
-        tab_bar_edge = top;
-        tab_bar_style = powerline;
+        tab_bar_edge = "top";
+        tab_bar_style = "powerline";
       };
       keybindings = {
         "ctrl+shift+¨" = "next_window";
