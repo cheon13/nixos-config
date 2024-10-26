@@ -106,7 +106,7 @@
       settings = {
         background_opacity = 0.9;
         enable_audio_bell = "no";
-        #editor /etc/profiles/per-user/cheon/bin/nvim;
+        editor = "/etc/profiles/per-user/cheon/bin/nvim";
         tab_bar_edge = "top";
         tab_bar_style = "powerline";
       };
