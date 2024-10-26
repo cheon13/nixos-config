@@ -95,6 +95,7 @@
         ll = "eza -l --icons --group-directories-first";  
         lla = "eza -la --icons --group-directories-first";
 	cd = "z";
+        nk = "NVIM_APPNAME='nvim-kickstart' nvim";
       };
   };
 

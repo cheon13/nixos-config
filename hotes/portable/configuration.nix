@@ -55,7 +55,6 @@
     alias phone='ssh u0_a450@phone -p8022'
     alias portable='ssh portable'
     alias serveur='ssh serveur'
-    alias nk='NVIM_APPNAME="nvim-kickstart" nvim'
   '';
 
   # Enabling bluetooth
