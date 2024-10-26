@@ -102,7 +102,7 @@
   programs.kitty = {
       enable = true;
       font.name  = "JetBrainsMono Nerd Font Mono";
-      font.size = "14";
+      font.size = 14.0;
       keybindings = {
         "ctrl+shift+¨" = "next_window";
         "ctrl+shift+^" = "previous_window";
