@@ -116,7 +116,7 @@
         "ctrl+shift+^" = "previous_window";
         "ctrl+shift+enter" = "new_window_with_cwd";
       };
-      theme = "Gruvbox Dark";
+      themeFile = "gruvbox-dark";
   };
 
   # This value determines the Home Manager release that your
