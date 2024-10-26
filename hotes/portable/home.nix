@@ -153,8 +153,8 @@
   programs.wezterm = {
       enable = true;
       extraConfig = {
-        local wezterm = require 'wezterm'
-        local config = wezterm.config_builder()
+        local wezterm = require 'wezterm';
+        local config = wezterm.config_builder();
         
         config.front_end = "WebGpu" -- Ajout pour le problème de rendering de font après update 14 octobre 2024
         -- config.font = wezterm.font 'JetBrains Mono'
