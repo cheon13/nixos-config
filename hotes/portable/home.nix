@@ -150,6 +150,34 @@
       };
   };
 
+  programs.wezterm = {
+      enable = true;
+      extraConfig = {
+      ''
+        local wezterm = require 'wezterm'
+        local config = wezterm.config_builder()
+        
+        config.front_end = "WebGpu" -- Ajout pour le problème de rendering de font après update 14 octobre 2024
+        -- config.font = wezterm.font 'JetBrains Mono'
+        config.font = wezterm.font 'JetBrainsMono Nerd Font Mono'
+        config.font_size = 14.0
+        
+        config.color_scheme = 'GruvboxDark'
+        -- config.color_scheme = 'Gruvbox Dark (Gogh)'
+        config.window_background_opacity = 0.9
+        config.text_background_opacity = 0.9
+        
+        -- Activer ou désactiver la tab bar
+        config.enable_tab_bar = false
+        
+        -- Configuration temporaire pour contourner un bug avec wayland et Hyprland
+        config.enable_wayland = false
+        
+        return config
+      ''
+      };
+  };
+
   # This value determines the Home Manager release that your
   # configuration is compatible with. This helps avoid breakage
   # when a new Home Manager release introduces backwards
