@@ -152,25 +152,6 @@
 
   programs.wezterm = {
       enable = true;
-      extraConfig = {
-	return = {
-        # Ajout pour le problème de rendering de font après update 14 octobre 2024
-        front_end = "WebGpu",
-        # font = wezterm.font 'JetBrains Mono'
-        font = wezterm.font('JetBrainsMono Nerd Font Mono'),
-        font_size = 14.0,
-        
-        color_scheme = 'GruvboxDark',
-        # color_scheme = 'Gruvbox Dark (Gogh)'
-        window_background_opacity = 0.9,
-        text_background_opacity = 0.9,
-        
-        # Activer ou désactiver la tab bar
-        enable_tab_bar = false,
-        
-        # ration temporaire pour contourner un bug avec wayland et Hyprland
-        enable_wayland = false,
-	};
       };
   };
 
