@@ -152,10 +152,9 @@
 
   programs.wezterm = {
       enable = true;
-      extraCongif = {''
+      extraCongif = ''
         return {}
       ''
-      };
   };
 
   # This value determines the Home Manager release that your
