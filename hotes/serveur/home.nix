@@ -119,6 +119,63 @@
       themeFile = "gruvbox-dark";
   };
 
+  programs.foot = {
+      enable = true;
+      settings = {
+	main = {
+	  term = "foot";
+          font = "JetBrainsMono Nerd Font Mono:size=14";
+	};
+	colors = { 
+	  alpha = 0.9;
+	  # configuration gruvbox dark
+          background = "282828";
+          foreground = "ebdbb2";
+          regular0 = "282828";
+          regular1 = "cc241d";
+          regular2 = "98971a";
+          regular3 = "d79921";
+          regular4 = "458588";
+          regular5 = "b16286";
+          regular6 = "689d6a";
+          regular7 = "a89984";
+          bright0 = "928374";
+          bright1 = "fb4934";
+          bright2 = "b8bb26";
+          bright3 = "fabd2f";
+          bright4 = "83a598";
+          bright5 = "d3869b";
+          bright6 = "8ec07c";
+          bright7 = "ebdbb2";
+	};
+      };
+  };
+
+  programs.wezterm = {
+      enable = true;
+      extraConfig = ''
+local config = wezterm.config_builder()
+-- Ajout pour le problème de rendering de font après update 14 octobre 2024
+config.front_end = "WebGpu" 
+
+config.font = wezterm.font 'JetBrainsMono Nerd Font Mono'
+config.font_size = 14.0
+
+config.color_scheme = 'GruvboxDark'
+
+config.window_background_opacity = 0.9
+config.text_background_opacity = 0.9
+
+-- Activer ou désactiver la tab bar
+config.enable_tab_bar = false
+
+-- Configuration temporaire pour contourner un bug avec wayland et Hyprland
+config.enable_wayland = false
+
+return config
+      '';
+  };
+
   # This value determines the Home Manager release that your
   # configuration is compatible with. This helps avoid breakage
   # when a new Home Manager release introduces backwards
