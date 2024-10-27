@@ -152,7 +152,7 @@
 
   programs.wezterm = {
       enable = true;
-      extraCongif = ''
+      extraConfig = ''
         return {}
       '';
   };
