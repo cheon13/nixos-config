@@ -110,9 +110,9 @@
         "${modifier1}+Shift+c" = "reload";
         "${modifier2}+Shift+c" = "reload";
 	
-        "XF86AudioRaiseVolume" = "exec pactl set-sink-volume @DEFAULT_SINK@ -5% && $sink_volume";
-        #"XF86AudioLowerVolume" = "exec $volume_down"
-        #"XF86AudioMute" = "exec $volume_mute"
+        "XF86AudioRaiseVolume" = "exec pactl set-sink-volume @DEFAULT_SINK@ +5% && $sink_volume";
+        "XF86AudioLowerVolume" = "exec pactl set-sink-volume @DEFAULT_SINK@ -5% && $sink_volume";
+        #"XF86AudioMute" = "exec $volume_mute";
       };
       terminal = "kitty";
       menu = "wofi --show drun";
