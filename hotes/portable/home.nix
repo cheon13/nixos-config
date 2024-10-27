@@ -154,14 +154,14 @@
       enable = true;
       extraConfig = ''
 local config = wezterm.config_builder()
+-- Ajout pour le problème de rendering de font après update 14 octobre 2024
+config.front_end = "WebGpu" 
 
-config.front_end = "WebGpu" -- Ajout pour le problème de rendering de font après update 14 octobre 2024
--- config.font = wezterm.font 'JetBrains Mono'
 config.font = wezterm.font 'JetBrainsMono Nerd Font Mono'
 config.font_size = 14.0
 
 config.color_scheme = 'GruvboxDark'
--- config.color_scheme = 'Gruvbox Dark (Gogh)'
+
 config.window_background_opacity = 0.9
 config.text_background_opacity = 0.9
 
