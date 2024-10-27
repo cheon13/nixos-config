@@ -157,19 +157,19 @@ return {
   -- Ajout pour le problème de rendering de font après update 14 octobre 2024
   front_end = "WebGpu" 
 
-  config.font = wezterm.font 'JetBrainsMono Nerd Font Mono'
-  config.font_size = 14.0
+  font = wezterm.font 'JetBrainsMono Nerd Font Mono'
+  font_size = 14.0
   
-  config.color_scheme = 'GruvboxDark'
+  color_scheme = 'GruvboxDark'
   
-  config.window_background_opacity = 0.9
-  config.text_background_opacity = 0.9
+  window_background_opacity = 0.9
+  text_background_opacity = 0.9
   
   -- Activer ou désactiver la tab bar
-  config.enable_tab_bar = false
+  enable_tab_bar = false
   
-  -- Configuration temporaire pour contourner un bug avec wayland et Hyprland
-  config.enable_wayland = false
+  -- ration temporaire pour contourner un bug avec wayland et Hyprland
+  enable_wayland = false
 }
       '';
   };
