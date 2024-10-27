@@ -153,7 +153,7 @@
   programs.wezterm = {
       enable = true;
       extraConfig = {
-	return {
+	return = {
         # Ajout pour le problème de rendering de font après update 14 octobre 2024
         front_end = "WebGpu",
         # font = wezterm.font 'JetBrains Mono'
@@ -170,8 +170,8 @@
         
         # ration temporaire pour contourner un bug avec wayland et Hyprland
         enable_wayland = false,
-	}
-      }
+	};
+      };
   };
 
   # This value determines the Home Manager release that your
