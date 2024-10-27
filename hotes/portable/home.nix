@@ -170,7 +170,7 @@
         
         # ration temporaire pour contourner un bug avec wayland et Hyprland
         enable_wayland = false,
-	};
+	}
       };
   };
 
