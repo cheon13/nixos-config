@@ -154,7 +154,7 @@
       enable = true;
       extraCongif = ''
         return {}
-      ''
+      '';
   };
 
   # This value determines the Home Manager release that your
