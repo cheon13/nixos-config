@@ -171,7 +171,7 @@
         # ration temporaire pour contourner un bug avec wayland et Hyprland
         enable_wayland = false,
 	}
-      };
+      }
   };
 
   # This value determines the Home Manager release that your
