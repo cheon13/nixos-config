@@ -153,7 +153,10 @@
   programs.wezterm = {
       enable = true;
       extraConfig = ''
-        return {}
+        return {
+	  -- Ajout pour le problème de rendering de font après update 14 octobre 2024
+	  front_end = "WebGpu" 
+	}
       '';
   };
 
