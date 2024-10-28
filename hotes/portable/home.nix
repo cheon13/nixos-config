@@ -82,6 +82,7 @@
       enable = true;
       enableCompletion  = true;
       bashrcExtra = ''
+        export PATH="$PATH:/usr/local/bin"
         set -o vi
         bind '"\e[A": history-search-backward'
         bind '"\e[B": history-search-forward'
