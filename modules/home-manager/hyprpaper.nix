@@ -2,7 +2,7 @@
 
   home.packages = [ pkgs.hyprpaper ];
   
-  xdg.configFile."hypr/Wallpapers/hyprlaWP.jpg".source = ./Wallpapers/hyprlandWP.jpg;
+  xdg.configFile."hypr/Wallpapers".source = ./Wallpapers;
   
   xdg.configFile."hypr/hyprpaper.conf".text = ''
     preload = ~/.config/hypr/Wallpapers/hyprlandWP.jpg
