@@ -36,11 +36,11 @@
               };
           };
           "pulseaudio" = {
-              format = " {volume}%{icon}{format_source}";
-              format-bluetooth = " {volume}%{icon}{format_source}";
-              format-bluetooth-muted = " 󰝟{icon}{format_source}";
-              format-muted =  " 󰝟{format_source}";
-              format-source =  " {volume}%";
+              format = "{volume}% {icon} {format_source}";
+              format-bluetooth = "{volume}% {icon} {format_source}";
+              format-bluetooth-muted = "󰝟 {icon} {format_source}";
+              format-muted =  "󰝟 {format_source}";
+              format-source =  "{volume}% ";
               format-source-muted =  " ";
               format-icons =  {
                   headphone =  "";
@@ -170,9 +170,6 @@
       "format-wifi": "{essid} ({signalStrength}%) ",
       "tooltip-format": "{ifname} via {gwaddr} "
     },
-    //"output": [
-    //  "HDMI-A-1"
-    //],
     "position": "top",
     "pulseaudio": {
       "format": "{volume}% {icon} {format_source}",
@@ -188,7 +185,7 @@
         "portable": ""
       },
       "format-muted": "󰝟 {format_source}",
-      "format-source": "{volume}% ",
+      "format-source": " {volume}% ",
       "format-source-muted": "",
       "on-click": "pavucontrol"
     },
