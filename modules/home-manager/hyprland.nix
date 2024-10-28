@@ -180,6 +180,7 @@
         "$mod2 SHIFT, f8, movetoworkspace, 8"
         "$mod2 SHIFT, f9, movetoworkspace, 9"
         "$mod2 SHIFT, f10, movetoworkspace, 10"
+        ", XF86AudioLowerVolume,  exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
 
         #", Print, exec, grimblast copy area"
       ]
