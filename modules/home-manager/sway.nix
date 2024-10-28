@@ -129,7 +129,7 @@
           };
      startup = [
        # Lancer l'application de fond d'écran au démarrage 
-       {command = "swaybg -i /home/cheon/Images/Wallpapers/swayWP.png";}
+       {command = "swaybg -i /home/cheon/Images/Wallpapers/swayWP";}
        # Lancer swayidle et swaylock 
        {command = ''swayidle -w\
     		timeout 300 'swaylock -f' \

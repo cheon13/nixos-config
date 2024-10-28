@@ -6,8 +6,8 @@
   # Il faut faire le backup des images du répertoire de Wallpapers
 
   xdg.configFile."hypr/hyprpaper.conf".text = ''
-    preload = ~/Images/Wallpapers/hyprlandWP.jpg
-    wallpaper = ,~/Images/Wallpapers/hyprlandWP.jpg
+    preload = ~/Images/Wallpapers/hyprlandWP
+    wallpaper = ,~/Images/Wallpapers/hyprlandWP
   '';
 
   systemd.user.services.hyprpaper = {
