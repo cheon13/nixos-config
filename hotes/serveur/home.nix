@@ -21,11 +21,8 @@
     fortune
     killall
     bat
-    ranger
     tree
-    neofetch
     fastfetch
-    htop
     btop
     tmux
     fzf
