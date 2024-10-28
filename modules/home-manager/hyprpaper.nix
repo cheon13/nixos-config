@@ -2,11 +2,12 @@
 
   home.packages = [ pkgs.hyprpaper ];
   
-  xdg.configFile."hypr/Wallpapers".source = ./Wallpapers;
-  
+  # xdg.configFile."hypr/Wallpapers".source = ./Wallpapers;
+  # Il faut faire le backup des images du répertoire de Wallpapers
+
   xdg.configFile."hypr/hyprpaper.conf".text = ''
-    preload = ~/.config/hypr/Wallpapers/hyprlandWP.jpg
-    wallpaper = ,~/.config/hypr/Wallpapers/hyprlandWP.jpg
+    preload = ~/Images/Wallpapers/hyprlandWP.jpg
+    wallpaper = ,~/Images/Wallpapers/hyprlandWP.jpg
   '';
 
   systemd.user.services.hyprpaper = {
