@@ -16,6 +16,7 @@
 
   home.username = "cheon";
   home.homeDirectory = "/home/cheon";
+  home.sessionPath = "/usr/local/bin";
 
   home.packages = with pkgs; [ 
     fortune
