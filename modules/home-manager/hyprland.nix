@@ -181,7 +181,9 @@
         "$mod2 SHIFT, f9, movetoworkspace, 9"
         "$mod2 SHIFT, f10, movetoworkspace, 10"
         ", XF86AudioLowerVolume,  exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
-
+        ", XF86AudioRaiseVolume,  exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+"
+        ", XF86AudioMute,         exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+        ", XF86AudioMicMute,      exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
         #", Print, exec, grimblast copy area"
       ]
       ++ (
