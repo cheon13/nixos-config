@@ -2,11 +2,11 @@
 
   home.packages = [ pkgs.hyprpaper ];
   
-  xdg.configFile."hypr/wallpaper".source = ./wallpaper;
+  xdg.configFile."hypr/Wallpapers".source = ./Wallpaper/hyprlandWP.jpg;
   
   xdg.configFile."hypr/hyprpaper.conf".text = ''
-    preload = ~/.config/hypr/wallpaper/wallpaper.jpg
-    wallpaper = ,~/.config/hypr/wallpaper/wallpaper.jpg
+    preload = ~/.config/hypr/Wallpapers/hyprlandWP.jpg
+    wallpaper = ,~/.config/hypr/Wallpapers/hyprlandWP.jpg
   '';
 
   systemd.user.services.hyprpaper = {
