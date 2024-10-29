@@ -48,6 +48,11 @@ vim.o.undofile = true
 vim.o.ignorecase = true
 vim.o.smartcase = true
 
+-- Ajuster l'option tabstop
+vim.opt.tabstop = 3
+vim.opt.shiftwidth = 3
+vim.opt.expandtab = true
+
 --------------
 -- 3 Autocmd
 --------------
