@@ -9,6 +9,7 @@
       ../../modules/home-manager/sway.nix
       #../../modules/home-manager/swayidle.nix  # finalement swayidle est intégré directement à Sway et Hyprland
       ../../modules/home-manager/waybar.nix
+      ../../modules/home-manager/swaylock.nix
       ../../modules/home-manager/wofi.nix
       ../../modules/home-manager/hyprland.nix
       ../../modules/home-manager/hyprpaper.nix
