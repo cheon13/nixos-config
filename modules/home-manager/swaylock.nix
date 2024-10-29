@@ -5,6 +5,7 @@
   programs.swaylock = {
 	enable = true;
 	settings = {
+	  indicator-caps-lock = true;
 	  image = "$HOME/Images/Wallpapers/swayWP";
 	  scaling = "fill";
 	  font = "UbuntuMono";
