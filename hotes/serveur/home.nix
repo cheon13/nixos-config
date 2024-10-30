@@ -98,9 +98,7 @@
       };
   };
 
-  xsession = {
-      enable = true;
-      profileExtra = ''
+  home.file.".xinitrc".text = ''
 # Fichier de configuration pour startx
 #
 # Pour le fond d'écran
@@ -111,7 +109,6 @@ slstatus &
 # setxkbmap -option caps:swapescape
 # exec dwm  # cette ligne est nécessaire si les fichiers est .xinitrc, mais pas pour .xprofile
       '';
-  };
 
   programs.kitty = {
       enable = true;
