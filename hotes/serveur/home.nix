@@ -107,7 +107,7 @@ nitrogen --restore &
 slstatus &
 # La ligne suivant n'est pas nécessaire parce que intercept-tools s'en occupe pour la Console, Wayland et X11
 # setxkbmap -option caps:swapescape
-# exec dwm  # cette ligne est nécessaire si les fichiers est .xinitrc, mais pas pour .xprofile
+exec dwm  # cette ligne est nécessaire si les fichiers est .xinitrc, mais pas pour .xprofile
       '';
 
   programs.kitty = {
