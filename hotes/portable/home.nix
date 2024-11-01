@@ -65,6 +65,7 @@
     wezterm
     libreoffice
     jdk # nécessaire pour installer les extensions libreoffice
+    youtube-dl
   ];
 
   programs.git = {
