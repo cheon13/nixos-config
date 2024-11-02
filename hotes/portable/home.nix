@@ -68,6 +68,7 @@
     yt-dlp # pour télécharger la musique de youtube
     clementine # Pour jouer et indexer la musique
     lollypop # Pour lecture de musique seulement
+    shortwave # une appli pour écouter des postes de radio
   ];
 
   programs.git = {
