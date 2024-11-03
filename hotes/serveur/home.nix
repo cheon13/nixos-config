@@ -55,6 +55,7 @@
     waybar
     swaybg
     grim
+    slurp
     imv
     hyprcursor
     capitaine-cursors-themed
