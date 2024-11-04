@@ -89,14 +89,16 @@
         "$mod, Return, exec, kitty"
         "$mod, W, exec, firefox"
         "$mod SHIFT, Q, killactive,"
-        "$mod SHIFT, E, exit,"
+        #"$mod SHIFT, E, exit,"
+        "$mod SHIFT, E, exec,/home/cheon/.config/hypr/scripts/power-menu.sh"
         "$mod, V, togglefloating,"
         "$mod, D, exec, wofi --show drun"
         "$mod, N, exec, kitty nvim  +/Inbox /home/cheon/Documents/Cerveau/index.md"
         "$mod2, Return, exec, kitty"
         "$mod2, W, exec, firefox"
         "$mod2 SHIFT, Q, killactive,"
-        "$mod2 SHIFT, E, exit,"
+        #"$mod2 SHIFT, E, exit,"
+        "$mod2 SHIFT, E, exec,/home/cheon/.config/hypr/scripts/power-menu.sh"
         "$mod2, V, togglefloating,"
         "$mod2, D, exec, wofi --show drun"
         "$mod2, N, exec, kitty nvim  +/Inbox /home/cheon/Documents/Cerveau/index.md"
@@ -206,4 +208,21 @@
           10)
       );
   };
+
+  xdg.configFile."hypr/scripts/power-menu.sh".text = ''
+#!/bin/sh
+entries="Logout Suspend Reboot Shutdown"
+selected=$(printf '%s\n' $entries | wofi --conf=$HOME/.config/wofi/config.power --style=$HOME/.config/wofi/style.widgets.css | awk '{print tolower($1)}')
+case $selected in
+  logout)
+    hyprctl dispatch exit;;
+  suspend)
+    exec systemctl suspend;;
+  reboot)
+    exec systemctl reboot;;
+  shutdown)
+    exec systemctl poweroff -i;;
+esac
+  '';
+  xdg.configFile."hypr/scripts/power-menu.sh".executable = true;
 }
