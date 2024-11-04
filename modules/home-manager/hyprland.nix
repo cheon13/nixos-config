@@ -212,7 +212,7 @@
   xdg.configFile."hypr/scripts/power-menu.sh".text = ''
 #!/bin/sh
 entries="Logout Suspend Reboot Shutdown"
-selected=$(printf '%s\n' $entries | wofi --conf=$HOME/.config/wofi/config.power --style=$HOME/.config/wofi/style.widgets.css | awk '{print tolower($1)}')
+selected=$(printf '%s\n' $entries | wofi --show=dmenu | awk '{print tolower($1)}')
 case $selected in
   logout)
     hyprctl dispatch exit;;
