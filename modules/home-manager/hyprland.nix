@@ -187,6 +187,7 @@
         ", XF86AudioMute,         exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
         ", XF86AudioMicMute,      exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
         ", Print, exec, slurp | grim -g -"
+        "MOD4 SHIFT, S, exec, slurp | grim -g -"
       ]
       ++ (
         # workspaces
