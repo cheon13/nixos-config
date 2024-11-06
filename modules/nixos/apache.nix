@@ -6,10 +6,10 @@
   services.httpd.adminAddr = "cheon.cv@gmail.com";
   services.httpd.enablePHP = true; 
 
-  #services.httpd.virtualHosts."example.org" = {
-  #  documentRoot = "/var/www/example.org";
-  #  # want ssl + a let's encrypt certificate? add `forceSSL = true;` right here
-  #};
+  services.httpd.virtualHosts."serveur" = {
+    documentRoot = "/var/www/serveur";
+    # want ssl + a let's encrypt certificate? add `forceSSL = true;` right here
+  };
 
   services.mysql.enable = true;
   services.mysql.package = pkgs.mariadb;
