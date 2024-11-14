@@ -82,6 +82,7 @@ static const Key keys[] = {
 	{ MODKEY2,                       XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY,                       XK_n, spawn,          {.v = vimwiki } },
 	{ MODKEY2,                       XK_n, spawn,          {.v = vimwiki } },
+	{ MODKEY,                       XK_w, spawn,          {.v = firefoxcmd } },
 	{ MODKEY2,                       XK_w, spawn,          {.v = firefoxcmd } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY2,                       XK_b,      togglebar,      {0} },
