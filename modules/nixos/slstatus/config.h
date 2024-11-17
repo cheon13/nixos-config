@@ -65,7 +65,10 @@ static const char unknown_str[] = "n/a";
 static const struct arg args[] = {
 	/* function format            argument */
 	{ battery_perc, " 󰁹 %s% | ",  "BAT0" },
-	{ wifi_perc, " 󰖩 %s% | ",  "wlp3s0" },
+	/*{ wifi_essid, " 󰖩 %s (| ",  "wlp3s0" },*/
+	/*{ wifi_perc, "%s%) | ",  "wlp3s0" },*/
+	{ wifi_essid, " 󰖩 %s (| ",  "wlp0s20f3" },
+	{ wifi_perc, "%s%) | ",  "wlp0s20f3" },
 	/* { run_command, "󰕾 %s | ",   "volume.sh" },*/
 	/* { run_command, " 󰕾 %s | ",   "~/.config/slstatus/volume.sh" },*/
 	{ run_command, " 󰕾 %s | ",   "~/.dotfiles/modules/nixos/slstatus/scripts/volume.sh" },
