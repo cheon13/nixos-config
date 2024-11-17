@@ -154,7 +154,7 @@
     src = ../../modules/nixos/st;
   }))
   (slstatus.overrideAttrs (oldAttrs: rec {
-    src = ../../modules/nixos/slstatus;
+    src = ./slstatus;
   }))
   dmenu
   xclip
