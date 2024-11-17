@@ -66,7 +66,7 @@ static const struct arg args[] = {
 	/* function format            argument */
 	/*{ battery_perc, " 󰁹 %s% | ",  "BAT0" },*/
 	{ run_command, " 󰕾 %s | ",   "~/.dotfiles/hotes/serveur/slstatus/scripts/volume.sh" },
-	{ wifi_essid, " 󰖩 %s (| ",  "wlp3s0" },
+	{ wifi_essid, " 󰖩 %s (",  "wlp3s0" },
 	{ wifi_perc, "%s%) | ",  "wlp3s0" },
 	/*{ wifi_essid, "󰖩 %s (",  "wlp0s20f3" },*/
 	/*{ wifi_perc, "%s%) | ",  "wlp0s20f3" },*/
