@@ -55,7 +55,7 @@
         "${modifier1}+f7" = "workspace number 7";
         "${modifier1}+f8" = "workspace number 8";
         "${modifier1}+f9" = "workspace number 9";
-        # "${modifier1}+f10" = "workspace number 10";
+        "${modifier1}+f10" = "workspace number 10";
         "${modifier2}+f1" = "workspace number 1";
         "${modifier2}+f2" = "workspace number 2";
         "${modifier2}+f3" = "workspace number 3";
@@ -65,7 +65,7 @@
         "${modifier2}+f7" = "workspace number 7";
         "${modifier2}+f8" = "workspace number 8";
         "${modifier2}+f9" = "workspace number 9";
-        # "${modifier2}+f10" = "workspace number 10";
+        "${modifier2}+f10" = "workspace number 10";
 	  
 	"${modifier1}+Shift+f1" =
           "move container to workspace number 1";
@@ -85,8 +85,8 @@
           "move container to workspace number 8";
         "${modifier1}+Shift+f9" =
           "move container to workspace number 9";
-        # "${modifier1}+Shift+f10" =
-        #  "move container to workspace number 10";
+        "${modifier1}+Shift+f10" =
+         "move container to workspace number 10";
 
 	"${modifier2}+Shift+f1" =
           "move container to workspace number 1";
@@ -106,8 +106,8 @@
           "move container to workspace number 8";
         "${modifier2}+Shift+f9" =
           "move container to workspace number 9";
-        # "${modifier2}+Shift+f10" =
-        #   "move container to workspace number 10";
+        "${modifier2}+Shift+f10" =
+          "move container to workspace number 10";
 
         "${modifier1}+Shift+c" = "reload";
         "${modifier2}+Shift+c" = "reload";
