@@ -5,4 +5,4 @@
 #
 # ##################################
 #amixer get Master | tail -1 | sed 's/.*\[\([0-9]*%\)\].*/\1/'
-wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{ print $2}' | sed 's/.*\(..\)/\1/'
+wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{ print $2}' | sed 's/.*\(....\)/\1/'
