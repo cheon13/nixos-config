@@ -15,14 +15,25 @@
           #];
           modules-left = [ "sway/workspaces"  "sway/mode" ];
           modules-center = [ "sway/window" ];
-          modules-right = [ "idle_inhibitor" "pulseaudio" "network" "tray" "clock"];
+          modules-right = [ "idle_inhibitor" "battery" "pulseaudio" "network" "tray" "clock"];
           "sway/workspaces" = {
             disable-scroll = true;
             all-outputs = true;
           };
-	  "sway/mode" = {
+	       "sway/mode" = {
               format = " {}";
               max-length = 50;
+          };
+          "battery" = {
+            format = "{capacity}% {icon}";
+            format-alt = "{time} {icon}";
+            format-charging = "{capacity}% ";
+            format-icons = [ "" "" "" "" "" ];
+            format-plugged = "{capacity}% ";
+            states = {
+              critical = 15;
+              warning = 30;
+            };
           };
           "clock" = {
               tooltip-format = " <big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>";
