@@ -25,11 +25,11 @@
               max-length = 50;
           };
           "battery" = {
-            format = "{capacity}% {icon}";
-            format-alt = "{time} {icon}";
-            format-charging = "{capacity}% ";
+            format = " {capacity}% {icon} ";
+            format-alt = " {time} {icon} ";
+            format-charging = " {capacity}%  ";
             format-icons = [ "" "" "" "" "" ];
-            format-plugged = "{capacity}% ";
+            format-plugged = " {capacity}%  ";
             states = {
               critical = 15;
               warning = 30;
