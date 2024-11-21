@@ -8,7 +8,7 @@
         mainBar = {
           layer = "top";
           position = "top";
-          height = 30;
+          height = 33;
           #output = [
           #   "eDP-1"
           #  "HDMI-A-1"
@@ -151,7 +151,7 @@
       "format-alt": "{:%Y-%m-%d}",
       "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>"
     },
-    "height": 30,
+    "height": 33,
     "idle_inhibitor": {
       "format": "{icon}",
       "format-icons": {
