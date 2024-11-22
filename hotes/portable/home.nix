@@ -61,6 +61,7 @@
     hyprcursor
     capitaine-cursors-themed
     firefox-wayland
+    google-chrome
     qutebrowser
     kitty
     wezterm
