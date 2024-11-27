@@ -43,8 +43,19 @@
     slides
     lynx	
     # taskwarrior # à changer pour taskwarrior3
+
+    # Langages de programmation
     python3
     lua
+
+    # pour la musique
+    cmus
+    cava
+    yt-dlp # pour télécharger la musique de youtube
+    clementine # Pour jouer et indexer la musique
+    lollypop # Pour lecture de musique seulement - gnome
+    shortwave # une appli pour écouter des postes de radio - gnome
+
           # All of the below is for sway and Hyprland
     swaylock
     swayidle
@@ -67,10 +78,6 @@
     wezterm
     libreoffice
     jdk # nécessaire pour installer les extensions libreoffice
-    yt-dlp # pour télécharger la musique de youtube
-    clementine # Pour jouer et indexer la musique
-    lollypop # Pour lecture de musique seulement
-    shortwave # une appli pour écouter des postes de radio
   ];
 
   programs.git = {
