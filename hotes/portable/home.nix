@@ -74,6 +74,7 @@
     firefox-wayland
     google-chrome
     qutebrowser
+    alacritty
     kitty
     wezterm
     libreoffice
