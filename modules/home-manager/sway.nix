@@ -148,16 +148,16 @@
 
   xdg.configFile."sway/scripts/power-menu.sh".text = ''
 #!/bin/sh
-entries="Logout Suspend Reboot Shutdown"
+entries="Déconnexion Suspendre Redémarrer Éteindre"
 selected=$(printf '%s\n' $entries | wofi --show=dmenu | awk '{print tolower($1)}')
 case $selected in
-  logout)
+  déconnexion)
     swaymsg exit;;
-  suspend)
+  suspendre)
     exec systemctl suspend;;
-  reboot)
+  redémarrer)
     exec systemctl reboot;;
-  shutdown)
+  éteindre)
     exec systemctl poweroff -i;;
 esac
   '';
