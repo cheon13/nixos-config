@@ -185,9 +185,11 @@
   fonts.packages = with pkgs; [
     noto-fonts
     noto-fonts-emoji
+    nerd-fonts.noto
     jetbrains-mono
-    nerdfonts
-    powerline-fonts # pour utiliser airline
+    nerd-fonts.jetbrains-mono
+    #nerdfonts
+    #powerline-fonts # pour utiliser airline
     font-awesome
   ];
     
