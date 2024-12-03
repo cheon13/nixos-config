@@ -53,11 +53,11 @@
             size = "3";
             passes = "1";
         };
-    
-        drop_shadow = "yes";
-        shadow_range = "4";
-        shadow_render_power = "3";
-        "col.shadow" = "rgba(1a1a1aee)";
+        # Les options shadow ne fonctionne plus avec la mise à jour du 1 décembre 2024
+        #drop_shadow = "yes"; 
+        #shadow_range = "4";
+        #shadow_render_power = "3";
+        #"col.shadow" = "rgba(1a1a1aee)";
     };
 
     animations = {
