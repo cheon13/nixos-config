@@ -128,6 +128,11 @@
       # Display device configuration
       output = {
         eDP-1 = {
+          position = "0,0";
+          # Set HIDP scale (pixel integer scaling)
+          scale = "1";
+            };
+        HDMI-A_1 = {
           position = "1920,0";
           # Set HIDP scale (pixel integer scaling)
           scale = "1";
