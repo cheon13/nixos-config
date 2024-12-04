@@ -132,11 +132,11 @@
           # Set HIDP scale (pixel integer scaling)
           # scale = "1";
             };
-        #HDMI-A_1 = {
-        #  position = "1920,0";
-        #  # Set HIDP scale (pixel integer scaling)
-        #  scale = "1";
-        #    };
+        HDMI-A-1 = {
+          pos = "1920 0";
+          # Set HIDP scale (pixel integer scaling)
+          #scale = "1";
+            };
           };
      startup = [
        # Lancer l'application de fond d'écran au démarrage 
