@@ -127,7 +127,7 @@
       }];
       # Display device configuration
       output = {
-        eDP1 = {
+        eDP-1 = {
           pos = "0 0";
           # Set HIDP scale (pixel integer scaling)
           # scale = "1";
