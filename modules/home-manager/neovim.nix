@@ -116,6 +116,9 @@ map ('n', '<Down>', '<Plug>VimwikiNextLink')
 -----Pour insérer la date
 map ('n', '<Leader>d', ':r! date \\+\\%A" "\\%d" "\\%B" "\\%Y| sed "s/\\b\\(.\\)/\\u\\1/"<cr>')
 
+-----Pour activer ouvrir mini.files
+map ('n', '<Leader>f', function() require('mini.files').open() end) -- Permet de chercher un fichier 
+
 ----------------
 ---- 4 Plugins 
 ----------------
