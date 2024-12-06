@@ -122,6 +122,8 @@ map ('n', '<Leader>d', ':r! date \\+\\%A" "\\%d" "\\%B" "\\%Y| sed "s/\\b\\(.\\)
 	
 ----Activation du plugin lualine
 require 'lualine'.setup()
+----Activation du plugin mini.files
+require 'mini.files'.setup()
 	'';
 #    extraLuaConfig = 
 #    	''
@@ -216,7 +218,7 @@ require 'lualine'.setup()
 #          ----Activation du plugin lualine
 #	  require 'lualine'.setup()
 #	'';
-      plugins = with pkgs.vimPlugins; [ zen-mode-nvim twilight-nvim  vim-pencil vimwiki gruvbox lualine-nvim fzf-lua nvim-web-devicons ];
+      plugins = with pkgs.vimPlugins; [ zen-mode-nvim twilight-nvim  vim-pencil vimwiki gruvbox lualine-nvim fzf-lua nvim-web-devicons mini-files ];
 #      plugins = with pkgs.vimPlugins; [ true-zen-nvim twilight-nvim  vim-pencil vimwiki gruvbox lualine-nvim fzf-vim ];
   };
 }
