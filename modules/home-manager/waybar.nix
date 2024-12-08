@@ -15,7 +15,7 @@
           #];
           modules-left = [ "sway/workspaces"  "sway/mode" ];
           modules-center = [ "sway/window" ];
-          modules-right = [ "idle_inhibitor" "battery" "pulseaudio" "network" "tray" "clock"];
+          modules-right = [ "idle_inhibitor" "battery" "pulseaudio" "network" "tray" "clock" "custom/meteo" ];
           "sway/workspaces" = {
             disable-scroll = true;
             all-outputs = true;
@@ -72,12 +72,12 @@
               format-disconnected = "Disconnected ⚠";
               format-alt = "{ifname}: {ipaddr}/{cidr}";
           };
-          "custom/weather" = {
+          "custom/meteo" = {
               format = "{}";
-              tooltip = true,
+              tooltip = true;
               interval = 3600;
               exec = "curl wttr.in/\?format=3";
-              return-type = "json"
+              return-type = "json";
           };
         };  
       };
