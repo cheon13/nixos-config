@@ -15,7 +15,7 @@
           #];
           modules-left = [ "sway/workspaces"  "sway/mode" ];
           modules-center = [ "sway/window" ];
-          modules-right = [ "idle_inhibitor" "battery" "pulseaudio" "network" "tray" "clock" "custom/meteo" ];
+          modules-right = [ "custom/meteo" "idle_inhibitor" "battery" "pulseaudio" "network" "tray" "clock"  ];
           "sway/workspaces" = {
             disable-scroll = true;
             all-outputs = true;
