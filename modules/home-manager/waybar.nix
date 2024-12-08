@@ -13,8 +13,8 @@
           #   "eDP-1"
           #  "HDMI-A-1"
           #];
-          modules-left = [ "sway/workspaces"  "sway/mode" ];
-          modules-center = [ "sway/window" ];
+          modules-left = [ "sway/workspaces"  "sway/mode" "sway/window"];
+          modules-center = [  ];
           modules-right = [ "custom/meteo" "idle_inhibitor" "battery" "pulseaudio" "network" "tray" "clock"  ];
           "sway/workspaces" = {
             disable-scroll = true;
