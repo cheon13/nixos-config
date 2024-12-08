@@ -72,6 +72,13 @@
               format-disconnected = "Disconnected ⚠";
               format-alt = "{ifname}: {ipaddr}/{cidr}";
           };
+          "custom/weather" = {
+              format = "{}";
+              tooltip = true,
+              interval = 3600;
+              exec = "curl wttr.in/\?format=3";
+              return-type = "json"
+          };
         };  
       };
       style = ''
