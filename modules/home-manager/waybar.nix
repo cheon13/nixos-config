@@ -77,7 +77,7 @@
               tooltip = true;
               interval = 3600;
               exec = "curl wttr.in/\?format=3";
-              return-type = "json";
+              return-type = "text";
           };
         };  
       };
