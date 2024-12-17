@@ -76,7 +76,7 @@
               format = "{}";
               tooltip = true;
               interval = 3600;
-              exec = "curl wttr.in/\?format=3";
+              exec = "curl wttr.in/\?format=1";
               return-type = "text";
           };
         };  
