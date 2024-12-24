@@ -42,6 +42,7 @@
     texlive.combined.scheme-small
     slides
     lynx	
+    tldr
     # taskwarrior # à changer pour taskwarrior3
 
     # Langages de programmation

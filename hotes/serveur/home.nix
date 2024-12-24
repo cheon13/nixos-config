@@ -41,6 +41,7 @@
     texlive.combined.scheme-small
     slides
     lynx	
+    tldr
     # taskwarrior # à changer pour taskwarrior3
     python3
     lua
