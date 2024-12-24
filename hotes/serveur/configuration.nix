@@ -112,6 +112,17 @@
     # no need to redefine it in your config for now)
     #media-session.enable = true;
   };
+  # Service de music streaming
+  services.navidrome = {
+    enable = true;
+    openFirewall = true;
+    settings = {
+      Address = "10.0.0.200";
+      Port = 4533;
+      MusicFolder = "/home/cheon/Musique";
+      EnableSharing = true;
+    };
+  }
 
   virtualisation.containers.enable = true;
   virtualisation = {
