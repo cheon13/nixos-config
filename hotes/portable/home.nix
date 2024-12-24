@@ -50,7 +50,7 @@
     lua
 
     # pour la musique
-    cmus
+    termusic
     # cava  # problème lors de la mise à jour du 1 décembre 2024
     yt-dlp # pour télécharger la musique de youtube
     clementine # Pour jouer et indexer la musique

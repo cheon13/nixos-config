@@ -45,6 +45,13 @@
     # taskwarrior # à changer pour taskwarrior3
     python3
     lua
+
+    # Pour la musique
+    termusic
+    #cava
+    yt-dlp # pour télécharger la musique de youtube
+    clementine # Pour jouer et indexer la musique
+
           # All of the below is for sway and Hyprland
     swaylock
     swayidle
