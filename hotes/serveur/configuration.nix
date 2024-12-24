@@ -119,7 +119,7 @@
     settings = {
       Address = "10.0.0.200";
       Port = 4533;
-      MusicFolder = "/home/cheon/Navidrome-music";
+      MusicFolder = "/var/Navidrome-music";
       EnableSharing = true;
     };
   };
