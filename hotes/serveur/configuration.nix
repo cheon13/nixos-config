@@ -122,7 +122,7 @@
       MusicFolder = "/home/cheon/Musique";
       EnableSharing = true;
     };
-  }
+  };
 
   virtualisation.containers.enable = true;
   virtualisation = {
