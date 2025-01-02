@@ -139,7 +139,7 @@ require 'mini.files'.setup()
          fzf-lua 
          nvim-web-devicons 
          mini-files
-         rocks-nvim
+         #rocks-nvim
          ];
   };
 }

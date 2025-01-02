@@ -95,10 +95,10 @@
       enable = true;
       enableCompletion  = true;
       bashrcExtra = ''
-        export PATH="$PATH:/usr/local/bin"
-        set -o vi
-        bind '"\e[A": history-search-backward'
-        bind '"\e[B": history-search-forward'
+   export PATH="$PATH:/usr/local/bin"
+   set -o vi
+   bind '"\e[A": history-search-backward'
+   bind '"\e[B": history-search-forward'
 	eval "$(fzf --bash)"
 	eval "$(zoxide init bash)"
 	eval "$(starship init bash)"
@@ -111,6 +111,7 @@
         lla = "eza -la --icons --group-directories-first";
 	cd = "z";
         nk = "NVIM_APPNAME='nvim-kickstart' nvim";
+        nt = "NVIM_APPNAME='nvim-test' nvim";
       };
   };
   
