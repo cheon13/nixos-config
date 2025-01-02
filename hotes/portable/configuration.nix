@@ -141,6 +141,7 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
   neovim
+  lua-language-server
   git
   gh #github CLI pour faciliter l'authentification avec github.
   gnupg
