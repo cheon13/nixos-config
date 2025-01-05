@@ -5,7 +5,7 @@
   # Import all your configuration modules here
   imports = 
     [
-      inputs.nixvim.nixosModule.nixvim
+      inputs.nixvim.nixosModules.nixvim
       ./bufferline.nix 
     ];
     
