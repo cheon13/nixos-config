@@ -10,6 +10,7 @@
       ./bufferline.nix 
     ];
  programs.nixvim = {   
+  enable = true;
   globals.mapleader = " ";
 
   extraConfigLua = "vim.g.vimwiki_list = {{path = '~/Documents/Cerveau', syntax = 'markdown', ext = '.md'}}";
