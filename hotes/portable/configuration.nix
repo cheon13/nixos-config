@@ -11,6 +11,7 @@
       #../../modules/nixos/gdm.nix
       #../../modules/nixos/sddm.nix
       ../../modules/nixos/syncthing.nix
+      inputs.nixvim.homeManagerModules.nixvim
     ];
   
   services.xserver.enable = true;

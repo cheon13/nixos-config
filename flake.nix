@@ -55,7 +55,7 @@
             home-manager.useUserPackages = true;
             home-manager.users.cheon = import ./hotes/portable/home.nix;
 	       }
-        nixvim.homeManagerModules.nixvim
+        #nixvim.homeManagerModules.nixvim
         #nixvim.nixosModules.nixvim
        ];
      };
