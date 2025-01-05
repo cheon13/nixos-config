@@ -13,6 +13,10 @@
   enable = true;
   globals.mapleader = " ";
 
+    defaultEditor = true;
+    vimAlias = true;
+    viAlias = true;
+
   extraConfigLua = "vim.g.vimwiki_list = {{path = '~/Documents/Cerveau', syntax = 'markdown', ext = '.md'}}";
 
   opts = {
