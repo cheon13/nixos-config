@@ -34,24 +34,24 @@
 
   colorschemes.gruvbox.enable = true;
 
-  autoCmd = [
-    { 
-      command = "nnoremap <buffer> <F7> :w<CR>:!pandoc '%' -o prttmp.pdf --resource-path='%:p:h' && zathura prttmp.pdf && rm prttmp.pdf<CR>";
-      event = [
-        "Filetype"
-    ];
-      pattern = "markdown"; 
-    }
+  #autoCmd = [
+  #  { 
+  #    command = "nnoremap <buffer> <F7> :w<CR>:!pandoc '%' -o prttmp.pdf --resource-path='%:p:h' && zathura prttmp.pdf && rm prttmp.pdf<CR>";
+  #    event = [
+  #      "Filetype"
+  #  ];
+  #    pattern = "markdown"; 
+  #  }
 
-    { 
-      command = ''nnoremap <buffer> <F7> :w<CR>:vs<CR>:ter python "%"<CR>'';
-      event = [
-        "BufEnter"
-        "BufWinEnter"
-    ];
-      pattern = "*.py"; 
-    }
-  ];
+  #  { 
+  #    command = ''nnoremap <buffer> <F7> :w<CR>:vs<CR>:ter python "%"<CR>'';
+  #    event = [
+  #      "BufEnter"
+  #      "BufWinEnter"
+  #  ];
+  #    pattern = "*.py"; 
+  #  }
+  #];
 
   keymaps = [
     #navigation entre les splits
