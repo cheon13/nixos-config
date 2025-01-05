@@ -1,6 +1,6 @@
 # configuration.nix
 
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   imports =
