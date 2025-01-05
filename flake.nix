@@ -1,5 +1,5 @@
 {
-  description = "Ma configuration NixOS flake de serveur";
+ description = "Ma configuration NixOS flake de serveur";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
@@ -9,6 +9,7 @@
     nixos-wsl.url = "github:nix-community/NixOS-WSL";
     nixos-wsl.inputs.nixpkgs.follows = "nixpkgs";
     stylix.url = "github:danth/stylix";
+    nixvim.url = "github:nix-community/nixvim";
   };
 
   outputs = { self, nixpkgs, home-manager, nixos-wsl, stylix, ... }@inputs: 
@@ -39,7 +40,7 @@
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.users.cheon = import ./hotes/serveur/home.nix;
-	  }
+	       }
        ];
      };
      portable = nixpkgs.lib.nixosSystem {
@@ -47,12 +48,13 @@
        modules = [
         ./hotes/portable/configuration.nix
         stylix.nixosModules.stylix
+        nixvim.homeManagerModules.nixvim
         home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.users.cheon = import ./hotes/portable/home.nix;
-	  }
+	       }
        ];
      };
      wsl-portable = nixpkgs.lib.nixosSystem {
