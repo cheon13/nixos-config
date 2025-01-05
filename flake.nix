@@ -10,6 +10,7 @@
     nixos-wsl.inputs.nixpkgs.follows = "nixpkgs";
     stylix.url = "github:danth/stylix";
     nixvim.url = "github:nix-community/nixvim";
+    nixvim.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = { self, nixpkgs, home-manager, nixos-wsl, stylix, nixvim, ... }@inputs: 
