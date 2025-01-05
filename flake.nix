@@ -36,6 +36,8 @@
        modules = [
         ./hotes/serveur/configuration.nix
         stylix.nixosModules.stylix
+        #nixvim.homeManagerModules.nixvim
+        nixvim.nixosModules.nixvim
         home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
@@ -49,14 +51,14 @@
        modules = [
         ./hotes/portable/configuration.nix
         stylix.nixosModules.stylix
+        #nixvim.homeManagerModules.nixvim
+        nixvim.nixosModules.nixvim
         home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.users.cheon = import ./hotes/portable/home.nix;
 	       }
-        #nixvim.homeManagerModules.nixvim
-        nixvim.nixosModules.nixvim
        ];
      };
      wsl-portable = nixpkgs.lib.nixosSystem {

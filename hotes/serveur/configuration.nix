@@ -11,6 +11,7 @@
       #../../modules/nixos/gdm.nix
       #../../modules/nixos/sddm.nix
       ../../modules/nixos/syncthing.nix
+      ../../modules/nixos/nixvim.nix
       #../../modules/nixos/apache.nix
     ];
   
