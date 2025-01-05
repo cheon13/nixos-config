@@ -28,7 +28,7 @@
   };
   programs.hyprland.enable = true; 
   programs.sway.enable = true; 
-  programs.nixvim.enable = true;
+  #programs.nixvim.enable = true;
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ]; 
   # Bootloader.

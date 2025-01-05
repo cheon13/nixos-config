@@ -83,6 +83,8 @@
     jdk # nécessaire pour installer les extensions libreoffice
   ];
 
+  programs.nixvim.enable = true;
+
   programs.git = {
       enable = true;
       userName  = "cheon13";
