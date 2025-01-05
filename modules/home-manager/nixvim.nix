@@ -30,7 +30,7 @@
     smartcase = true;
   };
   
-  clipboard.register = "unnamedplus";
+  #clipboard.register = "unnamedplus";
 
   colorschemes.gruvbox.enable = true;
 
