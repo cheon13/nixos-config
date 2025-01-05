@@ -1,12 +1,12 @@
 # Configuration de neovim avec nixvim
 #Samedi 04 janvier 2025
 
-{self, pkgs, inputs, ...}: {
+{self, pkgs, ...}: {
   # Import all your configuration modules here
   imports = 
     [
       #inputs.nixvim.homeManagerModules.nixvim
-      inputs.nixvim.nixosModules.nixvim
+      #inputs.nixvim.nixosModules.nixvim
       ./bufferline.nix 
     ];
     

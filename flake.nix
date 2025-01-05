@@ -56,7 +56,7 @@
             home-manager.users.cheon = import ./hotes/portable/home.nix;
 	       }
         #nixvim.homeManagerModules.nixvim
-        #nixvim.nixosModules.nixvim
+        nixvim.nixosModules.nixvim
        ];
      };
      wsl-portable = nixpkgs.lib.nixosSystem {
