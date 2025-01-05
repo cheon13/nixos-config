@@ -11,6 +11,7 @@
       #../../modules/nixos/gdm.nix
       #../../modules/nixos/sddm.nix
       ../../modules/nixos/syncthing.nix
+      ../../modules/home-manager/nixvim.nix
       #nixvim.homeManagerModules.nixvim
       #nixvim.nixosModules.nixvim
     ];
@@ -28,7 +29,7 @@
   };
   programs.hyprland.enable = true; 
   programs.sway.enable = true; 
-  programs.nixvim.enable = true;
+  #programs.nixvim.enable = true;
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ]; 
   # Bootloader.
