@@ -6,6 +6,7 @@
   imports = 
     [
       #inputs.nixvim.homeManagerModules.nixvim
+      inputs.nixvim.nixosModules.nixvim
       ./bufferline.nix 
     ];
     
