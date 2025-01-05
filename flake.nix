@@ -48,6 +48,7 @@
        modules = [
         ./hotes/portable/configuration.nix
         stylix.nixosModules.stylix
+        nixvim.homeManagerModules.nixvim
         nixvim.nixosModules.nixvim
         home-manager.nixosModules.home-manager
           {
