@@ -1,5 +1,5 @@
 # Configuration de neovim avec nixvim
-#Samedi 04 janvier 2025
+# Samedi 04 janvier 2025
 
 {self, pkgs, ...}: {
   # Import all your configuration modules here
@@ -7,7 +7,7 @@
     [
       #inputs.nixvim.homeManagerModules.nixvim
       #inputs.nixvim.nixosModules.nixvim
-      #./bufferline.nix 
+      ./bufferline.nix 
     ];
  programs.nixvim = {   
   globals.mapleader = " ";
