@@ -7,9 +7,9 @@
     [
       #inputs.nixvim.homeManagerModules.nixvim
       #inputs.nixvim.nixosModules.nixvim
-      ./bufferline.nix 
+      #./bufferline.nix 
     ];
-    
+ programs.nixvim = {   
   globals.mapleader = " ";
 
   extraConfigLua = "vim.g.vimwiki_list = {{path = '~/Documents/Cerveau', syntax = 'markdown', ext = '.md'}}";
@@ -31,28 +31,28 @@
     smartcase = true;
   };
   
-  #clipboard.register = "unnamedplus";
+  clipboard.register = "unnamedplus";
 
-  #colorschemes.gruvbox.enable = true;
+  colorschemes.gruvbox.enable = true;
 
-  #autoCmd = [
-  #  { 
-  #    command = "nnoremap <buffer> <F7> :w<CR>:!pandoc '%' -o prttmp.pdf --resource-path='%:p:h' && zathura prttmp.pdf && rm prttmp.pdf<CR>";
-  #    event = [
-  #      "Filetype"
-  #  ];
-  #    pattern = "markdown"; 
-  #  }
+  autoCmd = [
+    { 
+      command = "nnoremap <buffer> <F7> :w<CR>:!pandoc '%' -o prttmp.pdf --resource-path='%:p:h' && zathura prttmp.pdf && rm prttmp.pdf<CR>";
+      event = [
+        "Filetype"
+    ];
+      pattern = "markdown"; 
+    }
 
-  #  { 
-  #    command = ''nnoremap <buffer> <F7> :w<CR>:vs<CR>:ter python "%"<CR>'';
-  #    event = [
-  #      "BufEnter"
-  #      "BufWinEnter"
-  #  ];
-  #    pattern = "*.py"; 
-  #  }
-  #];
+    { 
+      command = ''nnoremap <buffer> <F7> :w<CR>:vs<CR>:ter python "%"<CR>'';
+      event = [
+        "BufEnter"
+        "BufWinEnter"
+    ];
+      pattern = "*.py"; 
+    }
+  ];
 
   keymaps = [
     #navigation entre les splits
@@ -206,4 +206,5 @@
 #  plugins.render-markdown = {
 #    enable = true;
 #  };
+};
 }
