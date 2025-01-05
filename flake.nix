@@ -12,7 +12,7 @@
     nixvim.url = "github:nix-community/nixvim";
   };
 
-  outputs = { self, nixpkgs, home-manager, nixos-wsl, stylix, ... }@inputs: 
+  outputs = { self, nixpkgs, home-manager, nixos-wsl, stylix, nixvim, ... }@inputs: 
   #outputs = { self, nixpkgs, home-manager, ... }: 
   #outputs = inputs: 
   let
