@@ -1,11 +1,11 @@
 # Home.nix 
 
-{ config, pkgs, inputs,... }:
+{ config, pkgs, inputs, ...}:
 
 {
   imports =
     [ 
-      ../../modules/home-manager/neovim.nix
+      #../../modules/home-manager/neovim.nix
       ../../modules/home-manager/nixvim.nix
       ../../modules/home-manager/sway.nix
       #../../modules/home-manager/swayidle.nix  # finalement swayidle est intégré directement à Sway et Hyprland
