@@ -32,7 +32,7 @@
   
   #clipboard.register = "unnamedplus";
 
-  colorschemes.gruvbox.enable = true;
+  #colorschemes.gruvbox.enable = true;
 
   #autoCmd = [
   #  { 
