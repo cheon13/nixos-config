@@ -5,7 +5,7 @@
 {
   imports =
     [ 
-      #inputs.nixvim.homeManagerModules.nixvim
+      inputs.nixvim.homeManagerModules.nixvim
       #../../modules/home-manager/neovim.nix
       #../../modules/home-manager/nixvim.nix
       ../../modules/home-manager/sway.nix
