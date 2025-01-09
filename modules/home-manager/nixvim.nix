@@ -5,14 +5,15 @@
   # Import all your configuration modules here
   imports = 
     [
-      inputs.nixvim.homeManagerModules.nixvim
-      #inputs.nixvim.nixosModules.nixvim
       ./bufferline.nix 
     ];
  programs.nixvim = {   
   enable = true;
-
   globals.mapleader = " ";
+
+    defaultEditor = true;
+    vimAlias = true;
+    viAlias = true;
 
   extraConfigLua = "vim.g.vimwiki_list = {{path = '~/Documents/Cerveau', syntax = 'markdown', ext = '.md'}}";
 
