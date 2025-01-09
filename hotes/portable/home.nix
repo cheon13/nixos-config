@@ -5,7 +5,6 @@
 {
   imports =
     [ 
-      #inputs.nixvim.homeManagerModules.nixvim
       #../../modules/home-manager/neovim.nix
       ../../modules/home-manager/nixvim.nix
       ../../modules/home-manager/sway.nix
@@ -83,8 +82,6 @@
     libreoffice
     jdk # nécessaire pour installer les extensions libreoffice
   ];
-
-  #:programs.nixvim.enable = true;
 
   programs.git = {
       enable = true;
