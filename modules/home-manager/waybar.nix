@@ -25,34 +25,34 @@
               max-length = 50;
           };
           "battery" = {
-            format = "|{capacity}% {icon}";
-            format-alt = "|{time} {icon}";
-            format-charging = "|{capacity}% ";
+            format = "| {capacity}% {icon}";
+            format-alt = "| {time} {icon}";
+            format-charging = "| {capacity}% ";
             format-icons = [ "" "" "" "" "" ];
-            format-plugged = "|{capacity}% ";
+            format-plugged = "| {capacity}% ";
             states = {
               critical = 15;
               warning = 30;
             };
           };
           "clock" = {
-              tooltip-format = "|<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>";
-              format-alt = "|{:%Y-%m-%d}";
+              tooltip-format = "| <big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>";
+              format-alt = "| {:%Y-%m-%d}";
           };
           "idle_inhibitor" = {
-              format = "|{icon}";
+              format = "| {icon}";
               format-icons = {
                   activated = "";
                   deactivated = "";
               };
           };
           "pulseaudio" = {
-              format = "|{volume}% {icon} {format_source}";
-              format-bluetooth = "|{volume}% {icon} {format_source}";
-              format-bluetooth-muted = "|󰝟 {icon} {format_source}";
-              format-muted =  "|󰝟{format_source}";
-              format-source =  "|{volume}% ";
-              format-source-muted =  "|";
+              format = "| {volume}% {icon} {format_source}";
+              format-bluetooth = "| {volume}% {icon} {format_source}";
+              format-bluetooth-muted = "| 󰝟 {icon} {format_source}";
+              format-muted =  "| 󰝟{format_source}";
+              format-source =  "| {volume}% ";
+              format-source-muted =  "| ";
               format-icons =  {
                   headphone =  "";
                   hands-free =  "";
@@ -65,12 +65,12 @@
               on-click = "pavucontrol";
           };
           "network" = {
-              format-wifi = "|{essid} ({signalStrength}%) ";
-              format-ethernet = "|{ipaddr}/{cidr} ";
-              tooltip-format = "|{ifname} via {gwaddr} ";
-              format-linked = "|{ifname} (No IP) ";
-              format-disconnected = "|Disconnected ⚠";
-              format-alt = "|{ifname}: {ipaddr}/{cidr}";
+              format-wifi = "| {essid} ({signalStrength}%) ";
+              format-ethernet = "| {ipaddr}/{cidr} ";
+              tooltip-format = "| {ifname} via {gwaddr} ";
+              format-linked = "| {ifname} (No IP) ";
+              format-disconnected = "| Disconnected ⚠";
+              format-alt = "| {ifname}: {ipaddr}/{cidr}";
           };
           "custom/meteo" = {
               format = "{}";
