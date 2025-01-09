@@ -43,6 +43,9 @@
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.users.cheon = import ./hotes/serveur/home.nix;
+            home-manager.sharedModules = [
+              inputs.nixvim.homeManagerModules.nixvim
+            ]; 
 	       }
        ];
      };
