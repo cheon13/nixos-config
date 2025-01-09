@@ -11,8 +11,7 @@
       #../../modules/nixos/gdm.nix
       #../../modules/nixos/sddm.nix
       ../../modules/nixos/syncthing.nix
-      #../../modules/nixos/nixvim.nix
-      nixvim.nixosModules.nixvim
+      ../../modules/nixos/nixvim.nix
     ];
   
   services.xserver.enable = true;
