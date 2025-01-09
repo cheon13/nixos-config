@@ -7,7 +7,7 @@
     [ 
       inputs.nixvim.homeManagerModules.nixvim
       #../../modules/home-manager/neovim.nix
-      ../../modules/home-manager/nixvim.nix
+      #../../modules/home-manager/nixvim.nix
       ../../modules/home-manager/sway.nix
       #../../modules/home-manager/swayidle.nix  # finalement swayidle est intégré directement à Sway et Hyprland
       ../../modules/home-manager/waybar.nix
