@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, ... }:
 
 {
   # Configuration de la waybar
@@ -214,7 +214,5 @@
   }
 ]
   '';
-
-
 }
 
