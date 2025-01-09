@@ -158,6 +158,9 @@
             diagnostics.globals = ["vim"];
           };
         };
+        nixd = {
+          enable = true;
+        };
     };
 };
 
