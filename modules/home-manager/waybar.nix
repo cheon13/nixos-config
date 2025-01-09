@@ -25,22 +25,22 @@
               max-length = 50;
           };
           "battery" = {
-            format = "| {capacity}% {icon} ";
-            format-alt = "| {time} {icon} ";
-            format-charging = "| {capacity}%  ";
+            format = "|{capacity}% {icon}";
+            format-alt = "|{time} {icon}";
+            format-charging = "|{capacity}% ";
             format-icons = [ "" "" "" "" "" ];
-            format-plugged = "| {capacity}%  ";
+            format-plugged = "|{capacity}% ";
             states = {
               critical = 15;
               warning = 30;
             };
           };
           "clock" = {
-              tooltip-format = " <big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>";
-              format-alt = "| {:%Y-%m-%d}";
+              tooltip-format = "|<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>";
+              format-alt = "|{:%Y-%m-%d}";
           };
           "idle_inhibitor" = {
-              format = "| {icon}";
+              format = "|{icon}";
               format-icons = {
                   activated = "";
                   deactivated = "";
@@ -50,9 +50,9 @@
               format = "|{volume}% {icon} {format_source}";
               format-bluetooth = "|{volume}% {icon} {format_source}";
               format-bluetooth-muted = "|󰝟 {icon} {format_source}";
-              format-muted =  "|󰝟 {format_source}";
-              format-source =  "| {volume}% ";
-              format-source-muted =  "| ";
+              format-muted =  "|󰝟{format_source}";
+              format-source =  "|{volume}% ";
+              format-source-muted =  "|";
               format-icons =  {
                   headphone =  "";
                   hands-free =  "";
