@@ -160,7 +160,9 @@
         };
         nixd = {
           enable = true;
-          formatting = ["nixfmt"];
+          settings = {
+            formatting.command = ["nixfmt"];
+          };
         };
     };
 };
