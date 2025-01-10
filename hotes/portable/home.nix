@@ -81,6 +81,7 @@
     wezterm
     libreoffice
     jdk # nécessaire pour installer les extensions libreoffice
+    nixfmt-rfc-style # formateur pour les fichiers nix dans nvim
   ];
 
   programs.git = {
