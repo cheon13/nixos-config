@@ -1,5 +1,5 @@
 {
- description = "Ma configuration NixOS flake de serveur";
+  description = "Ma configuration NixOS flake de serveur";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
@@ -13,80 +13,90 @@
     nixvim.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { self, nixpkgs, home-manager, nixos-wsl, stylix, nixvim, ... }@inputs: 
-  #outputs = { self, nixpkgs, home-manager, ... }: 
-  #outputs = inputs: 
-  let
-    system = "x86_64-linux";
+  outputs =
+    {
+      self,
+      nixpkgs,
+      home-manager,
+      nixos-wsl,
+      stylix,
+      nixvim,
+      ...
+    }@inputs:
+    #outputs = { self, nixpkgs, home-manager, ... }:
+    #outputs = inputs:
+    let
+      system = "x86_64-linux";
 
-    pkgs = import nixpkgs {
-      inherit system;
+      pkgs = import nixpkgs {
+        inherit system;
 
-      config = {
-        allowUnfree = true;
+        config = {
+          allowUnfree = true;
+        };
       };
-    };
-    
+
     in
     {
 
-    nixosConfigurations = {
-     serveur = nixpkgs.lib.nixosSystem {
-       specialArgs = { inherit system; };
-       modules = [
-        ./hotes/serveur/configuration.nix
-        stylix.nixosModules.stylix
-        #nixvim.homeManagerModules.nixvim
-        nixvim.nixosModules.nixvim
-        home-manager.nixosModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.users.cheon = import ./hotes/serveur/home.nix;
-            home-manager.sharedModules = [
-              inputs.nixvim.homeManagerModules.nixvim
-            ]; 
-	       }
-       ];
-     };
-     portable = nixpkgs.lib.nixosSystem {
-       specialArgs = { inherit system; };
-       modules = [
-        ./hotes/portable/configuration.nix
-        stylix.nixosModules.stylix
-        #nixvim.homeManagerModules.nixvim
-        nixvim.nixosModules.nixvim
-        home-manager.nixosModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.users.cheon = import ./hotes/portable/home.nix;
-            home-manager.sharedModules = [
-              inputs.nixvim.homeManagerModules.nixvim
-            ]; 
-	       }
-       ];
-     };
-     wsl-portable = nixpkgs.lib.nixosSystem {
-       specialArgs = { inherit system; };
-       modules = [
-        nixos-wsl.nixosModules.wsl (import ./hotes/wsl-portable/configuration.nix inputs)
-        home-manager.nixosModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.users.cheon = import ./hotes/wsl-portable/home.nix;
-	  }
-       ];
-     };
-     customIso = nixpkgs.lib.nixosSystem {
-       specialArgs = { inherit inputs; };
-       modules = [
-         ./hotes/isoImage/configuration.nix
-       ];
-     };
+      nixosConfigurations = {
+        serveur = nixpkgs.lib.nixosSystem {
+          specialArgs = { inherit system; };
+          modules = [
+            ./hotes/serveur/configuration.nix
+            stylix.nixosModules.stylix
+            #nixvim.homeManagerModules.nixvim
+            nixvim.nixosModules.nixvim
+            home-manager.nixosModules.home-manager
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.users.cheon = import ./hotes/serveur/home.nix;
+              home-manager.sharedModules = [
+                inputs.nixvim.homeManagerModules.nixvim
+              ];
+            }
+          ];
+        };
+        portable = nixpkgs.lib.nixosSystem {
+          specialArgs = { inherit system; };
+          modules = [
+            ./hotes/portable/configuration.nix
+            stylix.nixosModules.stylix
+            #nixvim.homeManagerModules.nixvim
+            nixvim.nixosModules.nixvim
+            home-manager.nixosModules.home-manager
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.users.cheon = import ./hotes/portable/home.nix;
+              home-manager.sharedModules = [
+                inputs.nixvim.homeManagerModules.nixvim
+              ];
+            }
+          ];
+        };
+        wsl-portable = nixpkgs.lib.nixosSystem {
+          specialArgs = { inherit system; };
+          modules = [
+            nixos-wsl.nixosModules.wsl
+            (import ./hotes/wsl-portable/configuration.nix inputs)
+            home-manager.nixosModules.home-manager
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.users.cheon = import ./hotes/wsl-portable/home.nix;
+            }
+          ];
+        };
+        customIso = nixpkgs.lib.nixosSystem {
+          specialArgs = { inherit inputs; };
+          modules = [
+            ./hotes/isoImage/configuration.nix
+          ];
+        };
 
-    };
+      };
 
     };
 }
