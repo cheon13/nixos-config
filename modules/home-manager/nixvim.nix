@@ -166,7 +166,7 @@
           enable = true;
           settings = {
             formatting.command = [ "nixfmt" ];
-            nixpkgs = "import <nixpkgs> { }";
+            nixpkgs = "import (builtins.getFlake \"../../flake.nix\").inputs.nixpkgs { }";
           };
         };
       };
