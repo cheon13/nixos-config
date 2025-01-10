@@ -166,7 +166,7 @@
           enable = true;
           settings = {
             formatting.command = [ "nixfmt" ];
-            nixpkgs = "import (builtins.getFlake \"../../flake.nix\").inputs.nixpkgs { }";
+            nixpkgs = "import nixpkgs { }";
           };
         };
       };
@@ -215,7 +215,6 @@
         config = ''lua require "mini.files".setup()'';
       }
     ];
-
     #  plugins.render-markdown = {
     #    enable = true;
     #  };
