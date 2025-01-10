@@ -7,6 +7,7 @@
     [
       ./bufferline.nix 
     ];
+  programs.nixfmt-rfc-style.enable = true;
  programs.nixvim = {   
   enable = true;
   globals.mapleader = " ";
