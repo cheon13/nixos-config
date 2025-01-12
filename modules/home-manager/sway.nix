@@ -113,7 +113,7 @@
         "${modifier2}+Shift+c" = "reload";
         # Screenshot
         "print" = "exec slurp | grim -g - ";
-        "Mod4+Shift+s" = "exec slurp | grim -g - ";
+        "Mod5+Shift+s" = "exec slurp | grim -g - ";
         "XF86AudioRaiseVolume" = "exec pactl set-sink-volume @DEFAULT_SINK@ +5% && $sink_volume";
         "XF86AudioLowerVolume" = "exec pactl set-sink-volume @DEFAULT_SINK@ -5% && $sink_volume";
         "XF86AudioMute" = "exec pactl set-sink-mute @DEFAULT_SINK@ toggle && pactl get-sink-mute @DEFAULT_SINK@ | sed -En '/no/ s/.*/$($sink_volume)/p; /yes/ s/.*/0/p'";

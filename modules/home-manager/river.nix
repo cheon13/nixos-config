@@ -18,8 +18,18 @@
 
       # Note: the "Alt" modifier is also known as Logo, GUI, Windows, Mod4, etc.
 
-      # Alt+Return to start an instance of foot (https://codeberg.org/dnkl/foot)
-      riverctl map normal Alt Return spawn foot
+      # Alt+Return to start an instance of kitty terminal
+      riverctl map normal Alt Return spawn kitty
+
+      # Alt+W to start an instance of firefox
+      riverctl map normal Alt W spawn firefox
+
+      # Alt-N Pour prendre des notes rapidement
+      riverctl map normal Alt N spawn 'kitty -d ~/Documents/Cerveau nvim +/Note /home/cheon/Documents/Cerveau/index.md'
+
+      # Alt-Shift S Pour prendre des notes rapidement
+      riverctl map normal Alt+Shift S spawn 'slurp | grim -g -'
+      riverctl map normal Mod5+Shift S spawn 'slurp | grim -g -'
 
       # Mapping pour le menu wofi 
       riverctl map normal Alt D spawn 'wofi --show drun'
