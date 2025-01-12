@@ -20,7 +20,7 @@
   services.xserver.windowManager.dwm.package = pkgs.dwm.overrideAttrs {
     src = ../../modules/nixos/dwm;
   };
-  services.xserver.displayManager.defaultSession = "river";
+  services.xserver.displayManager.session = "river";
   services.xserver.desktopManager.session = [
     {
       manage = "window";
