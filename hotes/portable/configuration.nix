@@ -20,17 +20,6 @@
   services.xserver.windowManager.dwm.package = pkgs.dwm.overrideAttrs {
     src = ../../modules/nixos/dwm;
   };
-  services.xserver.displayManager.session = "river";
-  services.xserver.desktopManager.session = [
-    {
-      manage = "window";
-      name = "river";
-      start = ''
-        ${pkgs.river}/bin/river &
-        waitPID=$!
-      '';
-    }
-  ];
   services.xserver.xkb = {
     layout = "ca";
     # variant = "fr";
@@ -38,6 +27,7 @@
   };
   programs.hyprland.enable = true;
   programs.sway.enable = true;
+  programs.river.enable = true;
   #programs.nixvim.enable = true;
 
   nix.settings.experimental-features = [
@@ -184,7 +174,6 @@
     #  src = ../../modules/nixos/dwl;
     #}))
     wlr-randr
-    river
     #widevine-cdm
     #nodePackages.nodejs  # pour utiliser le plugin coc.nvim
     #ltex-ls              # pour utiliser coc-ltex
