@@ -14,6 +14,7 @@
       ../../modules/home-manager/wofi.nix
       ../../modules/home-manager/hyprland.nix
       ../../modules/home-manager/hyprpaper.nix
+      ../../modules/home-manager/river.nix
     ];
 
   home.username = "cheon";
@@ -73,7 +74,7 @@
     imv
     hyprcursor
     capitaine-cursors-themed
-    river
+    #river
     firefox-wayland
     google-chrome
     qutebrowser
