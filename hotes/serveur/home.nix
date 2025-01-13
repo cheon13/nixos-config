@@ -57,6 +57,7 @@
           # All of the below is for sway and Hyprland
     swaylock
     swayidle
+    swaybg
     wl-clipboard
     mako
     libnotify
