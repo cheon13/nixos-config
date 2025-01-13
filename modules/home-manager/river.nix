@@ -202,7 +202,7 @@
       rivertile -view-padding 6 -outer-padding 6 &
 
       # Ajout des fonds d'écran
-      swaybg -i /home/cheon/Images/Wallpapers/swayWP &
+      swaybg -i /home/cheon/Images/Wallpapers/riverWP &
       # Ajout de la barre
       waybar -c ~/.config/waybar/river.config -s ~/.config/waybar/river.style.css &
       # Ajout du screen saver et du lock screen
