@@ -158,24 +158,16 @@
       # not have a modifier
       for mode in normal locked
       do
-          # Eject the optical drive (well if you still have one that is)
-          riverctl map $mode None XF86Eject spawn 'eject -T'
-
           # Control pulse audio volume with pamixer (https://github.com/cdemoulins/pamixer)
-          riverctl map $mode None XF86AudioRaiseVolume  spawn 'pamixer -i 5'
-          riverctl map $mode None XF86AudioLowerVolume  spawn 'pamixer -d 5'
-          riverctl map $mode None XF86AudioMute         spawn 'pamixer --toggle-mute'
-
-          # Control MPRIS aware media players with playerctl (https://github.com/altdesktop/playerctl)
-          riverctl map $mode None XF86AudioMedia spawn 'playerctl play-pause'
-          riverctl map $mode None XF86AudioPlay  spawn 'playerctl play-pause'
-          riverctl map $mode None XF86AudioPrev  spawn 'playerctl previous'
-          riverctl map $mode None XF86AudioNext  spawn 'playerctl next'
-
+          riverctl map $mode None XF86AudioRaiseVolume  spawn 'pactl set-sink-volume @DEFAULT_SINK@ +5% && $sink_volume'
+          riverctl map $mode None XF86AudioLowerVolume  spawn 'pactl set-sink-volume @DEFAULT_SINK@ -5% && $sink_volume'
+          riverctl map $mode None XF86AudioMute         spawn "pactl set-sink-mute @DEFAULT_SINK@ toggle && pactl get-sink-mute @DEFAULT_SINK@ | sed -En '/no/ s/.*/$($sink_volume)/p; /yes/ s/.*/0/p'"
+          riverctl map $mode None XF86AudioMicMute  spawn 'pactl set-source-mute @DEFAULT_SOURCE@ toggle'
           # Control screen backlight brightness with brightnessctl (https://github.com/Hummer12007/brightnessctl)
           riverctl map $mode None XF86MonBrightnessUp   spawn 'brightnessctl set +5%'
           riverctl map $mode None XF86MonBrightnessDown spawn 'brightnessctl set 5%-'
       done
+
 
       # Set background and border color
       riverctl background-color 0x002b36
