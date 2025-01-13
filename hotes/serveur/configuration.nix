@@ -184,6 +184,7 @@
   #(dwl.overrideAttrs (oldAttrs: rec {
   #  src = ../../modules/nixos/dwl;
   #}))
+  wlopm
   wlr-randr
   #widevine-cdm
   nodePackages.nodejs  # pour utiliser le plugin coc.nvim

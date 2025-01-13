@@ -14,6 +14,7 @@
       ../../modules/home-manager/wofi.nix
       ../../modules/home-manager/hyprland.nix
       ../../modules/home-manager/hyprpaper.nix
+      ../../modules/home-manager/river.nix
     ];
 
   home.username = "cheon";
@@ -62,13 +63,11 @@
     wofi
     tofi
     waybar
-    swaybg
     grim
     slurp
     imv
     hyprcursor
     capitaine-cursors-themed
-    river
     firefox-wayland
     qutebrowser
     kitty
