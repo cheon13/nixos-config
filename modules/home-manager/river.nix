@@ -17,12 +17,14 @@
       # documentation.
 
       # Note: the "Alt" modifier is also known as Logo, GUI, Windows, Mod4, etc.
+      #       the "Alt-char" modifier is Mod5
 
       # Alt+Return to start an instance of kitty terminal
       riverctl map normal Alt Return spawn kitty
 
       # Alt+W to start an instance of firefox
       riverctl map normal Alt W spawn firefox
+      riverctl map normal Mod5 W spawn firefox
 
       # Alt-N Pour prendre des notes rapidement
       riverctl map normal Alt N spawn 'kitty -d ~/Documents/Cerveau nvim +/Note /home/cheon/Documents/Cerveau/index.md'
