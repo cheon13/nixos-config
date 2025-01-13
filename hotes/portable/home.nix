@@ -74,7 +74,6 @@
     imv
     hyprcursor
     capitaine-cursors-themed
-    #river
     firefox-wayland
     google-chrome
     qutebrowser

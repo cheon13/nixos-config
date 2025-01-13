@@ -201,7 +201,14 @@
 
       # Ajout des fonds d'écran
       swaybg -i /home/cheon/Images/Wallpapers/swayWP &
+      # Ajout de la barre
       waybar -c ~/.config/waybar/river.config -s ~/.config/waybar/river.style.css &
+      # Ajout du screen saver et du lock screen
+      swayidle -w\
+         timeout 30 'swaylock -f' \
+         timeout 60 ' wlr-randr --output eDP-1 --off --output HDMI-A-1 --off ' \
+         resume 'wlr-randr --output eDP-1 --on --output HDMI-A-1 --on' \
+         before-sleep 'swaylock -f' &
     '';
   };
 }
