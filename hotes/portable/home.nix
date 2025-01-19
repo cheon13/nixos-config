@@ -47,9 +47,10 @@
     tldr
     # taskwarrior # à changer pour taskwarrior3
 
-    # Langages de programmation
+    # Programmation
     python3
     lua
+    lazygit
 
     # pour la musique
     termusic
@@ -57,7 +58,7 @@
     yt-dlp # pour télécharger la musique de youtube
     clementine # Pour jouer et indexer la musique
     lollypop # Pour lecture de musique seulement - gnome
-    shortwave # une appli pour écouter des postes de radio - gnome
+    #shortwave # une appli pour écouter des postes de radio - gnome
 
           # All of the below is for sway and Hyprland
     swaylock
