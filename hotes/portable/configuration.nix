@@ -25,7 +25,7 @@
     # variant = "fr";
     #options = "caps:swapescape";
   };
-  services.displayManager.defaultSession = "River";
+  services.displayManager.defaultSession = "river";
   programs.hyprland.enable = true;
   programs.sway.enable = true;
   programs.river.enable = true;
