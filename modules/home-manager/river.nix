@@ -110,7 +110,8 @@
       # Alt + Middle Mouse Button to toggle float
       riverctl map-pointer normal Alt BTN_MIDDLE toggle-float
 
-      for i in $(seq 1 9)
+      #for i in $(seq 1 9)
+      for i in $(seq 1 5)
       do
           tags=$((1 << ($i - 1)))
       
@@ -180,9 +181,14 @@
 
 
       # Set background and border color
-      riverctl background-color 0x002b36
-      riverctl border-color-focused 0x93a1a1
-      riverctl border-color-unfocused 0x586e75
+      #riverctl background-color 0x002b36
+      #riverctl border-color-focused 0x93a1a1
+      #riverctl border-color-unfocused 0x586e75
+
+      riverctl border-color-focused 0xd4be98
+      riverctl border-color-unfocused 0x92a58b
+      riverctl border-width 2
+      riverctl background-color 0x282828
 
       # Set keyboard repeat rate
       riverctl set-repeat 50 300
