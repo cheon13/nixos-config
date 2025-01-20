@@ -34,8 +34,12 @@
       riverctl map normal Mod5+Shift S spawn 'slurp | grim -g -'
 
       # Mapping pour le menu wofi 
-      riverctl map normal Alt D spawn 'wofi --show drun'
-      riverctl map normal Mod5 D spawn 'wofi --show drun'
+      #riverctl map normal Alt D spawn 'wofi --show drun'
+      #riverctl map normal Mod5 D spawn 'wofi --show drun'
+
+      # Mapping pour le menu tofi 
+      riverctl map normal Alt D spawn 'tofi-drun --drun-launch=true'
+      riverctl map normal Mod5 D spawn 'tofi-drun --drun-launch=true'
 
       # Alt+Q to close the focused view
       riverctl map normal Alt+Shift Q close
