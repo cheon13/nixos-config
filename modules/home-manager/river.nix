@@ -29,7 +29,7 @@
       # Alt-N Pour prendre des notes rapidement
       riverctl map normal Alt N spawn 'kitty -d ~/Documents/Cerveau nvim +/Note /home/cheon/Documents/Cerveau/index.md'
 
-      # Alt-Shift S Pour prendre des notes rapidement
+      # Alt-Shift S Pour prendre copie-écran
       riverctl map normal Alt+Shift S spawn 'slurp | grim -g -'
       riverctl map normal Mod5+Shift S spawn 'slurp | grim -g -'
 
@@ -37,9 +37,13 @@
       #riverctl map normal Alt D spawn 'wofi --show drun'
       #riverctl map normal Mod5 D spawn 'wofi --show drun'
 
-      # Mapping pour le menu tofi 
+      # Mapping pour le menu tofi-drun
       riverctl map normal Alt D spawn '$(tofi-drun)'
       riverctl map normal Mod5 D spawn '$(tofi-drun)'
+
+      # Mapping pour le menu réseau 
+      riverctl map normal Alt R spawn '~/.config/waybar/scripts/reseau.sh'
+      riverctl map normal Mod5 R spawn '~/.config/waybar/scripts/reseau.sh'
 
       # Alt+Q to close the focused view
       riverctl map normal Alt+Shift Q close
