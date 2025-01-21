@@ -74,6 +74,7 @@
     grim
     slurp
     imv
+    networkmanagerapplet
     hyprcursor
     capitaine-cursors-themed
     firefox-wayland
