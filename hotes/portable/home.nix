@@ -53,6 +53,7 @@
     lazygit
 
     # pour la musique
+    pavucontrol
     termusic
     cava  
     yt-dlp # pour télécharger la musique de youtube
