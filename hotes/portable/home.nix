@@ -79,6 +79,7 @@
     capitaine-cursors-themed
     firefox-wayland
     google-chrome
+    brave
     qutebrowser
     alacritty
     kitty
