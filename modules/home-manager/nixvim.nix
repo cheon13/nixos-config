@@ -150,6 +150,12 @@
         key = "<Leader>f";
         action = ''<cmd>lua require("mini.files").open()<CR>'';
       }
+      # Remap pour une sortie du mode insert du terminal plus convial
+      {
+        mode = "n";
+        key = "<Escape>";
+        action = ''<C-\><C-n>'';
+      }
     ];
 
     plugins.lsp = {
