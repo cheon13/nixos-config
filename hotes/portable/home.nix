@@ -104,6 +104,7 @@
       bashrcExtra = ''
         export PATH="$PATH:/usr/local/bin"
         export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+        export MANROFFOPT="-c"
         set -o vi
         bind '"\e[A": history-search-backward'
         bind '"\e[B": history-search-forward'
