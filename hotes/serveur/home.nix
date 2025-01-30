@@ -19,6 +19,7 @@
 
   home.username = "cheon";
   home.homeDirectory = "/home/cheon";
+  home.sessionPath = ["/usr/local/bin"];
 
   home.packages = with pkgs; [ 
     fortune
@@ -45,10 +46,14 @@
     lynx	
     tldr
     # taskwarrior # à changer pour taskwarrior3
+
+    # Programmation
     python3
     lua
+    lazygit
 
     # Pour la musique
+    pavucontrol
     termusic
     cava
     yt-dlp # pour télécharger la musique de youtube
@@ -67,6 +72,7 @@
     grim
     slurp
     imv
+    networkmanagerapplet
     hyprcursor
     capitaine-cursors-themed
     firefox-wayland
@@ -93,12 +99,15 @@
       enable = true;
       enableCompletion  = true;
       bashrcExtra = ''
+        export PATH="$PATH:/usr/local/bin"
+        export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+        export MANROFFOPT="-c"
         set -o vi
         bind '"\e[A": history-search-backward'
         bind '"\e[B": history-search-forward'
-	eval "$(fzf --bash)"
-	eval "$(zoxide init bash)"
-	eval "$(starship init bash)"
+       	eval "$(fzf --bash)"
+       	eval "$(zoxide init bash)"
+       	eval "$(starship init bash)"
       '';
       shellAliases = {
         ls = "eza --icons --group-directories-first";
@@ -106,7 +115,7 @@
         la = "eza -a --icons --group-directories-first";
         ll = "eza -l --icons --group-directories-first";  
         lla = "eza -la --icons --group-directories-first";
-	cd = "z";
+	      cd = "z";
       };
   };
 
@@ -176,25 +185,25 @@ exec dwm  # cette ligne est nécessaire si les fichiers est .xinitrc, mais pas p
   programs.wezterm = {
       enable = true;
       extraConfig = ''
-local config = wezterm.config_builder()
--- Ajout pour le problème de rendering de font après update 14 octobre 2024
-config.front_end = "WebGpu" 
-
-config.font = wezterm.font 'JetBrainsMono Nerd Font Mono'
-config.font_size = 14.0
-
-config.color_scheme = 'GruvboxDark'
-
-config.window_background_opacity = 0.9
-config.text_background_opacity = 0.9
-
--- Activer ou désactiver la tab bar
-config.enable_tab_bar = false
-
--- Configuration temporaire pour contourner un bug avec wayland et Hyprland
-config.enable_wayland = false
-
-return config
+        local config = wezterm.config_builder()
+        -- Ajout pour le problème de rendering de font après update 14 octobre 2024
+        config.front_end = "WebGpu" 
+        
+        config.font = wezterm.font 'JetBrainsMono Nerd Font Mono'
+        config.font_size = 14.0
+        
+        config.color_scheme = 'GruvboxDark'
+        
+        config.window_background_opacity = 0.9
+        config.text_background_opacity = 0.9
+        
+        -- Activer ou désactiver la tab bar
+        config.enable_tab_bar = false
+        
+        -- Configuration temporaire pour contourner un bug avec wayland et Hyprland
+        config.enable_wayland = false
+        
+        return config
       '';
   };
 

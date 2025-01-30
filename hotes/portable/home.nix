@@ -52,10 +52,10 @@
     lua
     lazygit
 
-    # pour la musique
+    # Pour la musique
     pavucontrol
     termusic
-    cava  
+    cava
     yt-dlp # pour télécharger la musique de youtube
     clementine # Pour jouer et indexer la musique
     lollypop # Pour lecture de musique seulement - gnome
@@ -64,13 +64,13 @@
           # All of the below is for sway and Hyprland
     swaylock
     swayidle
+    swaybg
     wl-clipboard
     mako
     libnotify
     wofi
     tofi
     waybar
-    swaybg
     grim
     slurp
     imv
