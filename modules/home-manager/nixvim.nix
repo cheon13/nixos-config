@@ -152,7 +152,7 @@
       }
       # Raccourci pour une sortie du mode insert du terminal plus convial
       {
-        mode = "tn";
+        mode = "t";
         key = "<Escape>";
         action = ''<C-\><C-n>'';
       }
