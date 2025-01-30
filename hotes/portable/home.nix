@@ -102,13 +102,14 @@
       enable = true;
       enableCompletion  = true;
       bashrcExtra = ''
-   export PATH="$PATH:/usr/local/bin"
-   set -o vi
-   bind '"\e[A": history-search-backward'
-   bind '"\e[B": history-search-forward'
-	eval "$(fzf --bash)"
-	eval "$(zoxide init bash)"
-	eval "$(starship init bash)"
+        export PATH="$PATH:/usr/local/bin"
+        export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+        set -o vi
+        bind '"\e[A": history-search-backward'
+        bind '"\e[B": history-search-forward'
+       	eval "$(fzf --bash)"
+       	eval "$(zoxide init bash)"
+       	eval "$(starship init bash)"
       '';
       shellAliases = {
         ls = "eza --icons --group-directories-first";
@@ -116,7 +117,7 @@
         la = "eza -a --icons --group-directories-first";
         ll = "eza -l --icons --group-directories-first";  
         lla = "eza -la --icons --group-directories-first";
-	cd = "z";
+	      cd = "z";
         nk = "NVIM_APPNAME='nvim-kickstart' nvim";
         nt = "NVIM_APPNAME='nvim-test' nvim";
       };
@@ -125,15 +126,15 @@
   xsession = {
       enable = true;
       profileExtra = ''
-# Fichier de configuration pour startx
-#
-# Pour le fond d'écran
-nitrogen --restore &
-# Pour donner le status dans la barre de DWM
-slstatus &
-# La ligne suivant n'est pas nécessaire parce que intercept-tools s'en occupe pour la Console, Wayland et X11
-# setxkbmap -option caps:swapescape
-# exec dwm  # cette ligne est nécessaire si les fichiers est .xinitrc, mais pas pour .xprofile
+        # Fichier de configuration pour startx
+        #
+        # Pour le fond d'écran
+        nitrogen --restore &
+        # Pour donner le status dans la barre de DWM
+        slstatus &
+        # La ligne suivant n'est pas nécessaire parce que intercept-tools s'en occupe pour la Console, Wayland et X11
+        # setxkbmap -option caps:swapescape
+        # exec dwm  # cette ligne est nécessaire si les fichiers est .xinitrc, mais pas pour .xprofile
       '';
   };
 
@@ -191,25 +192,25 @@ slstatus &
   programs.wezterm = {
       enable = true;
       extraConfig = ''
-local config = wezterm.config_builder()
--- Ajout pour le problème de rendering de font après update 14 octobre 2024
-config.front_end = "WebGpu" 
-
-config.font = wezterm.font 'JetBrainsMono Nerd Font Mono'
-config.font_size = 14.0
-
-config.color_scheme = 'GruvboxDark'
-
-config.window_background_opacity = 0.9
-config.text_background_opacity = 0.9
-
--- Activer ou désactiver la tab bar
-config.enable_tab_bar = false
-
--- Configuration temporaire pour contourner un bug avec wayland et Hyprland
-config.enable_wayland = false
-
-return config
+        local config = wezterm.config_builder()
+        -- Ajout pour le problème de rendering de font après update 14 octobre 2024
+        config.front_end = "WebGpu" 
+        
+        config.font = wezterm.font 'JetBrainsMono Nerd Font Mono'
+        config.font_size = 14.0
+        
+        config.color_scheme = 'GruvboxDark'
+        
+        config.window_background_opacity = 0.9
+        config.text_background_opacity = 0.9
+        
+        -- Activer ou désactiver la tab bar
+        config.enable_tab_bar = false
+        
+        -- Configuration temporaire pour contourner un bug avec wayland et Hyprland
+        config.enable_wayland = false
+        
+        return config
       '';
   };
 
