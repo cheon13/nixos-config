@@ -60,9 +60,7 @@
       # Alt+Shift+J and Alt+Shift+K to swap the focused view with the next/previous
       # view in the layout stack
       riverctl map normal Alt+Shift J swap next
-      riverctl map normal Alt K focus-view previous
       riverctl map normal Alt+Shift K swap previous
-      riverctl map normal Alt K focus-view previous
 
       # Alt+Period and Alt+Comma to focus the next/previous output
       riverctl map normal Alt Period focus-output next
@@ -78,7 +76,6 @@
 
       # Alt+Shift+Return to bump the focused view to the top of the layout stack
       riverctl map normal Alt+Shift Return zoom
-      riverctl map normal Alt+Shift K focus-view previous
 
       # Alt+H and Alt+L to decrease/increase the main ratio of rivertile(1)
       riverctl map normal Alt H send-layout-cmd rivertile "main-ratio -0.05"
