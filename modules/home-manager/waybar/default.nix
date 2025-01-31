@@ -214,5 +214,8 @@
   }
 ]
   '';
+  # Configuration de waybar pour Riverwm avec des fichiers en dehors du store
+  xdg.configFile."waybar/river.config".source = config.lib.file.mkOutOfStoreSymlink "/home/cheon/.dotfiles/modules/home-manager/waybar/river.config";
+  xdg.configFile."waybar/river.style.css".source = config.lib.file.mkOutOfStoreSymlink "/home/cheon/.dotfiles/modules/home-manager/waybar/river.style.css";
 }
 
