@@ -213,15 +213,15 @@
       rivertile -view-padding 6 -outer-padding 6 &
 
       # Ajout des fonds d'écran
-      swaybg -i /home/cheon/Images/Wallpapers/riverWP &
+      riverctl spawn "swaybg -i /home/cheon/Images/Wallpapers/riverWP"
       # Ajout de la barre
-      waybar -c ~/.config/waybar/river.config -s ~/.config/waybar/river.style.css &
+      riverctl spawn "waybar -c ~/.config/waybar/river.config -s ~/.config/waybar/river.style.css"
       # Ajout du screen saver et du lock screen
-      swayidle -w\
+      riverctl spawn "swayidle -w\
           		timeout 300 'swaylock -f' \
           		timeout 600 ' wlopm --off eDP-1 --off  HDMI-A-1' \
       		    resume 'wlopm --on eDP-1 --on  HDMI-A-1' \
-          		before-sleep 'swaylock -f' &
+          		before-sleep 'swaylock -f'"
     '';
   };
 }
