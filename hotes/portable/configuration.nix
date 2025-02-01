@@ -126,7 +126,8 @@
   # Installation de gnugp avec une configuration de base
   programs.gnupg.agent = {
     enable = true;
-    pinentryPackage = pkgs.pinentry-curses;
+    pinentryPackage = pkgs.pinentry-gnome3;
+    #pinentryPackage = pkgs.pinentry-curses;
     enableSSHSupport = true;
   };
 
