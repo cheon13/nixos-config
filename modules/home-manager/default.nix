@@ -76,8 +76,6 @@
     hyprcursor
     capitaine-cursors-themed
     firefox-wayland # À vérifier si l'extension -wayland est toujours pertinente
-    google-chrome
-    brave
     qutebrowser
     alacritty
     kitty
