@@ -79,6 +79,7 @@
     hyprcursor
     capitaine-cursors-themed
     firefox-wayland
+    passff-host # Host app for the WebExtension PassFF for password-store in firefox
     google-chrome
     brave
     qutebrowser
