@@ -29,9 +29,14 @@
       # Alt-N Pour prendre des notes rapidement
       #riverctl map normal Alt N spawn 'kitty -d ~/Documents/Cerveau nvim +/Note /home/cheon/Documents/Cerveau/index.md'
       riverctl map normal Alt N spawn 'foot -T Notes -D ~/Documents/Cerveau nvim +/Note /home/cheon/Documents/Cerveau/index.md'
+
       # Alt-Shift S Pour prendre copie-écran
       riverctl map normal Alt+Shift S spawn 'slurp | grim -g -'
       riverctl map normal Mod5+Shift S spawn 'slurp | grim -g -'
+
+      # Alt P Pour afficher passmenu pour passwordstore
+      riverctl map normal Alt P spawn 'passmenu'
+      riverctl map normal Mod5 P spawn 'passmenu'
 
       # Mapping pour le menu wofi 
       #riverctl map normal Alt D spawn 'wofi --show drun'

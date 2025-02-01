@@ -78,8 +78,8 @@
     networkmanagerapplet
     hyprcursor
     capitaine-cursors-themed
-    firefox-wayland
-    passff-host # Host app for the WebExtension PassFF for password-store in firefox
+    firefox-wayland # À vérifier si l'extension -wayland est toujours pertinente
+    #passff-host # Host app for the WebExtension PassFF for password-store in firefox
     google-chrome
     brave
     qutebrowser

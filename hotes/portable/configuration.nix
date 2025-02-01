@@ -170,6 +170,7 @@
       src = ./slstatus;
     }))
     dmenu
+    dmenu-wayland # pour permettre d'utiliser dmenu et passmenu dans wayland
     xclip
     nitrogen
     #(dwl.overrideAttrs (oldAttrs: rec {
