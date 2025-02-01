@@ -1,6 +1,6 @@
 # Home.nix 
 
-{ config, pkgs, inputs,... }:
+{ config, pkgs, inputs, ...}:
 
 {
   imports =
@@ -45,7 +45,6 @@
     slides
     lynx	
     tldr
-    # taskwarrior # à changer pour taskwarrior3
 
     # Programmation
     python3
@@ -77,12 +76,10 @@
     capitaine-cursors-themed
     firefox-wayland
     qutebrowser
+    alacritty
     kitty
     wezterm
     libreoffice
-    # pour utiliser les images Docker
-    #podman
-    #fuse-overlayfs
     nixfmt-rfc-style # formateur pour les fichiers nix dans nvim
   ];
 
@@ -120,16 +117,16 @@
   };
 
   home.file.".xinitrc".text = ''
-# Fichier de configuration pour startx
-#
-# Pour le fond d'écran
-nitrogen --restore &
-# Pour donner le status dans la barre de DWM
-slstatus &
-# La ligne suivant n'est pas nécessaire parce que intercept-tools s'en occupe pour la Console, Wayland et X11
-# setxkbmap -option caps:swapescape
-exec dwm  # cette ligne est nécessaire si les fichiers est .xinitrc, mais pas pour .xprofile
-      '';
+    # Fichier de configuration pour startx
+    #
+    # Pour le fond d'écran
+    nitrogen --restore &
+    # Pour donner le status dans la barre de DWM
+    slstatus &
+    # La ligne suivant n'est pas nécessaire parce que intercept-tools s'en occupe pour la Console, Wayland et X11
+    # setxkbmap -option caps:swapescape
+    exec dwm  # cette ligne est nécessaire si les fichiers est .xinitrc, mais pas pour .xprofile
+  '';
 
   programs.kitty = {
       enable = true;
@@ -151,35 +148,35 @@ exec dwm  # cette ligne est nécessaire si les fichiers est .xinitrc, mais pas p
   };
 
   programs.foot = {
-      enable = true;
-      settings = {
-	main = {
-	  term = "foot";
-          font = "JetBrainsMono Nerd Font Mono:size=14";
-	};
-	colors = { 
-	  alpha = 0.9;
-	  # configuration gruvbox dark
-          background = "282828";
-          foreground = "ebdbb2";
-          regular0 = "282828";
-          regular1 = "cc241d";
-          regular2 = "98971a";
-          regular3 = "d79921";
-          regular4 = "458588";
-          regular5 = "b16286";
-          regular6 = "689d6a";
-          regular7 = "a89984";
-          bright0 = "928374";
-          bright1 = "fb4934";
-          bright2 = "b8bb26";
-          bright3 = "fabd2f";
-          bright4 = "83a598";
-          bright5 = "d3869b";
-          bright6 = "8ec07c";
-          bright7 = "ebdbb2";
-	};
-      };
+    enable = true;
+    settings = {
+	    main = {
+	      term = "foot";
+              font = "JetBrainsMono Nerd Font Mono:size=14";
+	    };
+	    colors = { 
+	      alpha = 0.9;
+	      # configuration gruvbox dark
+        background = "282828";
+        foreground = "ebdbb2";
+        regular0 = "282828";
+        regular1 = "cc241d";
+        regular2 = "98971a";
+        regular3 = "d79921";
+        regular4 = "458588";
+        regular5 = "b16286";
+        regular6 = "689d6a";
+        regular7 = "a89984";
+        bright0 = "928374";
+        bright1 = "fb4934";
+        bright2 = "b8bb26";
+        bright3 = "fabd2f";
+        bright4 = "83a598";
+        bright5 = "d3869b";
+        bright6 = "8ec07c";
+        bright7 = "ebdbb2";
+	    };
+    };
   };
 
   programs.wezterm = {

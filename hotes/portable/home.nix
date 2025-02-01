@@ -9,7 +9,6 @@
       ../../modules/home-manager/nixvim.nix
       ../../modules/home-manager/sway.nix
       #../../modules/home-manager/swayidle.nix  # finalement swayidle est intégré directement à Sway et Hyprland
-      #../../modules/home-manager/waybar.nix
       ../../modules/home-manager/waybar
       ../../modules/home-manager/swaylock.nix
       ../../modules/home-manager/wofi.nix
@@ -46,7 +45,6 @@
     slides
     lynx	
     tldr
-    # taskwarrior # à changer pour taskwarrior3
 
     # Programmation
     python3
@@ -60,7 +58,6 @@
     yt-dlp # pour télécharger la musique de youtube
     clementine # Pour jouer et indexer la musique
     lollypop # Pour lecture de musique seulement - gnome
-    #shortwave # une appli pour écouter des postes de radio - gnome
 
           # All of the below is for sway and Hyprland
     swaylock
@@ -79,7 +76,6 @@
     hyprcursor
     capitaine-cursors-themed
     firefox-wayland # À vérifier si l'extension -wayland est toujours pertinente
-    #passff-host # Host app for the WebExtension PassFF for password-store in firefox
     google-chrome
     brave
     qutebrowser
@@ -125,7 +121,7 @@
         nt = "NVIM_APPNAME='nvim-test' nvim";
       };
   };
-  
+
   xsession = {
       enable = true;
       profileExtra = ''
@@ -161,35 +157,35 @@
   };
 
   programs.foot = {
-      enable = true;
-      settings = {
-	main = {
-	  term = "foot";
-          font = "JetBrainsMono Nerd Font Mono:size=14";
-	};
-	colors = { 
-	  alpha = 0.9;
-	  # configuration gruvbox dark
-          background = "282828";
-          foreground = "ebdbb2";
-          regular0 = "282828";
-          regular1 = "cc241d";
-          regular2 = "98971a";
-          regular3 = "d79921";
-          regular4 = "458588";
-          regular5 = "b16286";
-          regular6 = "689d6a";
-          regular7 = "a89984";
-          bright0 = "928374";
-          bright1 = "fb4934";
-          bright2 = "b8bb26";
-          bright3 = "fabd2f";
-          bright4 = "83a598";
-          bright5 = "d3869b";
-          bright6 = "8ec07c";
-          bright7 = "ebdbb2";
-	};
-      };
+    enable = true;
+    settings = {
+	    main = {
+	      term = "foot";
+              font = "JetBrainsMono Nerd Font Mono:size=14";
+	    };
+	    colors = { 
+	      alpha = 0.9;
+	      # configuration gruvbox dark
+        background = "282828";
+        foreground = "ebdbb2";
+        regular0 = "282828";
+        regular1 = "cc241d";
+        regular2 = "98971a";
+        regular3 = "d79921";
+        regular4 = "458588";
+        regular5 = "b16286";
+        regular6 = "689d6a";
+        regular7 = "a89984";
+        bright0 = "928374";
+        bright1 = "fb4934";
+        bright2 = "b8bb26";
+        bright3 = "fabd2f";
+        bright4 = "83a598";
+        bright5 = "d3869b";
+        bright6 = "8ec07c";
+        bright7 = "ebdbb2";
+	    };
+    };
   };
 
   programs.wezterm = {

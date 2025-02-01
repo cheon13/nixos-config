@@ -29,7 +29,6 @@
   programs.hyprland.enable = true;
   programs.sway.enable = true;
   programs.river.enable = true;
-  #programs.nixvim.enable = true;
 
   nix.settings.experimental-features = [
     "nix-command"
@@ -162,7 +161,7 @@
     pass
     rclone
     xdg-utils
-    pulseaudio # # pour avoir le logiciel pactl qui permet de contrôler le son en ligne de commande.
+    pulseaudio ## pour avoir le logiciel pactl qui permet de contrôler le son en ligne de commande.
     (st.overrideAttrs (oldAttrs: rec {
       src = ../../modules/nixos/st;
     }))
@@ -173,14 +172,8 @@
     dmenu-wayland # pour permettre d'utiliser dmenu et passmenu dans wayland
     xclip
     nitrogen
-    #(dwl.overrideAttrs (oldAttrs: rec {
-    #  src = ../../modules/nixos/dwl;
-    #}))
     wlr-randr
     wlopm
-    #widevine-cdm
-    #nodePackages.nodejs  # pour utiliser le plugin coc.nvim
-    #ltex-ls              # pour utiliser coc-ltex
   ];
 
   # Installation d'un package pour ricer nixos

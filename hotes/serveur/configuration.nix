@@ -3,18 +3,17 @@
 { config, pkgs, ... }:
 
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      ../../modules/nixos/wayland.nix
-      #../../modules/nixos/gnome.nix
-      #../../modules/nixos/gdm.nix
-      #../../modules/nixos/sddm.nix
-      ../../modules/nixos/syncthing.nix
-      #../../modules/nixos/nixvim.nix
-      #../../modules/nixos/apache.nix
-    ];
-  
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+    ../../modules/nixos/wayland.nix
+    #../../modules/nixos/gnome.nix
+    #../../modules/nixos/gdm.nix
+    #../../modules/nixos/sddm.nix
+    ../../modules/nixos/syncthing.nix
+    #../../modules/nixos/nixvim.nix
+  ];
+
   services.xserver.enable = true;
   services.xserver.displayManager.startx.enable = true;
   services.xserver.windowManager.dwm.enable = true;
@@ -26,11 +25,15 @@
     # variant = "fr";
     #options = "caps:swapescape";
   };
+
   programs.hyprland.enable = true; 
   programs.sway.enable = true; 
 
-  nix.settings.experimental-features = [ "nix-command" "flakes" ]; 
 
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
   # Bootloader.
   boot.loader.grub.enable = true;
   boot.loader.grub.device = "/dev/sda";
@@ -141,6 +144,7 @@
   # Installation de gnugp avec une configuration de base
   programs.gnupg.agent = {
     enable = true;
+
     pinentryPackage = pkgs.pinentry-curses;
     enableSSHSupport = true;
   };
@@ -149,7 +153,11 @@
   users.users.cheon = {
     isNormalUser = true;
     description = "Christian Héon";
-    extraGroups = [ "networkmanager" "wheel" "audio"];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+      "audio"
+    ];
     packages = with pkgs; [
       firefox
       kitty
@@ -162,37 +170,33 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-  neovim
-  git
-  gh #github CLI pour faciliter l'authentification avec github.
-  gnupg
-  pinentry
-  pinentry-curses
-  pass
-  rclone
-  xdg-utils
-  pulseaudio ## pour avoir le logiciel pactl qui permet de contrôler le son en ligne de commande.
-  (st.overrideAttrs (oldAttrs: rec {
-    src = ../../modules/nixos/st;
-  }))
-  (slstatus.overrideAttrs (oldAttrs: rec {
-    src = ./slstatus;
-  }))
-  dmenu
-  xclip
-  nitrogen
-  #(dwl.overrideAttrs (oldAttrs: rec {
-  #  src = ../../modules/nixos/dwl;
-  #}))
-  wlopm
-  wlr-randr
-  #widevine-cdm
-  nodePackages.nodejs  # pour utiliser le plugin coc.nvim
-  ltex-ls              # pour utiliser coc-ltex
+    neovim
+  
+    git
+    gh # github CLI pour faciliter l'authentification avec github.
+    gnupg
+    pinentry
+    pinentry-curses
+    pass
+    rclone
+    xdg-utils
+    pulseaudio ## pour avoir le logiciel pactl qui permet de contrôler le son en ligne de commande.
+    (st.overrideAttrs (oldAttrs: rec {
+      src = ../../modules/nixos/st;
+    }))
+    (slstatus.overrideAttrs (oldAttrs: rec {
+      src = ./slstatus;
+    }))
+    dmenu
+    dmenu-wayland # pour permettre d'utiliser dmenu et passmenu dans wayland
+    xclip
+    nitrogen
+    wlr-randr
+    wlopm
   ];
 
-  # Installation d'un package pour ricer nixos 
-  stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-dark-medium.yaml";
+  # Installation d'un package pour ricer nixos
+  #stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-dark-medium.yaml";
 
   # Installation de fonts supplémentaires
   fonts.packages = with pkgs; [
@@ -205,7 +209,7 @@
     #powerline-fonts # pour utiliser airline
     font-awesome
   ];
-    
+
   # installation de nodejs pour utiliser le plugin coc-nvim
   #environment.systemPackages = [
   #  pkgs.nodePackages.nodejs
