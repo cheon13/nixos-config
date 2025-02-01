@@ -1,4 +1,4 @@
-# Home.nix 
+# Home.nix de portable
 
 { config, pkgs, inputs, ...}:
 
@@ -9,6 +9,7 @@
     ];
 
   home.packages = with pkgs; [ 
+    #ajouter les packages propres à portable
     google-chrome
     brave
     lollypop # Pour lecture de musique seulement - gnome
