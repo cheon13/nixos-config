@@ -142,9 +142,6 @@
     (st.overrideAttrs (oldAttrs: rec {
       src = ./st;
     }))
-    (slstatus.overrideAttrs (oldAttrs: rec {
-      src = ./slstatus;
-    }))
     dmenu
     dmenu-wayland # pour permettre d'utiliser dmenu et passmenu dans wayland
     xclip

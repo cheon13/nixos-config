@@ -26,6 +26,13 @@
   # Enable CUPS to print documents.
   # services.printing.enable = true;
 
+  environment.systemPackages = with pkgs; [
+    # compilation de slstatus propre à serveur
+    (slstatus.overrideAttrs (oldAttrs: rec {
+      src = ./slstatus;
+    }))
+  ];
+
   # Service de music streaming
   services.navidrome = {
     enable = true;
