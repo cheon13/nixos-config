@@ -1,54 +1,34 @@
-# configuration.nix
+# default.nix pour nixos
 
 { config, pkgs, ... }:
 
 {
   imports = [
-    # Include the results of the hardware scan.
-    ./hardware-configuration.nix
-    ../../modules/nixos/wayland.nix
-    #../../modules/nixos/gnome.nix
-    #../../modules/nixos/gdm.nix
-    #../../modules/nixos/sddm.nix
-    ../../modules/nixos/syncthing.nix
-    #../../modules/nixos/nixvim.nix
+    ./wayland.nix
+    ./syncthing.nix
+    ./nixvim.nix
   ];
 
   services.xserver.enable = true;
   services.xserver.displayManager.startx.enable = true;
   services.xserver.windowManager.dwm.enable = true;
   services.xserver.windowManager.dwm.package = pkgs.dwm.overrideAttrs {
-    src = ../../modules/nixos/dwm;
+    src = ./dwm;
   };
   services.xserver.xkb = {
     layout = "ca";
     # variant = "fr";
     #options = "caps:swapescape";
   };
-
   programs.hyprland.enable = true;
   programs.sway.enable = true;
-
+  programs.river.enable = true;
 
   nix.settings.experimental-features = [
     "nix-command"
     "flakes"
   ];
-  # Bootloader.
-  boot.loader.grub.enable = true;
-  boot.loader.grub.device = "/dev/sda";
-  boot.loader.grub.useOSProber = true;
-
-  # Ajout du disque externe pour les backup
-  fileSystems."/mnt/backup" =
-    { device = "/dev/disk/by-uuid/33a30ccc-46ef-4a3d-895a-31fd72e8f004";
-      fsType = "ext4";
-      options = [ "nofail,user" ];
-    };
-
-  networking.hostName = "serveur"; # Define your hostname.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-
+  
   # Enable networking
   networking.networkmanager.enable = true;
 
@@ -97,9 +77,6 @@
     '';
   };
 
-  # Enable CUPS to print documents.
-  # services.printing.enable = true;
-
   # Enable sound with pipewire.
   # sound.enable = true; # option definition 'sound' no longer has any effect.
   services.pulseaudio.enable = false;
@@ -116,17 +93,6 @@
     # no need to redefine it in your config for now)
     #media-session.enable = true;
   };
-  # Service de music streaming
-  services.navidrome = {
-    enable = true;
-    openFirewall = true;
-    settings = {
-      Address = "10.0.0.200";
-      Port = 4533;
-      MusicFolder = "/var/Navidrome-music";
-      EnableSharing = true;
-    };
-  };
 
   virtualisation.containers.enable = true;
   virtualisation = {
@@ -139,14 +105,6 @@
       # Required for containers under podman-compose to be able to talk to each other.
       defaultNetwork.settings.dns_enabled = true;
     };
-  };
-
-  # Installation de gnugp avec une configuration de base
-  programs.gnupg.agent = {
-    enable = true;
-
-    pinentryPackage = pkgs.pinentry-curses;
-    enableSSHSupport = true;
   };
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
@@ -171,7 +129,7 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     neovim
-  
+    lua-language-server
     git
     gh # github CLI pour faciliter l'authentification avec github.
     gnupg
@@ -182,7 +140,7 @@
     xdg-utils
     pulseaudio ## pour avoir le logiciel pactl qui permet de contrôler le son en ligne de commande.
     (st.overrideAttrs (oldAttrs: rec {
-      src = ../../modules/nixos/st;
+      src = ./st;
     }))
     (slstatus.overrideAttrs (oldAttrs: rec {
       src = ./slstatus;
@@ -210,11 +168,6 @@
     font-awesome
   ];
 
-  # installation de nodejs pour utiliser le plugin coc-nvim
-  #environment.systemPackages = [
-  #  pkgs.nodePackages.nodejs
-  #];
-
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
@@ -227,19 +180,5 @@
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
-
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
-
-  # This value determines the NixOS release from which the default
-  # settings for stateful data, like file locations and database versions
-  # on your system were taken. It‘s perfectly fine and recommended to leave
-  # this value at the release version of the firspath/to/dwm/source/treet install of this system.
-  # Before changing this value read the documentation for this option
-  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "23.05"; # Did you read the comment?
 
 }
