@@ -15,7 +15,10 @@
     vimAlias = true;
     viAlias = true;
 
-    extraConfigLua = "vim.g.vimwiki_list = {{path = '~/Documents/Cerveau', syntax = 'markdown', ext = '.md'}}";
+    extraConfigLua = ''
+    vim.g.vimwiki_list = {{path = '~/Documents/Cerveau', syntax = 'markdown', ext = '.md'}}
+    lua vim.cmd "highlight Normal guibg=none"
+    '';
 
     opts = {
       number = true; # Show line numbers
