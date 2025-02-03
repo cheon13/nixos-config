@@ -7,7 +7,9 @@
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
     ../../modules/nixos
+    ../../modules/nixos/nextcloud
   ];
+
   # Bootloader.
   boot.loader.grub.enable = true;
   boot.loader.grub.device = "/dev/sda";
