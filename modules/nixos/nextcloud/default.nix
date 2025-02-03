@@ -5,7 +5,7 @@
   services.nextcloud = {
     enable = true;
     package = pkgs.nextcloud30;
-    hostName = "localhost";
+    hostName = "serveur";
     config.adminpassFile = "/etc/nextcloud-admin-pass";
     config.dbtype = "sqlite";
   };
