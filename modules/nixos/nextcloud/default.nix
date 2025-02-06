@@ -7,7 +7,7 @@
     package = pkgs.nextcloud30;
     hostName = "10.0.0.200";
     config.adminpassFile = "/etc/nextcloud-admin-pass";
-    config.dbtype = "pgsql";
+    config.dbtype = "sqlite";
     database.createLocally = true;
   };
   
