@@ -8,6 +8,7 @@
     hostName = "10.0.0.200";
     config.adminpassFile = "/etc/nextcloud-admin-pass";
     config.dbtype = "mysql";
+    database.createLocally = true;
   };
   
   networking.firewall.allowedTCPPorts = [ 80 443 ];
