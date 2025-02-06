@@ -8,6 +8,7 @@
     ./hardware-configuration.nix
     ../../modules/nixos
     ../../modules/nixos/nextcloud
+    ../../modules/nixos/navidrome.nix
   ];
 
   # Bootloader.
@@ -34,18 +35,6 @@
       src = ./slstatus;
     }))
   ];
-
-  # Service de music streaming
-  services.navidrome = {
-    enable = true;
-    openFirewall = true;
-    settings = {
-      Address = "10.0.0.200";
-      Port = 4533;
-      MusicFolder = "/var/Navidrome-music";
-      EnableSharing = true;
-    };
-  };
 
   # Installation de gnugp avec une configuration de base
   programs.gnupg.agent = {
