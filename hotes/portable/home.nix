@@ -13,6 +13,7 @@
     google-chrome
     brave
     lollypop # Pour lecture de musique seulement - gnome
+    signal-desktop
   ];
 
   xsession = {
