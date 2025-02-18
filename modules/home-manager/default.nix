@@ -213,7 +213,6 @@
       hb = "#282828";
       tf = "#fb4934";
       hf = "#fabd2f";
-      nf = "#ebdbb2";
       af = "#ebdbb2";
       ab = "#282828";
       border = 1;
