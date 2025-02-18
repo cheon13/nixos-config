@@ -47,8 +47,8 @@
       #riverctl map normal Mod5 D spawn '$(tofi-drun)'
 
       # Mapping pour le menu bemenu-run
-      riverctl map normal Alt D spawn 'bemenu-run'
-      riverctl map normal Mod5 D spawn 'bemenu-run'
+      riverctl map normal Alt D spawn ' bemenu-run -i -W 0.3 -c -l 20 --fn JetBrainsMono 14 --fb "#282828" --ff "#ebdbb2" --nb "#282828" --nf "#ebdbb2" --tb "#282828" --hb "#282828" --tf "#fb4934" --hf "#fabd2f"  --af "#ebdbb2" --ab "#282828" -B 1 --bdr "#ebdbb2" '
+      riverctl map normal Mod5 D spawn ' bemenu-run -i -W 0.3 -c -l 20 --fn JetBrainsMono 14 --fb "#282828" --ff "#ebdbb2" --nb "#282828" --nf "#ebdbb2" --tb "#282828" --hb "#282828" --tf "#fb4934" --hf "#fabd2f"  --af "#ebdbb2" --ab "#282828" -B 1 --bdr "#ebdbb2" '
 
       # Mapping pour le menu réseau 
       riverctl map normal Alt R spawn '~/.config/waybar/scripts/reseau.sh'

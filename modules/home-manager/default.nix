@@ -217,7 +217,6 @@
       ab = "#282828";
       border = 1;
       bdr = "#ebdbb2";
-
     };
   };
   # Let Home Manager install and manage itself.
