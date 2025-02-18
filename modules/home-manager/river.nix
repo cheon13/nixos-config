@@ -43,8 +43,12 @@
       #riverctl map normal Mod5 D spawn 'wofi --show drun'
 
       # Mapping pour le menu tofi-drun
-      riverctl map normal Alt D spawn '$(tofi-drun)'
-      riverctl map normal Mod5 D spawn '$(tofi-drun)'
+      #riverctl map normal Alt D spawn '$(tofi-drun)'
+      #riverctl map normal Mod5 D spawn '$(tofi-drun)'
+
+      # Mapping pour le menu bemenu-run
+      riverctl map normal Alt D spawn 'bemenu-run'
+      riverctl map normal Mod5 D spawn 'bemenu-run'
 
       # Mapping pour le menu réseau 
       riverctl map normal Alt R spawn '~/.config/waybar/scripts/reseau.sh'
