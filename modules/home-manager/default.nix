@@ -203,7 +203,7 @@
       ignorecase = true;
       width-factor = 0.3;
       center = true;
-      list = true;
+      list = 20;
       fn = "JetBrainsMono 14";
       fb = "#282828";
       ff = "#ebdbb2";
