@@ -20,9 +20,9 @@
   home.username = "cheon";
   home.homeDirectory = "/home/cheon";
   home.sessionPath = ["/usr/local/bin"];
-  home.sessionVariables = {
-    BEMENU_OPTS = "-l 20";
-  };
+  #home.sessionVariables = {
+  #  BEMENU_OPTS = "-l 20";
+  #};
 
   home.packages = with pkgs; [ 
     fortune
@@ -100,6 +100,9 @@
   programs.bash = {
       enable = true;
       enableCompletion  = true;
+      sessionVariables = {
+        BEMENU_OPTS = ''-i -W 0.3 -c -l 20 --fn JetBrainsMono 14 --fb "#282828" --ff "#ebdbb2" --nb "#282828" --nf "#ebdbb2" --tb "#282828" --hb "#282828" --tf "#fb4934" --hf "#fabd2f"  --af "#ebdbb2" --ab "#282828" -B 1 --bdr "#ebdbb2"'';
+      };
       bashrcExtra = ''
         export PATH="$PATH:/usr/local/bin"
         export MANPAGER="sh -c 'col -bx | bat -l man -p'"
