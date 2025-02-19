@@ -20,6 +20,9 @@
   home.username = "cheon";
   home.homeDirectory = "/home/cheon";
   home.sessionPath = ["/usr/local/bin"];
+  home.sessionVariables = {
+    BEMENU_OPTS = "-l 20";
+  };
 
   home.packages = with pkgs; [ 
     fortune
