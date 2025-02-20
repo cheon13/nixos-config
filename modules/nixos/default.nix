@@ -20,7 +20,7 @@
     # variant = "fr";
     #options = "caps:swapescape";
   };
-  programs.hyprland.enable = true;
+  #programs.hyprland.enable = true;
   programs.sway.enable = true;
   programs.river.enable = true;
 

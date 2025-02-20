@@ -2,7 +2,7 @@
 
 {
   # Wayland and Sway config
-  ## Hardware Support for Wayland (Sway+Hyprland)
+  ## Hardware Support for Wayland (Sway+Hyprland+River)
   hardware = {
     graphics = { # changé opengl à graphics
       enable = true;

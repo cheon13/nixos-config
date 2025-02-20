@@ -8,13 +8,12 @@
       #../../modules/home-manager/neovim.nix
       ./nixvim.nix
       ./sway.nix
-      #../../modules/home-manager/swayidle.nix  # finalement swayidle est intégré directement à Sway et Hyprland
+      ./river.nix
       ./waybar
       ./swaylock.nix
       ./wofi.nix
-      ./hyprland.nix
-      ./hyprpaper.nix
-      ./river.nix
+      #./hyprland.nix
+      #./hyprpaper.nix
     ];
 
   home.username = "cheon";
@@ -50,6 +49,7 @@
     python3
     lua
     lazygit
+    nixfmt-rfc-style # formateur pour les fichiers nix dans nvim
 
     # Pour la musique
     pavucontrol
@@ -59,11 +59,7 @@
     yt-dlp # pour télécharger la musique de youtube
     clementine # Pour jouer et indexer la musique
 
-    # Pour les livres numériques
-    calibre
-    calibre-web
-
-          # All of the below is for sway and Hyprland
+          # All of the below is for wayland window manager (sway,river and Hyprland)
     swaylock
     swayidle
     swaybg
@@ -76,8 +72,8 @@
     slurp
     imv
     networkmanagerapplet
-    hyprcursor
-    capitaine-cursors-themed
+    #hyprcursor
+    #capitaine-cursors-themed
     firefox-wayland # À vérifier si l'extension -wayland est toujours pertinente
     qutebrowser
     alacritty
@@ -85,7 +81,6 @@
     wezterm
     libreoffice
     jdk # nécessaire pour installer les extensions libreoffice
-    nixfmt-rfc-style # formateur pour les fichiers nix dans nvim
   ];
 
   programs.git = {
@@ -121,6 +116,7 @@
         df = "df -h -x tmpfs";
         nk = "NVIM_APPNAME='nvim-kickstart' nvim";
         nt = "NVIM_APPNAME='nvim-test' nvim";
+        riv = "dbus-run-session river";
       };
   };
 

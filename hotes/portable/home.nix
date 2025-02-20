@@ -14,6 +14,10 @@
     brave
     lollypop # Pour lecture de musique seulement - gnome
     signal-desktop
+
+    # Pour les livres numériques
+    calibre
+    foliate
   ];
 
   xsession = {
