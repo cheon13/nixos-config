@@ -59,6 +59,10 @@
     yt-dlp # pour télécharger la musique de youtube
     clementine # Pour jouer et indexer la musique
 
+    # Pour les livres numériques
+    calibre
+    calibre-web
+
           # All of the below is for sway and Hyprland
     swaylock
     swayidle
