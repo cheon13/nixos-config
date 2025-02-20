@@ -5,18 +5,9 @@
   wayland.windowManager.river = {
     enable = true;
     systemd.enable = true;
-    #extraSessionVariables = {
-    #  BEMENU_OPTS = "-i -W 0.3 -c -l 20 --fn JetBrainsMono 14 --fb '#282828' --ff '#ebdbb2' --nb '#282828' --nf '#ebdbb2' --tb '#282828' --hb '#282828' --tf '#fb4934' --hf '#fabd2f'  --af '#ebdbb2' --ab '#282828' -B 1 --bdr '#ebdbb2'";
-
-    #};
     extraConfig = ''
       #!/bin/sh
 
-      # This is the example configuration file for river.
-      #
-      # If you wish to edit this, you will probably want to copy it to
-      # $XDG_CONFIG_HOME/river/init or $HOME/.config/river/init first.
-      #
       # See the river(1), riverctl(1), and rivertile(1) man pages for complete
       # documentation.
 
@@ -47,11 +38,8 @@
       #riverctl map normal Mod5 D spawn 'wofi --show drun'
       
       # Mapping pour le menu bemenu-run
-      
-      #BEMENU_OPTS='-i -W 0.3 -c -l 20 --fn JetBrainsMono 14 --fb "#282828" --ff "#ebdbb2" --nb "#282828" --nf "#ebdbb2" --tb "#282828" --hb "#282828" --tf "#fb4934" --hf "#fabd2f"  --af "#ebdbb2" --ab "#282828" -B 2 --bdr "#ebdbb2"'
-      #BEMENU_OPTS='-i -W 0.3 -c -l 20 --fn JetBrainsMono 14 --fb #282828 --ff #ebdbb2 --nb #282828 --nf #ebdbb2 --tb #282828 --hb #282828 --tf #fb4934 --hf #fabd2f  --af #ebdbb2 --ab #282828 -B 1 --bdr #ebdbb2'
-      riverctl map normal Alt D spawn 'bemenu-run --prompt "Lancer" -i -W 0.3 -c -l 20 --fn JetBrainsMono 14 --fb "#282828" --ff "#ebdbb2" --nb "#282828" --nf "#ebdbb2" --tb "#282828" --hb "#282828" --tf "#fb4934" --hf "#fabd2f"  --af "#ebdbb2" --ab "#282828" -B 1 --bdr "#ebdbb2"' 
-      riverctl map normal Mod5 D spawn 'bemenu-run --prompt "Lancer" -i -W 0.3 -c -l 20 --fn JetBrainsMono 14 --fb "#282828" --ff "#ebdbb2" --nb "#282828" --nf "#ebdbb2" --tb "#282828" --hb "#282828" --tf "#fb4934" --hf "#fabd2f"  --af "#ebdbb2" --ab "#282828" -B 1 --bdr "#ebdbb2"'
+      riverctl map normal Alt D spawn 'bemenu-run --prompt "Lancer" -i -W 0.3 -c -l 20 --fn JetBrainsMono 14 --fb "#282828" --ff "#ebdbb2" --nb "#282828" --nf "#ebdbb2" --tb "#282828" --hb "#282828" --tf "#fb4934" --hf "#fabd2f"  --af "#ebdbb2" --ab "#282828" -B 2 --bdr "#ebdbb2"' 
+      riverctl map normal Mod5 D spawn 'bemenu-run --prompt "Lancer" -i -W 0.3 -c -l 20 --fn JetBrainsMono 14 --fb "#282828" --ff "#ebdbb2" --nb "#282828" --nf "#ebdbb2" --tb "#282828" --hb "#282828" --tf "#fb4934" --hf "#fabd2f"  --af "#ebdbb2" --ab "#282828" -B 2 --bdr "#ebdbb2"'
       
       # Mapping pour le menu réseau 
       riverctl map normal Alt R spawn '~/.config/waybar/scripts/reseau.sh'
