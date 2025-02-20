@@ -67,7 +67,6 @@
     mako
     libnotify
     wofi
-    tofi
     waybar
     grim
     slurp
