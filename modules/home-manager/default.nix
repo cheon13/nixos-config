@@ -20,9 +20,6 @@
   home.username = "cheon";
   home.homeDirectory = "/home/cheon";
   home.sessionPath = ["/usr/local/bin"];
-  #home.sessionVariables = {
-  #  BEMENU_OPTS = "-l 20";
-  #};
 
   home.packages = with pkgs; [ 
     fortune
@@ -100,8 +97,6 @@
   programs.bash = {
       enable = true;
       enableCompletion  = true;
-      sessionVariables = {
-      };
       bashrcExtra = ''
         export PATH="$PATH:/usr/local/bin"
         export MANPAGER="sh -c 'col -bx | bat -l man -p'"
