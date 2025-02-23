@@ -160,9 +160,9 @@
     nerd-fonts.noto
     jetbrains-mono
     nerd-fonts.jetbrains-mono
-    #nerdfonts
-    #powerline-fonts # pour utiliser airline
     font-awesome
+    # fonts compatible avec Microsoft Arial, Courrier New et Times New Roman
+    liberation_ttf
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
