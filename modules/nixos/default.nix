@@ -10,18 +10,18 @@
   ];
 
   services.xserver.enable = true;
-  services.xserver.displayManager.startx.enable = true;
-  services.xserver.windowManager.dwm.enable = true;
-  services.xserver.windowManager.dwm.package = pkgs.dwm.overrideAttrs {
-    src = ./dwm;
-  };
+  #services.xserver.displayManager.startx.enable = true;
+  #services.xserver.windowManager.dwm.enable = true;
+  #services.xserver.windowManager.dwm.package = pkgs.dwm.overrideAttrs {
+  #  src = ./dwm;
+  #};
   services.xserver.xkb = {
     layout = "ca";
     # variant = "fr";
     #options = "caps:swapescape";
   };
   #programs.hyprland.enable = true;
-  programs.sway.enable = true;
+  #programs.sway.enable = true;
   programs.river.enable = true;
 
   nix.settings.experimental-features = [

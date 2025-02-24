@@ -7,11 +7,11 @@
     [ 
       #../../modules/home-manager/neovim.nix
       ./nixvim.nix
-      ./sway.nix
       ./river.nix
       ./waybar
       ./swaylock.nix
       ./wofi.nix
+      #./sway.nix
       #./hyprland.nix
       #./hyprpaper.nix
     ];
