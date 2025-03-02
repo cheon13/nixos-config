@@ -10,7 +10,7 @@
   ];
 
   services.xserver.enable = true;
-  #services.xserver.displayManager.startx.enable = true;
+  services.xserver.displayManager.startx.enable = true;
   #services.xserver.windowManager.dwm.enable = true;
   #services.xserver.windowManager.dwm.package = pkgs.dwm.overrideAttrs {
   #  src = ./dwm;
