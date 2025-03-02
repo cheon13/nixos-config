@@ -95,6 +95,7 @@
   programs.bash = {
       enable = true;
       enableCompletion  = true;
+      historySize = 100000;
       bashrcExtra = ''
         export PATH="$PATH:/usr/local/bin"
         export MANPAGER="sh -c 'col -bx | bat -l man -p'"
@@ -116,7 +117,7 @@
         df = "df -h -x tmpfs";
         nk = "NVIM_APPNAME='nvim-kickstart' nvim";
         nt = "NVIM_APPNAME='nvim-test' nvim";
-        riv = "dbus-run-session river";
+        river = "dbus-run-session river";
       };
   };
 
