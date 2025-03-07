@@ -19,7 +19,7 @@
       nixpkgs,
       home-manager,
       nixos-wsl,
-      stylix,
+      #stylix,
       nixvim,
       ...
     }@inputs:
@@ -44,7 +44,7 @@
           specialArgs = { inherit system; };
           modules = [
             ./hotes/serveur/configuration.nix
-            stylix.nixosModules.stylix
+            #stylix.nixosModules.stylix
             #nixvim.homeManagerModules.nixvim
             nixvim.nixosModules.nixvim
             home-manager.nixosModules.home-manager
@@ -62,7 +62,7 @@
           specialArgs = { inherit system; };
           modules = [
             ./hotes/portable/configuration.nix
-            stylix.nixosModules.stylix
+            #stylix.nixosModules.stylix
             #nixvim.homeManagerModules.nixvim
             nixvim.nixosModules.nixvim
             home-manager.nixosModules.home-manager
