@@ -8,7 +8,7 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     nixos-wsl.url = "github:nix-community/NixOS-WSL";
     nixos-wsl.inputs.nixpkgs.follows = "nixpkgs";
-    stylix.url = "github:danth/stylix";
+    #stylix.url = "github:danth/stylix";
     nixvim.url = "github:nix-community/nixvim";
     nixvim.inputs.nixpkgs.follows = "nixpkgs";
   };
