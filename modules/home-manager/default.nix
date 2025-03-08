@@ -104,7 +104,7 @@
         bind '"\e[A": history-search-backward'
         bind '"\e[B": history-search-forward'
        	eval "$(fzf --bash)"
-       	eval "$(zoxide init bash)"
+       	# eval "$(zoxide init bash)"
        	eval "$(starship init bash)"
       '';
       shellAliases = {
@@ -119,6 +119,11 @@
         nt = "NVIM_APPNAME='nvim-test' nvim";
         river = "dbus-run-session river";
       };
+  };
+
+  programs.zoxide = {
+      enable = true;
+      enableBashIntegration = true;
   };
 
   programs.kitty = {
