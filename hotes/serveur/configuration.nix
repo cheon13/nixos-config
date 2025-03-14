@@ -39,7 +39,8 @@
   # Installation de gnugp avec une configuration de base
   programs.gnupg.agent = {
     enable = true;
-    pinentryPackage = pkgs.pinentry-curses;
+    pinentryPackage = pkgs.pinentry-gtk2;
+    #pinentryPackage = pkgs.pinentry-curses;
     enableSSHSupport = true;
   };
 
