@@ -17,7 +17,7 @@
 
     extraConfigLua = ''
     vim.g.vimwiki_list = {{path = '~/Documents/Cerveau', syntax = 'markdown', ext = '.md'}}
-    -- vim.cmd "highlight Normal guibg=none"
+    vim.cmd "highlight Normal guibg=none"
     '';
 
     opts = {
