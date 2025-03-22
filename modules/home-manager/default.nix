@@ -190,7 +190,7 @@
         config.color_scheme = 'GruvboxDark'
         
         config.window_background_opacity = 0.9
-        config.text_background_opacity = 0.9
+        -- config.text_background_opacity = 0.9
         
         -- Activer ou désactiver la tab bar
         config.enable_tab_bar = false
