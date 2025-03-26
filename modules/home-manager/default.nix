@@ -189,6 +189,9 @@
         
         config.color_scheme = 'GruvboxDark'
         
+        -- Le max_fps est 60 par défaut, mais le scrolling est plus smooth à 120
+        config.max_fps =120 
+
         config.window_background_opacity = 0.9
         -- config.text_background_opacity = 0.9
         
@@ -196,7 +199,7 @@
         config.enable_tab_bar = false
         
         -- Configuration temporaire pour contourner un bug avec wayland et Hyprland
-        config.enable_wayland = false
+        -- config.enable_wayland = false
         
         return config
       '';
