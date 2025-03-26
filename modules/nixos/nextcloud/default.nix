@@ -9,6 +9,10 @@
     config.adminpassFile = "/etc/nextcloud-admin-pass";
     config.dbtype = "mysql";
     database.createLocally = true;
+    extraApps = {
+      inherit (pkgs.nextcloud31Packages.apps) notes;
+    };
+  extraAppsEnable = true;
   };
   
   networking.firewall.allowedTCPPorts = [ 80 443 ];
