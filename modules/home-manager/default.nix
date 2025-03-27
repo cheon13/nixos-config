@@ -200,7 +200,14 @@
         
         -- Configuration temporaire pour contourner un bug avec wayland et Hyprland
         -- config.enable_wayland = false
-        
+
+        -- configuration des espaces entre le texte et la bordure de la fenêtre
+        config.window_padding = {
+          left = 2,
+          right = 2,
+          top = 0,
+          bottom = 0,
+        }
         return config
       '';
   };
