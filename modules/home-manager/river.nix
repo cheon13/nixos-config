@@ -54,8 +54,10 @@
       riverctl map normal Mod5+Shift E exit
 
       # Alt+J and Alt+K to focus the next/previous view in the layout stack
-      riverctl map normal Alt J focus-view next
-      riverctl map normal Alt K focus-view previous
+      riverctl map normal Alt H focus-view left
+      riverctl map normal Alt J focus-view down
+      riverctl map normal Alt K focus-view up
+      riverctl map normal Alt L focus-view right
 
       # Alt+Shift+J and Alt+Shift+K to swap the focused view with the next/previous
       # view in the layout stack
@@ -64,29 +66,22 @@
 
       # Alt+Period and Alt+Comma to focus the next/previous output
       riverctl map normal Alt Period focus-output next
-      riverctl map normal Alt K focus-view previous
       riverctl map normal Alt Comma focus-output previous
-      riverctl map normal Alt K focus-view previous
 
       # Alt+Shift+{Period,Comma} to send the focused view to the next/previous output
       riverctl map normal Alt+Shift Period send-to-output next
-      riverctl map normal Alt K focus-view previous
       riverctl map normal Alt+Shift Comma send-to-output previous
-      riverctl map normal Alt K focus-view previous
 
       # Alt+Shift+Return to bump the focused view to the top of the layout stack
       riverctl map normal Alt+Shift Return zoom
 
       # Alt+H and Alt+L to decrease/increase the main ratio of rivertile(1)
-      riverctl map normal Alt H send-layout-cmd rivertile "main-ratio -0.05"
-      riverctl map normal Alt K focus-view previous
-      riverctl map normal Alt L send-layout-cmd rivertile "main-ratio +0.05"
-      riverctl map normal Alt K focus-view previous
+      riverctl map normal Alt-Shift H send-layout-cmd rivertile "main-ratio -0.05"
+      riverctl map normal Alt-Shift L send-layout-cmd rivertile "main-ratio +0.05"
 
       # Alt+Shift+H and Alt+Shift+L to increment/decrement the main count of rivertile(1)
-      riverctl map normal Alt+Shift H send-layout-cmd rivertile "main-count +1"
-      riverctl map normal Alt K focus-view previous
-      riverctl map normal Alt+Shift L send-layout-cmd rivertile "main-count -1"
+      #riverctl map normal Alt+Shift H send-layout-cmd rivertile "main-count +1"
+      #riverctl map normal Alt+Shift L send-layout-cmd rivertile "main-count -1"
 
       # Super+Alt+{H,J,K,L} to move views
       riverctl map normal Super+Alt H move left 100
