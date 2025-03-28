@@ -14,17 +14,21 @@
       # Note: the "Alt" modifier is also known as Logo, GUI, Windows, Mod4, etc.
       #       the "Alt-char" modifier is Mod5
 
-      # Alt+Return to start an instance of foot terminal
-      riverctl map normal Alt Return spawn foot
+      # Alt+Return to start an instance of wezterm terminal
+      riverctl map normal Alt Return spawn wezterm
 
+      # Alt+Return to start an instance of foot terminal
+      #riverctl map normal Alt Return spawn foot
+      
       # Alt+W to start an instance of firefox
       riverctl map normal Alt W spawn firefox
       riverctl map normal Mod5 W spawn firefox
 
       # Alt+N Pour prendre des notes rapidement
       #riverctl map normal Alt N spawn 'kitty -d ~/Documents/Cerveau nvim +/Note /home/cheon/Documents/Cerveau/index.md'
-      riverctl map normal Alt N spawn 'foot -T Notes -D ~/Documents/Cerveau nvim +/Note /home/cheon/Documents/Cerveau/index.md'
-
+      #riverctl map normal Alt N spawn 'foot -T Notes -D ~/Documents/Cerveau nvim +/Note /home/cheon/Documents/Cerveau/index.md'
+      riverctl map normal Alt N spawn 'wezterm start  --cwd  ~/Documents/Cerveau nvim +/Note /home/cheon/Documents/Cerveau/index.md'
+      
       # Alt+Shift S Pour prendre copie-écran
       riverctl map normal Alt+Shift S spawn 'slurp | grim -g -'
       riverctl map normal Mod5+Shift S spawn 'slurp | grim -g -'
