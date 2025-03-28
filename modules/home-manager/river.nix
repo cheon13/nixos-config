@@ -21,11 +21,11 @@
       riverctl map normal Alt W spawn firefox
       riverctl map normal Mod5 W spawn firefox
 
-      # Alt-N Pour prendre des notes rapidement
+      # Alt+N Pour prendre des notes rapidement
       #riverctl map normal Alt N spawn 'kitty -d ~/Documents/Cerveau nvim +/Note /home/cheon/Documents/Cerveau/index.md'
       riverctl map normal Alt N spawn 'foot -T Notes -D ~/Documents/Cerveau nvim +/Note /home/cheon/Documents/Cerveau/index.md'
 
-      # Alt-Shift S Pour prendre copie-écran
+      # Alt+Shift S Pour prendre copie-écran
       riverctl map normal Alt+Shift S spawn 'slurp | grim -g -'
       riverctl map normal Mod5+Shift S spawn 'slurp | grim -g -'
 
@@ -76,8 +76,8 @@
       riverctl map normal Alt+Shift Return zoom
 
       # Alt+H and Alt+L to decrease/increase the main ratio of rivertile(1)
-      riverctl map normal Alt-Shift H send-layout-cmd rivertile "main-ratio -0.05"
-      riverctl map normal Alt-Shift L send-layout-cmd rivertile "main-ratio +0.05"
+      riverctl map normal Alt+Shift H send-layout-cmd rivertile "main-ratio -0.05"
+      riverctl map normal Alt+Shift L send-layout-cmd rivertile "main-ratio +0.05"
 
       # Alt+Shift+H and Alt+Shift+L to increment/decrement the main count of rivertile(1)
       #riverctl map normal Alt+Shift H send-layout-cmd rivertile "main-count +1"
