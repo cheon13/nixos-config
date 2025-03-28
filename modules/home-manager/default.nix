@@ -208,6 +208,9 @@
           top = 0,
           bottom = 0,
         }
+        -- configuration pour les tiling window manager
+        config.adjust_window_size_when_changing_font_size = false
+
         return config
       '';
   };
