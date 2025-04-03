@@ -3,11 +3,11 @@
     font-size: 15px;
     border: none;
     border-radius: 0;
-    min-height: 0;
+    min-height: 0px;
     margin: 1px;
     padding: 0;
     background: transparent;
-    background-color: rgba(5, 5, 5, 0.0);
+    background-color: rgba(5, 5, 5, 1.0);
     color: #ebdbb2;
 }
 
@@ -18,20 +18,13 @@ window#waybar {
 }
 
 button {
-    box-shadow: inset 0 -3px transparent;
     border: none;
     border-radius: 0;
 }
 
 button:hover {
     background: inherit;
-    box-shadow: inset 0 -3px #ebdbb2;
-}
-
-#workspaces button {
-    padding: 0 5px;
-    background-color: transparent;
-    color: #ebdbb2;
+    box-shadow: inset 0 -1px #ebdbb2;
 }
 
 #tags button {
@@ -40,18 +33,9 @@ button:hover {
     color: #ebdbb2;
 }
 
-#workspaces button:hover {
-    background: rgba(0, 0, 0, 0.2);
-}
-
 #tags button.occupied {
     background: rgba(0, 0, 0, 0.2);
-    box-shadow: inset 0 -2px #ebdbb2;
-}
-
-#workspaces button.focused {
-    border:  1px solid;
-    border-color: #ebdbb2;
+    box-shadow: inset 0 -1px #ebdbb2;
 }
 
 #tags button.focused {
@@ -59,14 +43,6 @@ button:hover {
     border-color: #ebdbb2;
 }
 
-#workspaces button.active {
-    border:  1px solid;
-    border-color: #ebdbb2;
-}
-
-#workspaces button.urgent {
-    background-color: #eb4d4b;
-}
 #tags button.urgent {
     background-color: #eb4d4b;
 }
@@ -82,8 +58,7 @@ button:hover {
     color: #ebdbb2;
 }
 
-#window,
-#workspaces {
+#window {
     padding:0 1px;
     margin: 1px 0px;
 }
