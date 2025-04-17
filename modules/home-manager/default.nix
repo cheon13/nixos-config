@@ -71,6 +71,8 @@
     grim
     slurp
     imv
+    matugen # générateur de couleur pour le ricing d'applications automatique
+
     networkmanagerapplet
     #hyprcursor
     #capitaine-cursors-themed
@@ -79,6 +81,8 @@
     alacritty
     kitty
     wezterm
+
+      # Applications de bureau
     libreoffice
     jdk # nécessaire pour installer les extensions libreoffice
   ];
