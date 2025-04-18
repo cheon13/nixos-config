@@ -146,7 +146,8 @@
         "ctrl+shift+^" = "previous_window";
         "ctrl+shift+enter" = "new_window_with_cwd";
       };
-      themeFile = "gruvbox-dark";
+      #themeFile = "gruvbox-dark";
+      extraConfig = "include colors.conf";
   };
 
   programs.foot = {
