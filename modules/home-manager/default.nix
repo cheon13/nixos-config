@@ -72,6 +72,7 @@
     slurp
     imv
     matugen # générateur de couleur pour le ricing d'applications automatique
+    pywalfox-native # pour appliquer les couleur de matugen (équivalent de pywal) à firefox
 
     networkmanagerapplet
     #hyprcursor
