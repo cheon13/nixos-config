@@ -193,7 +193,8 @@
         config.font = wezterm.font 'JetBrainsMono Nerd Font Mono'
         config.font_size = 14.0
         
-        config.color_scheme = 'GruvboxDark'
+        -- config.color_scheme = 'GruvboxDark'
+        config.color_scheme = 'matugen'
         
         -- Le max_fps est 60 par défaut, mais le scrolling est plus smooth à 120
         config.max_fps =120 
