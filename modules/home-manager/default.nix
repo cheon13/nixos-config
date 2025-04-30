@@ -157,7 +157,7 @@
 	    main = {
 	      term = "foot";
               font = "JetBrainsMono Nerd Font Mono:size=14";
-              include = "~/.config/foot/matugen/matugen-foot-colors.ini";
+              include = "~/.config/foot/foot-colors.ini";
 	    };
 	   # colors = { 
 	   #   alpha = 0.9;
