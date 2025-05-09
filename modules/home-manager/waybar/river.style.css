@@ -9,14 +9,14 @@
     margin: 1px;
     padding: 0;
     background: transparent;
-    background-color: @primary_container;
-    color: @primary;
+    background-color: @surface;
+    color: @on_surface;
 }
 
 window#waybar {
     background: transparent;
     background-color: rgba(5, 5, 5, 1.0);
-    color: @primary;
+    color: @on_surface;
 }
 
 button {
@@ -26,23 +26,23 @@ button {
 
 button:hover {
     background: inherit;
-    box-shadow: inset 0 -1px @primary;
+    box-shadow: inset 0 -1px @on_surface;
 }
 
 #tags button {
     padding: 0 5px;
     background-color: transparent;
-    color: @primary;
+    color: @on_surface;
 }
 
 #tags button.occupied {
     background: transparent;
-    box-shadow: inset 0 -1px @primary;
+    box-shadow: inset 0 -1px @on_surface;
 }
 
 #tags button.focused {
     border:  1px solid;
-    border-color: @primary;
+    border-color: @on_surface;
 }
 
 #tags button.urgent {
@@ -57,7 +57,7 @@ button:hover {
 #tray,
 #idle_inhibitor {
     padding: 0 10px;
-    color: @primary;
+    color: @on_surface;
 }
 
 #window {
