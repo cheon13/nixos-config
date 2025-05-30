@@ -80,13 +80,13 @@
     enable = true;
     keyboards = {
       internalKeyboard = {
-        devices = [
-          "/dev/input/by-path/platform-i8042-serio-0-event-kbd"
-          "/dev/input/by-id/usb-Keychron_Keychron_K2-event-kbd"
-          "/dev/input/by-path/pci-0000:00:14.0-usb-0:9:1.1-event-kbd"
-          "/dev/input/by-path/pci-0000:00:14.0-usbv2-0:9:1.1-event-kbd"
-          "/dev/input/by-id/usb-Logitech_USB_Receiver-if01-event-kbd"
-        ];
+        # devices = [
+        #   "/dev/input/by-path/platform-i8042-serio-0-event-kbd"
+        #   "/dev/input/by-id/usb-Keychron_Keychron_K2-event-kbd"
+        #   "/dev/input/by-path/pci-0000:00:14.0-usb-0:9:1.1-event-kbd"
+        #   "/dev/input/by-path/pci-0000:00:14.0-usbv2-0:9:1.1-event-kbd"
+        #   "/dev/input/by-id/usb-Logitech_USB_Receiver-if01-event-kbd"
+        # ];
         extraDefCfg = "process-unmapped-keys yes";
         config = ''
           (defsrc
