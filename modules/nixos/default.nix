@@ -107,7 +107,7 @@
           )
 
           (deflayer base
-           caps esc @a  @s  @d  @f  @j  @k  @l  @;
+           caps esc ;
            ;; caps esc @a  @s  @d  @f  @j  @k  @l  @;
           )
         '';
