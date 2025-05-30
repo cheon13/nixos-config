@@ -64,19 +64,54 @@
   console.keyMap = "cf";
   console.font = "sun12x22";
   # Pour échanger Capslock et Escape
-  services.interception-tools = {
+  #services.interception-tools = {
+  #  enable = true;
+  #  plugins = with pkgs; [
+  #    interception-tools-plugins.caps2esc
+  #  ];
+  #  udevmonConfig = ''
+  #    - JOB: "${pkgs.interception-tools}/bin/intercept -g $DEVNODE | ${pkgs.interception-tools-plugins.caps2esc}/bin/caps2esc -m 0 | ${pkgs.interception-tools}/bin/uinput -d $DEVNODE"
+  #      DEVICE:
+  #        EVENTS:
+  #          EV_KEY: [KEY_CAPSLOCK, KEY_ESC]
+  #  '';
+  #};
+  services.kanata = {
     enable = true;
-    plugins = with pkgs; [
-      interception-tools-plugins.caps2esc
-    ];
-    udevmonConfig = ''
-      - JOB: "${pkgs.interception-tools}/bin/intercept -g $DEVNODE | ${pkgs.interception-tools-plugins.caps2esc}/bin/caps2esc -m 0 | ${pkgs.interception-tools}/bin/uinput -d $DEVNODE"
-        DEVICE:
-          EVENTS:
-            EV_KEY: [KEY_CAPSLOCK, KEY_ESC]
-    '';
-  };
+    keyboards = {
+      internalKeyboard = {
+        devices = [
+          "/dev/input/by-path/platform-i8042-serio-0-event-kbd"
+          "/dev/input/by-id/usb-Keychron_Keychron_K2-event-kbd"
+          "/dev/input/by-id/usb-Logitech_USB_Receiver-if01-event-kbd"
+        ];
+        extraDefCfg = "process-unmapped-keys yes";
+        config = ''
+          (defsrc
+           esc caps a s d f j k l ;
+          )
+          (defvar
+           tap-time 150
+           hold-time 200
+          )
+          (defalias
+           a (tap-hold $tap-time $hold-time a lmet)
+           s (tap-hold $tap-time $hold-time s lalt)
+           d (tap-hold $tap-time $hold-time d lsft)
+           f (tap-hold $tap-time $hold-time f lctl)
+           j (tap-hold $tap-time $hold-time j rctl)
+           k (tap-hold $tap-time $hold-time k rsft)
+           l (tap-hold $tap-time $hold-time l ralt)
+           ; (tap-hold $tap-time $hold-time ; rmet)
+          )
 
+          (deflayer base
+           caps esc @a  @s  @d  @f  @j  @k  @l  @;
+          )
+        '';
+      };
+    };
+  };
   # Enable sound with pipewire.
   # sound.enable = true; # option definition 'sound' no longer has any effect.
   services.pulseaudio.enable = false;
