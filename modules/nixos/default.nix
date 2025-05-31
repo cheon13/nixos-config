@@ -105,7 +105,7 @@
 
           (deflayer base
            caps esc _ _ _ _
-           lmet 
+           @lmet 
           )
 
           (deflayer winman
