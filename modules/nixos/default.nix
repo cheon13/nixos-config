@@ -91,7 +91,7 @@
         config = ''
           (defsrc
            esc caps h j k l 
-           lmet;
+           lmet
           )
 
           (defvar
@@ -105,12 +105,12 @@
 
           (deflayer base
            caps esc _ _ _ _
-           lmet ;
+           lmet 
           )
 
           (deflayer winman
            _ _ A-h A-j A-k A-l
-           _ ;
+           _ 
           )
         '';
       };
