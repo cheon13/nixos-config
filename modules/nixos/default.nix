@@ -90,7 +90,7 @@
         extraDefCfg = "process-unmapped-keys yes";
         config = ''
           (defsrc
-           esc caps h j k l
+           esc caps l t i u
            lmet
           )
 
@@ -109,7 +109,7 @@
           )
 
           (deflayer winman
-           _ _ A-h A-j A-k A-l
+           _ _ h j k l
            _ 
           )
         '';
