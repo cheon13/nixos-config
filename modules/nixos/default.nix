@@ -91,7 +91,7 @@
         config = ''
           (defsrc
            esc caps h j k l
-           lmet
+           ;;lmet
           )
 
           (defvar
@@ -110,13 +110,13 @@
 
           (deflayer base
            caps esc _ _ _ _
-           @lmet 
+           ;;@lmet 
           )
 
-          ;;(deflayer vimnav
-          ;; _ _ @h @j @k @l
-          ;; _ 
-          ;;)
+          (deflayer vimnav
+           _ _ @h @j @k @l
+           _ 
+          )
         '';
       };
     };
