@@ -100,7 +100,12 @@
           )
 
           (defalias
-           lmet (layer-while-held winman)
+           lmet (layer-while-held vimnav)
+           ;; pour le remap de hjkl dand ergol-l pour faciliter la navigation vim
+           h m 
+           j y
+           k /
+           l h
           )
 
           (deflayer base
@@ -108,8 +113,8 @@
            @lmet 
           )
 
-          (deflayer winman
-           _ _ m y / h
+          (deflayer vimnav
+           _ _ @h @j @k @l
            _ 
           )
         '';
