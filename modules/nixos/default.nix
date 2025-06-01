@@ -99,24 +99,24 @@
            hold-time 200
           )
 
-          (defalias
-           lmet (layer-while-held vimnav)
-           ;; pour le remap de hjkl dand ergol-l pour faciliter la navigation vim
-           h m 
-           j y
-           k /
-           l h
-          )
+          ;;(defalias
+          ;; lmet (layer-while-held vimnav)
+          ;; ;; pour le remap de hjkl dand ergol-l pour faciliter la navigation vim
+          ;; h m 
+          ;; j y
+          ;; k /
+          ;; l h
+          ;;)
 
           (deflayer base
            caps esc _ _ _ _
            @lmet 
           )
 
-          (deflayer vimnav
-           _ _ @h @j @k @l
-           _ 
-          )
+          ;;(deflayer vimnav
+          ;; _ _ @h @j @k @l
+          ;; _ 
+          ;;)
         '';
       };
     };
