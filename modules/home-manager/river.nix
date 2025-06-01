@@ -63,6 +63,12 @@
       riverctl map normal Alt K focus-view up
       riverctl map normal Alt L focus-view right
 
+      # Ergol Mod4+J and Mod4+K to focus the next/previous view in the layout stack
+      riverctl map normal Mod4 L focus-view left
+      riverctl map normal Mod4 R focus-view down
+      riverctl map normal Mod4 T focus-view up
+      riverctl map normal Mod4 I focus-view right
+
       # Alt+Shift+J and Alt+Shift+K to swap the focused view with the next/previous
       # view in the layout stack
       riverctl map normal Alt+Shift J swap next
