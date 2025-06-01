@@ -154,10 +154,10 @@
       done
       
       # Ergol map tags 1,2,3,4 to h g , k
-      riverctl map normal Mod4 H set-focused-tags 1
-      riverctl map normal Mod4 G set-focused-tags 2
-      riverctl map normal Mod4 Comma set-focused-tags 3
-      riverctl map normal Mod4 K set-focused-tags 4
+      riverctl map normal Mod4 H set-focused-tags (1 << (1 - 1))
+      riverctl map normal Mod4 G set-focused-tags (1 << (2 - 1))
+      riverctl map normal Mod4 Comma set-focused-tags (1 << (3 - 1))
+      riverctl map normal Mod4 K set-focused-tags (1 << (4 - 1))
 
       # Alt+0 to focus all tags
       # Alt+Shift+0 to tag focused view with all tags
