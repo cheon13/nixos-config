@@ -113,10 +113,10 @@
            ;;@lmet 
           )
 
-          (deflayer vimnav
-           _ _ @h @j @k @l
-           ;;_ 
-          )
+          ;;(deflayer vimnav
+          ;; _ _ @h @j @k @l
+          ;; _
+          ;;)
         '';
       };
     };
