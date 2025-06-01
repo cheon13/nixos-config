@@ -78,9 +78,13 @@
       riverctl map normal Alt Period focus-output next
       riverctl map normal Alt Comma focus-output previous
 
-      # Ergol Mod4+Period and Mod4+Comma to focus the next/previous output
-      riverctl map normal Mod4 G focus-output next
-      riverctl map normal Mod4 Comma focus-output previous
+      # Ergol Mod4+Comma and Mod4+G to focus the next/previous output
+      riverctl map normal Mod4 Comma focus-output next
+      riverctl map normal Mod4 G focus-output previous
+
+      # Ergol Mod4+K and Mod4+H to focus the next/previous output
+      riverctl map normal Mod4 K focus-output next
+      riverctl map normal Mod4 H focus-output previous
 
       # Alt+Shift+{Period,Comma} to send the focused view to the next/previous output
       riverctl map normal Alt+Shift Period send-to-output next
