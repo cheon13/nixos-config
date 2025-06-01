@@ -61,6 +61,17 @@
     ];
 
     keymaps = [
+      # faciliter navigation j et k avec ergol
+      {
+        mode = "n";
+        key = "+";
+        action = "gj";
+      }
+      {
+        mode = "n";
+        key = "-";
+        action = "gk";
+      }
       #navigation entre les splits
       {
         mode = "n";
@@ -153,7 +164,7 @@
         key = "<Leader>f";
         action = ''<cmd>lua require("mini.files").open()<CR>'';
       }
-      # Raccourci pour une sortie du mode insert du terminal plus convial
+      # Raccourci pour une sortie du mode insert du terminal plus convivial
       {
         mode = "t";
         key = "<Escape>";
