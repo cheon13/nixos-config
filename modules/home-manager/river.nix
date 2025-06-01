@@ -78,13 +78,12 @@
       riverctl map normal Alt Period focus-output next
       riverctl map normal Alt Comma focus-output previous
 
-      # Ergol Mod4+Comma and Mod4+G to focus the next/previous output
-      riverctl map normal Mod4 Comma focus-output next
-      riverctl map normal Mod4 G focus-output previous
+      # Ergol Mod4+D and Mod4+M to focus the next/previous output
+      riverctl map normal Mod4 D focus-output next
+      riverctl map normal Mod4 M focus-output previous
 
-      # Ergol Mod4+K and Mod4+H to focus the next/previous output
-      riverctl map normal Mod4 K focus-output next
-      riverctl map normal Mod4 H focus-output previous
+      # Ergol Mod4+H to focus the previous tag
+      riverctl map normal Mod4 H focus-previous-tag
 
       # Alt+Shift+{Period,Comma} to send the focused view to the next/previous output
       riverctl map normal Alt+Shift Period send-to-output next
@@ -153,6 +152,12 @@
           riverctl map normal Alt+Shift+Control F$i toggle-view-tags $tags
           riverctl map normal Mod5+Shift+Control F$i toggle-view-tags $tags
       done
+      
+      # Ergol map tags 1,2,3,4 to h g , k
+      riverctl map normal Mod4 H set-focused-tags 0
+      riverctl map normal Mod4 G set-focused-tags 1
+      riverctl map normal Mod4 Comma set-focused-tags 2
+      riverctl map normal Mod4 K set-focused-tags 3
 
       # Alt+0 to focus all tags
       # Alt+Shift+0 to tag focused view with all tags
