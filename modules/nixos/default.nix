@@ -109,7 +109,7 @@
           )
 
           (deflayer winman
-           _ _ n y / h
+           _ _ m y / h
            _ 
           )
         '';
