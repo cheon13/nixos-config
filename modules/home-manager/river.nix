@@ -80,7 +80,7 @@
 
       # Ergol Mod4+Period and Mod4+Comma to focus the next/previous output
       riverctl map normal Mod4 G focus-output next
-      riverctl map normal Mod4 Period focus-output previous
+      riverctl map normal Mod4 Comma focus-output previous
 
       # Alt+Shift+{Period,Comma} to send the focused view to the next/previous output
       riverctl map normal Alt+Shift Period send-to-output next
