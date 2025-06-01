@@ -115,7 +115,7 @@
 
           (deflayer vimnav
            _ _ @h @j @k @l
-           _ 
+           ;;_ 
           )
         '';
       };
