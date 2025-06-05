@@ -123,6 +123,8 @@
         nk = "NVIM_APPNAME='nvim-kickstart' nvim";
         nt = "NVIM_APPNAME='nvim-test' nvim";
         river = "dbus-run-session river";
+        qw = "~/Scripts/qw.sh";
+        er = "~/Scripts/er.sh";
       };
   };
 
