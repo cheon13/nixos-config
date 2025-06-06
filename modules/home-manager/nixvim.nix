@@ -76,7 +76,7 @@
       {
         mode = "n";
         key = "<C-I>";
-        action = "<C-I>>";
+        action = "<C-I>";
       }
       #navigation entre les splits
       {
