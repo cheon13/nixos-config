@@ -15,10 +15,10 @@
       #       the "Alt-char" modifier is Mod5
 
       # Alt+Return to start an instance of wezterm terminal
-      riverctl map normal Alt Return spawn wezterm
+      #riverctl map normal Alt Return spawn wezterm
 
       # Alt+Return to start an instance of foot terminal
-      #riverctl map normal Alt Return spawn foot
+      riverctl map normal Alt Return spawn foot
       
       # Alt+W to start an instance of firefox
       riverctl map normal Alt W spawn firefox
