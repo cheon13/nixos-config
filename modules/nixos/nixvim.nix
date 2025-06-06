@@ -58,6 +58,12 @@
   ];
 
   keymaps = [
+    # Pour séparer TAB de Control-I 
+    {
+      mode = "n";
+      key = "<C-I>";
+      action = "<C-I>";
+    }
     #navigation entre les splits
     {
       mode = "n";
