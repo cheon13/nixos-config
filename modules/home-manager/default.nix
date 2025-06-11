@@ -162,6 +162,9 @@
               #include = "~/.config/foot/foot-colors.ini";
               include = "~/.config/foot/gruvbox.foot.ini";
 	    };
+      csd = {
+        preferred = "none";
+      };
 	   # colors = { 
 	   #   alpha = 0.9;
 	   #   # configuration gruvbox dark
