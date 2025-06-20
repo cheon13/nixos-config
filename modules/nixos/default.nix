@@ -91,7 +91,7 @@
         config = ''
           (defsrc
            esc caps h j k l
-           ;;lmet
+           spc
           )
 
           (defvar
@@ -99,24 +99,24 @@
            hold-time 200
           )
 
-          ;;(defalias
-          ;; lmet (layer-while-held vimnav)
-          ;; ;; pour le remap de hjkl dand ergol-l pour faciliter la navigation vim
-          ;; h m 
-          ;; j y
-          ;; k /
-          ;; l h
-          ;;)
+          (defalias
+           spc (tap-hold $tap-time $hold-time spc vimnav)
+           ;; pour le remap de hjkl dand ergol-l pour faciliter la navigation vim
+           h left 
+           j down
+           k up
+           l rght
+          )
 
           (deflayer base
            caps esc _ _ _ _
-           ;;@lmet 
+           @spc 
           )
 
-          ;;(deflayer vimnav
-          ;; _ _ @h @j @k @l
-          ;; _
-          ;;)
+          (deflayer vimnav
+           _ _ @h @j @k @l
+           _
+          )
         '';
       };
     };
