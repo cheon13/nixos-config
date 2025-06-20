@@ -100,8 +100,9 @@
           )
 
           (defalias
-           spc (tap-hold $tap-time $hold-time spc vimnav)
+           spc (tap-hold $tap-time $hold-time spc (layer-toggle navnum))
            ;; pour le remap de hjkl dand ergol-l pour faciliter la navigation vim
+           ;; réf : le site de kanata et https://shom.dev/start/using-kanata-to-remap-any-keyboard/
            h left 
            j down
            k up
@@ -113,7 +114,7 @@
            @spc 
           )
 
-          (deflayer vimnav
+          (deflayer navnum
            _ _ @h @j @k @l
            _
           )
