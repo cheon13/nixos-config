@@ -23,6 +23,7 @@
       require("mini.files").setup({
         mappings = {
           go_in = '<Right>',
+          go_out = '<Left>',
         },
       })
     '';
