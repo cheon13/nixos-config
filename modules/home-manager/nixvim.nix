@@ -21,9 +21,9 @@
       vim.cmd "highlight Normal guibg=none"
 
       require("mini.files").setup({
-	mappings = {
-	  go_in = 'i',
-	},
+        mappings = {
+          go_in = 'i',
+        },
       })
     '';
 
