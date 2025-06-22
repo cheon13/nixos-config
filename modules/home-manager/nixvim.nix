@@ -239,10 +239,13 @@
       vimwiki
       {
         plugin = mini-files;
-        config = ''lua require "mini.files".setup()'';
-        mappings = {
-          go_in = "<Right>";
-        };
+        config = ''lua require "mini.files".setup({
+
+            mappings = {
+              go_in = "<Right>",
+            },
+
+         })'';
       }
     ];
     #  plugins.render-markdown = {
