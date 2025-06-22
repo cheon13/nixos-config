@@ -217,7 +217,8 @@
       riverctl set-repeat 50 300
 
       # Configurer le layout du clavier
-      riverctl keyboard-layout ca
+      riverctl keyboard-layout -model pc101 -variant ergol fr
+      #riverctl keyboard-layout ca
 
       # Make all views with an app-id that starts with "float" and title "foo" start floating.
       riverctl rule-add -app-id 'float*' -title 'foo' float
