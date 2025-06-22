@@ -242,7 +242,7 @@
         config = ''lua require "mini.files".setup({
 
             mappings = {
-              go_in = "<Right>",
+              go_in = "i",
             },
 
          })'';
