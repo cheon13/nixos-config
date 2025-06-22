@@ -237,17 +237,16 @@
 
     extraPlugins = with pkgs.vimPlugins; [
       vimwiki
-      {
-        plugin = mini-files;
-        config = ''lua require "mini.files".setup({
-            mappings = {
-              go_in = 'i',
-            },
-         })'';
-      }
+      mini-files
     ];
-    #  plugins.render-markdown = {
-    #    enable = true;
-    #  };
+
+    extraConfigLua = ''
+      require("mini.files").setup({
+	            mappings = {
+	              go_in = 'i',
+	            },
+	         })
+    '';
+      
   };
 }
