@@ -16,8 +16,15 @@
     viAlias = true;
 
     extraConfigLua = ''
-    vim.g.vimwiki_list = {{path = '~/Documents/Cerveau', syntax = 'markdown', ext = '.md'}}
-    vim.cmd "highlight Normal guibg=none"
+      vim.g.vimwiki_list = {{path = '~/Documents/Cerveau', syntax = 'markdown', ext = '.md'}}
+
+      vim.cmd "highlight Normal guibg=none"
+
+      require("mini.files").setup({
+	mappings = {
+	  go_in = 'i',
+	},
+      })
     '';
 
     opts = {
@@ -240,13 +247,5 @@
       mini-files
     ];
 
-    extraConfigLua = ''
-      require("mini.files").setup({
-	            mappings = {
-	              go_in = 'i',
-	            },
-	         })
-    '';
-      
   };
 }
