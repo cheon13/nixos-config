@@ -90,8 +90,8 @@
       riverctl map normal Alt+Shift Comma send-to-output previous
 
       # Ergol Mod4+Shift+{Period,Comma} to send the focused view to the next/previous output
-      riverctl map normal Mod4+Shift Period send-to-output next
-      riverctl map normal Mod4+Shift Comma send-to-output previous
+      riverctl map normal Mod4+Shift D send-to-output next
+      riverctl map normal Mod4+Shift M send-to-output previous
 
       # Alt+Shift+Return to bump the focused view to the top of the layout stack
       riverctl map normal Alt+Shift Return zoom
