@@ -16,9 +16,12 @@
   #  src = ./dwm;
   #};
   services.xserver.xkb = {
-    layout = "ca";
-    # variant = "fr";
+    layout = "fr";
+    variant = "ergol";
+    #layout = "ca";
+    #variant = "fr";
     #options = "caps:swapescape";
+    model = "pc101";
   };
   #programs.hyprland.enable = true;
   #programs.sway.enable = true;
