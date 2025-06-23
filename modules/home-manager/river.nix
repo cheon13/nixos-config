@@ -143,7 +143,6 @@
 
           # Alt+[1-9] to focus tag [0-8]
           riverctl map normal Alt $i set-focused-tags $tags
-          '
           riverctl map normal Alt F$i set-focused-tags $tags
           riverctl map normal Mod5 F$i set-focused-tags $tags
           riverctl map normal Mod4 $i set-focused-tags $tags
