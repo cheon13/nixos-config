@@ -73,8 +73,8 @@
       # view in the layout stack
       riverctl map normal Alt+Shift J swap next
       riverctl map normal Alt+Shift K swap previous
-      riverctl map normal Mod4+Shift J swap next
-      riverctl map normal Mod4+Shift K swap previous
+      riverctl map normal Mod4+Shift R swap next
+      riverctl map normal Mod4+Shift T swap previous
 
       # Alt+Period and Alt+Comma to focus the next/previous output
       riverctl map normal Alt Period focus-output next
