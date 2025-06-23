@@ -22,12 +22,12 @@
       
       # Alt+W to start an instance of firefox
       riverctl map normal Alt W spawn firefox
-      riverctl map normal Mod5 W spawn firefox
+      #riverctl map normal Mod5 W spawn firefox
 
       # Alt+N Pour prendre des notes rapidement
       #riverctl map normal Alt N spawn 'kitty -d ~/Documents/Cerveau nvim +/Note /home/cheon/Documents/Cerveau/index.md'
-      #riverctl map normal Alt N spawn 'foot -T Notes -D ~/Documents/Cerveau nvim +/Note /home/cheon/Documents/Cerveau/index.md'
-      riverctl map normal Alt N spawn 'wezterm start  --cwd  ~/Documents/Cerveau nvim +/Note /home/cheon/Documents/Cerveau/index.md'
+      riverctl map normal Alt N spawn 'foot -T Notes -D ~/Documents/Cerveau nvim +/Note /home/cheon/Documents/Cerveau/index.md'
+      #riverctl map normal Alt N spawn 'wezterm start  --cwd  ~/Documents/Cerveau nvim +/Note /home/cheon/Documents/Cerveau/index.md'
 
       # Alt+Shift S Pour prendre copie-écran
       riverctl map normal Alt+Shift S spawn 'slurp | grim -g -'
@@ -35,7 +35,7 @@
 
       # Alt P Pour afficher passmenu pour passwordstore
       riverctl map normal Alt P spawn 'passmenu'
-      riverctl map normal Mod5 P spawn 'passmenu'
+      #riverctl map normal Mod5 P spawn 'passmenu'
 
       # Mapping pour le menu wofi 
       #riverctl map normal Alt D spawn 'wofi --show drun'
@@ -43,7 +43,7 @@
 
       # Mapping pour le menu bemenu-run
       riverctl map normal Alt D spawn 'bemenu-run --prompt "Lancer" -i -W 0.3 -c -l 20 --fn JetBrainsMono 14 --fb "#282828" --ff "#ebdbb2" --nb "#282828" --nf "#ebdbb2" --tb "#282828" --hb "#282828" --tf "#fb4934" --hf "#fabd2f"  --af "#ebdbb2" --ab "#282828" -B 2 --bdr "#ebdbb2"' 
-      riverctl map normal Mod5 D spawn 'bemenu-run --prompt "Lancer" -i -W 0.3 -c -l 20 --fn JetBrainsMono 14 --fb "#282828" --ff "#ebdbb2" --nb "#282828" --nf "#ebdbb2" --tb "#282828" --hb "#282828" --tf "#fb4934" --hf "#fabd2f"  --af "#ebdbb2" --ab "#282828" -B 2 --bdr "#ebdbb2"'
+      #riverctl map normal Mod5 D spawn 'bemenu-run --prompt "Lancer" -i -W 0.3 -c -l 20 --fn JetBrainsMono 14 --fb "#282828" --ff "#ebdbb2" --nb "#282828" --nf "#ebdbb2" --tb "#282828" --hb "#282828" --tf "#fb4934" --hf "#fabd2f"  --af "#ebdbb2" --ab "#282828" -B 2 --bdr "#ebdbb2"'
 
       # Mapping pour le menu réseau 
       #riverctl map normal Alt R spawn '~/.config/waybar/scripts/reseau.sh'
@@ -73,6 +73,8 @@
       # view in the layout stack
       riverctl map normal Alt+Shift J swap next
       riverctl map normal Alt+Shift K swap previous
+      riverctl map normal Mod4+Shift J swap next
+      riverctl map normal Mod4+Shift K swap previous
 
       # Alt+Period and Alt+Comma to focus the next/previous output
       riverctl map normal Alt Period focus-output next
@@ -95,10 +97,13 @@
 
       # Alt+Shift+Return to bump the focused view to the top of the layout stack
       riverctl map normal Alt+Shift Return zoom
+      riverctl map normal Mod4+Shift Return zoom
 
       # Alt+H and Alt+L to decrease/increase the main ratio of rivertile(1)
       riverctl map normal Alt+Shift H send-layout-cmd rivertile "main-ratio -0.05"
       riverctl map normal Alt+Shift L send-layout-cmd rivertile "main-ratio +0.05"
+      riverctl map normal Mod4+Shift L send-layout-cmd rivertile "main-ratio -0.05"
+      riverctl map normal Mod4+Shift I send-layout-cmd rivertile "main-ratio +0.05"
 
       # Alt+Shift+H and Alt+Shift+L to increment/decrement the main count of rivertile(1)
       #riverctl map normal Alt+Shift H send-layout-cmd rivertile "main-count +1"
@@ -138,6 +143,7 @@
 
           # Alt+[1-9] to focus tag [0-8]
           riverctl map normal Alt $i set-focused-tags $tags
+          '
           riverctl map normal Alt F$i set-focused-tags $tags
           riverctl map normal Mod5 F$i set-focused-tags $tags
           riverctl map normal Mod4 $i set-focused-tags $tags
@@ -181,10 +187,11 @@
 
       # Alt+Space to toggle float
       riverctl map normal Alt Space toggle-float
+      riverctl map normal Mod4 Space toggle-float
 
       # Alt+F to toggle fullscreen
       riverctl map normal Alt F toggle-fullscreen
-      riverctl map normal Mod5 F toggle-fullscreen
+      riverctl map normal Mod4 F toggle-fullscreen
 
       # Alt+{Up,Right,Down,Left} to change layout orientation
       riverctl map normal Alt Up    send-layout-cmd rivertile "main-location top"
@@ -215,7 +222,6 @@
           riverctl map $mode None XF86MonBrightnessUp   spawn 'brightnessctl set +5%'
           riverctl map $mode None XF86MonBrightnessDown spawn 'brightnessctl set 5%-'
       done
-
 
       # Set background and border color
       #riverctl background-color 0x002b36
