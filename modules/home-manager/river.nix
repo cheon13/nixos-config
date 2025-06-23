@@ -167,6 +167,12 @@
       riverctl map normal Mod4 Comma set-focused-tags $((1 << (3 - 1)))
       riverctl map normal Mod4 K set-focused-tags $((1 << (4 - 1)))
 
+      riverctl map normal Mod4+Shift H set-view-tags $((1 << (1 - 1)))
+      riverctl map normal Mod4+Shift G set-view-tags $((1 << (2 - 1)))
+      riverctl map normal Mod4+Shift Comma set-view-tags $((1 << (3 - 1)))
+      riverctl map normal Mod4+Shift K set-view-tags $((1 << (4 - 1)))
+
+
       # Alt+0 to focus all tags
       # Alt+Shift+0 to tag focused view with all tags
       all_tags=$(((1 << 32) - 1))
