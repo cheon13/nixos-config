@@ -28,7 +28,7 @@
       #riverctl map normal Alt N spawn 'kitty -d ~/Documents/Cerveau nvim +/Note /home/cheon/Documents/Cerveau/index.md'
       #riverctl map normal Alt N spawn 'foot -T Notes -D ~/Documents/Cerveau nvim +/Note /home/cheon/Documents/Cerveau/index.md'
       riverctl map normal Alt N spawn 'wezterm start  --cwd  ~/Documents/Cerveau nvim +/Note /home/cheon/Documents/Cerveau/index.md'
-      
+
       # Alt+Shift S Pour prendre copie-écran
       riverctl map normal Alt+Shift S spawn 'slurp | grim -g -'
       riverctl map normal Mod5+Shift S spawn 'slurp | grim -g -'
@@ -40,11 +40,11 @@
       # Mapping pour le menu wofi 
       #riverctl map normal Alt D spawn 'wofi --show drun'
       #riverctl map normal Mod5 D spawn 'wofi --show drun'
-      
+
       # Mapping pour le menu bemenu-run
       riverctl map normal Alt D spawn 'bemenu-run --prompt "Lancer" -i -W 0.3 -c -l 20 --fn JetBrainsMono 14 --fb "#282828" --ff "#ebdbb2" --nb "#282828" --nf "#ebdbb2" --tb "#282828" --hb "#282828" --tf "#fb4934" --hf "#fabd2f"  --af "#ebdbb2" --ab "#282828" -B 2 --bdr "#ebdbb2"' 
       riverctl map normal Mod5 D spawn 'bemenu-run --prompt "Lancer" -i -W 0.3 -c -l 20 --fn JetBrainsMono 14 --fb "#282828" --ff "#ebdbb2" --nb "#282828" --nf "#ebdbb2" --tb "#282828" --hb "#282828" --tf "#fb4934" --hf "#fabd2f"  --af "#ebdbb2" --ab "#282828" -B 2 --bdr "#ebdbb2"'
-      
+
       # Mapping pour le menu réseau 
       #riverctl map normal Alt R spawn '~/.config/waybar/scripts/reseau.sh'
       #riverctl map normal Mod5 R spawn '~/.config/waybar/scripts/reseau.sh'
@@ -89,6 +89,10 @@
       riverctl map normal Alt+Shift Period send-to-output next
       riverctl map normal Alt+Shift Comma send-to-output previous
 
+      # Ergol Mod4+Shift+{Period,Comma} to send the focused view to the next/previous output
+      riverctl map normal Mod4+Shift Period send-to-output next
+      riverctl map normal Mod4+Shift Comma send-to-output previous
+
       # Alt+Shift+Return to bump the focused view to the top of the layout stack
       riverctl map normal Alt+Shift Return zoom
 
@@ -131,28 +135,32 @@
       for i in $(seq 1 5)
       do
           tags=$((1 << ($i - 1)))
-      
+
           # Alt+[1-9] to focus tag [0-8]
           riverctl map normal Alt $i set-focused-tags $tags
           riverctl map normal Alt F$i set-focused-tags $tags
           riverctl map normal Mod5 F$i set-focused-tags $tags
-      
+          riverctl map normal Mod4 $i set-focused-tags $tags
+
           # Alt+Shift+[1-9] to tag focused view with tag [0-8]
           riverctl map normal Alt+Shift $i set-view-tags $tags
           riverctl map normal Alt+Shift F$i set-view-tags $tags
           riverctl map normal Mod5+Shift F$i set-view-tags $tags
-      
+          riverctl map normal Mod4+Shift $i set-view-tags $tags
+
           # Alt+Control+[1-9] to toggle focus of tag [0-8]
           riverctl map normal Alt+Control $i toggle-focused-tags $tags
           riverctl map normal Alt+Control F$i toggle-focused-tags $tags
           riverctl map normal Mod5+Control F$i toggle-focused-tags $tags
-      
+          riverctl map normal Mod4+Control $i toggle-focused-tags $tags
+
           # Alt+Shift+Control+[1-9] to toggle tag [0-8] of focused view
           riverctl map normal Alt+Shift+Control $i toggle-view-tags $tags
           riverctl map normal Alt+Shift+Control F$i toggle-view-tags $tags
           riverctl map normal Mod5+Shift+Control F$i toggle-view-tags $tags
+          riverctl map normal Mod4+Shift+Control $i toggle-view-tags $tags
       done
-      
+
       # Ergol map tags 1,2,3,4 to h g , k
       riverctl map normal Mod4 H set-focused-tags $((1 << (1 - 1)))
       riverctl map normal Mod4 G set-focused-tags $((1 << (2 - 1)))
