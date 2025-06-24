@@ -19,22 +19,22 @@
 
       # Alt+Return to start an instance of foot terminal
       riverctl map normal Alt Return spawn foot
-      
+
       # Alt+W to start an instance of firefox
-      riverctl map normal Alt W spawn firefox
+      riverctl map normal Alt R spawn firefox
       #riverctl map normal Mod5 W spawn firefox
 
       # Alt+N Pour prendre des notes rapidement
       #riverctl map normal Alt N spawn 'kitty -d ~/Documents/Cerveau nvim +/Note /home/cheon/Documents/Cerveau/index.md'
-      riverctl map normal Alt N spawn 'foot -T Notes -D ~/Documents/Cerveau nvim +/Note /home/cheon/Documents/Cerveau/index.md'
+      riverctl map normal Alt I spawn 'foot -T Notes -D ~/Documents/Cerveau nvim +/Note /home/cheon/Documents/Cerveau/index.md'
       #riverctl map normal Alt N spawn 'wezterm start  --cwd  ~/Documents/Cerveau nvim +/Note /home/cheon/Documents/Cerveau/index.md'
 
       # Alt+Shift S Pour prendre copie-écran
-      riverctl map normal Alt+Shift S spawn 'slurp | grim -g -'
+      riverctl map normal Alt+Shift T spawn 'slurp | grim -g -'
       riverctl map normal Mod5+Shift S spawn 'slurp | grim -g -'
 
       # Alt P Pour afficher passmenu pour passwordstore
-      riverctl map normal Alt P spawn 'passmenu'
+      riverctl map normal Alt Y spawn 'passmenu'
       #riverctl map normal Mod5 P spawn 'passmenu'
 
       # Mapping pour le menu wofi 
