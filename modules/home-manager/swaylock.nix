@@ -6,7 +6,7 @@
 	enable = true;
 	settings = {
 	  indicator-caps-lock = true;
-	  image = "$HOME/Images/Wallpapers/swayWP";
+	  image = "$HOME/Images/Wallpapers/riverWP";
 	  scaling = "fill";
 	  font = "UbuntuMono";
 	  font-size = 20;
