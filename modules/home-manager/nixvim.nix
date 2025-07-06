@@ -89,22 +89,22 @@
       #navigation entre les splits
       {
         mode = "n";
-        key = "<C-J>";
+        key = "<C-Down>";
         action = "<C-W><C-J>";
       }
       {
         mode = "n";
-        key = "<C-K>";
+        key = "<C-Up>";
         action = "<C-W><C-K>";
       }
       {
         mode = "n";
-        key = "<C-L>";
+        key = "<C-Right>";
         action = "<C-W><C-L>";
       }
       {
         mode = "n";
-        key = "<C-H>";
+        key = "<C-Left>";
         action = "<C-W><C-H>";
       }
       # Pour utiliser ZenMode
