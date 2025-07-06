@@ -160,8 +160,8 @@
 	    main = {
 	      term = "foot";
               font = "JetBrainsMono Nerd Font Mono:size=14";
-              #include = "~/.config/foot/foot-colors.ini";
-              include = "~/.config/foot/gruvbox.foot.ini";
+              include = "~/.config/foot/foot-colors.ini";
+              #include = "~/.config/foot/gruvbox.foot.ini";
 	    };
       csd = {
         preferred = "none";
