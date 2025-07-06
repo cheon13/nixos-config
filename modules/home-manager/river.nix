@@ -34,7 +34,7 @@
       riverctl map normal Mod5+Shift S spawn 'slurp | grim -g -'
 
       # Alt P Pour afficher passmenu pour passwordstore
-      riverctl map normal Alt Y spawn 'passmenu'
+      riverctl map normal Alt Y spawn '~/.config/river/scripts/passmenu.sh'
       #riverctl map normal Mod5 P spawn 'passmenu'
 
       # Mapping pour le menu wofi 
