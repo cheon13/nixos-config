@@ -64,7 +64,8 @@
   i18n.defaultLocale = "fr_CA.UTF-8";
 
   # Configure console keymap
-  console.keyMap = "cf";
+  console.useXkbConfig = true;
+  #console.keyMap = "cf";
   console.font = "sun12x22";
   # Pour échanger Capslock et Escape
   #services.interception-tools = {
