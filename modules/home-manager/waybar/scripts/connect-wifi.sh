@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-
 # Script pour un menu pour se connecter à un réseau wifi
 
 source ~/.config/waybar/matugen/bemenu-colors.sh
