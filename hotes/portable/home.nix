@@ -14,6 +14,7 @@
     brave
     lollypop # Pour lecture de musique seulement - gnome
     signal-desktop
+    nushell
 
     # Pour les livres numériques
     calibre
