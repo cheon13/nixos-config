@@ -57,7 +57,7 @@
   # Enabling bluetooth
   hardware.bluetooth.enable = true;
 
-  hardware.hardware.keyboard.zsa.enable = true;
+  hardware.keyboard.zsa.enable = true;
 
   # Set your time zone.
   time.timeZone = "America/Toronto";
