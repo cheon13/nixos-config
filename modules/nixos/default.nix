@@ -170,6 +170,7 @@
     packages = with pkgs; [
       firefox
       kitty
+      keymapp
     ];
   };
 
