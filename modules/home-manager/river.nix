@@ -19,6 +19,7 @@
 
       # Alt+Return to start an instance of foot terminal
       riverctl map normal Alt Return spawn foot
+      riverctl map normal Alt T spawn foot
 
       # Alt+W to start an instance of firefox
       riverctl map normal Alt R spawn firefox
