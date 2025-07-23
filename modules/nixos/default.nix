@@ -99,6 +99,7 @@
            "/dev/input/by-path/pci-0000:00:14.0-usb-0:9:1.1-event-kbd"
            "/dev/input/by-path/pci-0000:00:14.0-usbv2-0:9:1.1-event-kbd"
            "/dev/input/by-id/usb-Logitech_USB_Receiver-if01-event-kbd"
+           "/dev/input/event15"
          ];
         extraDefCfg = "process-unmapped-keys yes";
         config = ''
