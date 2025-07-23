@@ -31,6 +31,10 @@
     "nix-command"
     "flakes"
   ];
+
+  nix.settings.trusted-users = [
+    "cheon"
+  ];
   
   # Enable networking
   networking.networkmanager.enable = true;
