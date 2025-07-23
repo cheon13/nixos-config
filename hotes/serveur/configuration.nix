@@ -44,6 +44,23 @@
     enableSSHSupport = true;
   };
 
+  # Configuration spécifique à serveur
+  # La configuration générale se trouve dans modules/nixos/kanata.nix
+  services.kanata = {
+    keyboards = {
+      internalKeyboard = {
+         devices = [
+           #"/dev/input/by-path/platform-i8042-serio-0-event-kbd"
+           #"/dev/input/by-id/usb-Keychron_Keychron_K2-event-kbd"
+           "/dev/input/by-path/pci-0000:00:14.0-usb-0:9:1.1-event-kbd"
+           "/dev/input/by-path/pci-0000:00:14.0-usbv2-0:9:1.1-event-kbd"
+           "/dev/input/by-id/usb-Logitech_USB_Receiver-if01-event-kbd"
+           "/dev/input/event15"
+         ];
+      };
+    };
+  };
+
   system.stateVersion = "23.05"; # Did you read the comment?
 
 }
