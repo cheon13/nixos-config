@@ -68,6 +68,7 @@
   hardware.logitech.wireless.enableGraphical = true;
 
   hardware.sane.enable = true; # enables support for SANE scanners
+  hardware.sane.extraBackends = [ pkgs.hplipWithPlugin ];
 
   # Set your time zone.
   time.timeZone = "America/Toronto";
