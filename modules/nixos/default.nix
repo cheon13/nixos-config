@@ -67,6 +67,8 @@
   hardware.logitech.wireless.enable = true;
   hardware.logitech.wireless.enableGraphical = true;
 
+  hardware.sane.enable = true; # enables support for SANE scanners
+
   # Set your time zone.
   time.timeZone = "America/Toronto";
 
@@ -128,6 +130,8 @@
       "networkmanager"
       "wheel"
       "audio"
+      "scanner"
+      "lp"
     ];
     packages = with pkgs; [
       firefox
