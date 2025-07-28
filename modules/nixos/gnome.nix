@@ -6,7 +6,10 @@
   services.displayManager.gdm.enable = true; 
   services.desktopManager.gnome.enable = true;
 
-  environment.systemPackages = with pkgs; [ gnomeExtensions.pop-shell ];
+  environment.systemPackages = with pkgs.gnomeExtensions; [ 
+      pop-shell
+      caffeine
+    ];
 
 }
 
