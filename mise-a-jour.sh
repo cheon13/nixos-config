@@ -13,6 +13,8 @@ echo " mise à jour du flake "
 echo " -------------------- "
 
 nix flake update
+git add .
+git commit -m 'Mise à jour'
 
 echo " ----------------------- "
 echo " reconstruire le système "

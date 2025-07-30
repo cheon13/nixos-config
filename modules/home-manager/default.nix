@@ -86,6 +86,9 @@
     # Applications de bureau
     iotas # application pour prendre des notes markdown et qui se synchronise avec nextcloud notes
     libreoffice
+    hunspell
+    hunspellDicts.fr
+    hunspellDicts.en
     jdk # nécessaire pour installer les extensions libreoffice
     keypunch # application de touch type
   ];
