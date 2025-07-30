@@ -87,6 +87,7 @@
     iotas # application pour prendre des notes markdown et qui se synchronise avec nextcloud notes
     libreoffice
     jdk # nécessaire pour installer les extensions libreoffice
+    keypunch # application de touch type
   ];
 
   programs.git = {
