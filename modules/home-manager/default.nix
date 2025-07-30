@@ -88,7 +88,7 @@
     libreoffice
     hunspell
     hunspellDicts.fr-any
-    hunspellDicts.en
+    hunspellDicts.en_US
     jdk # nécessaire pour installer les extensions libreoffice
     keypunch # application de touch type
   ];
