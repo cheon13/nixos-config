@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 # Shell script pour construire nouvelle configuration NixOS
 #
 if [[ -z $1 ]]; then
