@@ -10,7 +10,7 @@
     ../../modules/nixos/gnome.nix
   ];
   
-  services.displayManager.defaultSession = "river";
+ # services.displayManager.defaultSession = "river";
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
