@@ -168,7 +168,8 @@
               #include = "~/.config/foot/gruvbox.foot.ini";
 	    };
       csd = {
-        preferred = "none";
+        preferred = "server";
+        hide-when-maximized=yes
       };
 	   # colors = { 
 	   #   alpha = 0.9;
