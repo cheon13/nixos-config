@@ -169,7 +169,7 @@
 	    };
       csd = {
         preferred = "server";
-        hide-when-maximized = yes;
+        hide-when-maximized = "yes";
       };
 	   # colors = { 
 	   #   alpha = 0.9;
