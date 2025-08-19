@@ -91,6 +91,7 @@
     hunspellDicts.en_US
     jdk # nécessaire pour installer les extensions libreoffice
     keypunch # application de touch type
+    gnome-solanum # pomodoro pour gnome
   ];
 
   programs.git = {
