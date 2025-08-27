@@ -172,6 +172,12 @@
         #action = '':r! date +\%A" "\%d" "\%B" "\%Y<CR>'';
         action = '':r! date +\%A" "\%d" "\%B" "\%Y | sed "s/\b\(.\)/\u\1/"<CR>'';
       }
+      # Pour insérer une tâche markdown - [ ]
+      {
+        mode = "n";
+        key = "<Leader>t";
+        action = ''- [ ] '';
+      }
       # Pour ouvrir mini.files
       {
         mode = "n";
