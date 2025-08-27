@@ -176,7 +176,7 @@
       {
         mode = "n";
         key = "<Leader>t";
-        action = ''- [ ] '';
+        action = ''i- [ ] <Escape>'';
       }
       # Pour ouvrir mini.files
       {
