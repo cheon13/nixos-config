@@ -19,6 +19,9 @@
     # Pour les livres numériques
     calibre
     foliate
+
+    # Intelligence artificielle
+    jan
   ];
 
   xsession = {
