@@ -52,8 +52,9 @@
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
               home-manager.users.cheon = import ./hotes/serveur/home.nix;
+              home-manager.backupFileExtension = "backup";
               home-manager.sharedModules = [
-                inputs.nixvim.homeManagerModules.nixvim
+                inputs.nixvim.homeModules.nixvim
               ];
             }
           ];

@@ -26,7 +26,7 @@
   };
   #programs.hyprland.enable = true;
   #programs.sway.enable = true;
-  programs.river.enable = true;
+  programs.river-classic.enable = true;
 
   nix.settings.experimental-features = [
     "nix-command"
