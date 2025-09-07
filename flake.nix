@@ -45,7 +45,7 @@
           modules = [
             ./hotes/serveur/configuration.nix
             #stylix.nixosModules.stylix
-            #nixvim.homeManagerModules.nixvim
+            #nixvim.homeModules.nixvim
             nixvim.nixosModules.nixvim
             home-manager.nixosModules.home-manager
             {
@@ -64,7 +64,7 @@
           modules = [
             ./hotes/portable/configuration.nix
             #stylix.nixosModules.stylix
-            #nixvim.homeManagerModules.nixvim
+            #nixvim.homeModules.nixvim
             nixvim.nixosModules.nixvim
             home-manager.nixosModules.home-manager
             {
@@ -72,7 +72,7 @@
               home-manager.useUserPackages = true;
               home-manager.users.cheon = import ./hotes/portable/home.nix;
               home-manager.sharedModules = [
-                inputs.nixvim.homeManagerModules.nixvim
+                inputs.nixvim.homeModules.nixvim
               ];
             }
           ];
