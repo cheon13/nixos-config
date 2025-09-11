@@ -25,6 +25,9 @@
       riverctl map normal Alt R spawn firefox
       #riverctl map normal Mod5 W spawn firefox
 
+      # Alt+G to start an instance of firefox
+      riverctl map normal Alt G spawn google-chrome-stable
+
       # Alt+N Pour prendre des notes rapidement
       #riverctl map normal Alt N spawn 'kitty -d ~/Documents/Cerveau nvim +/Note /home/cheon/Documents/Cerveau/index.md'
       riverctl map normal Alt I spawn 'foot -T Notes -D ~/Documents/Cerveau nvim +/Note /home/cheon/Documents/Cerveau/index.md'
@@ -241,10 +244,14 @@
       #riverctl keyboard-layout ca
 
       # Make all views with an app-id that starts with "float" and title "foo" start floating.
-      riverctl rule-add -app-id 'float*' -title 'foo' float
+      #riverctl rule-add -app-id 'float*' -title 'foo' float
 
       # Make all views with app-id "bar" and any title use client-side decorations
       riverctl rule-add -app-id "bar" csd
+
+      riverctl rule-add riverctl rule-add -title *irefo* tags $((1 << (1 - 1)))
+      riverctl rule-add riverctl rule-add -title *chrome* tags $((1 << (1 - 1)))
+      riverctl rule-add riverctl rule-add -title foot tags $((1 << (2 - 1)))
 
       # Set the default layout generator to be rivertile and start it.
       # River will send the process group of the init executable SIGTERM on exit.
