@@ -103,6 +103,9 @@
       riverctl map normal Alt+Shift Return zoom
       riverctl map normal Mod4+Shift Return zoom
 
+      # Set default ratio
+      riverctl send-layout-cmd rivertile "main-ratio 0.5"
+
       # Alt+H and Alt+L to decrease/increase the main ratio of rivertile(1)
       riverctl map normal Alt+Shift H send-layout-cmd rivertile "main-ratio -0.05"
       riverctl map normal Alt+Shift L send-layout-cmd rivertile "main-ratio +0.05"
@@ -250,7 +253,7 @@
       riverctl rule-add -app-id "bar" csd
 
       riverctl rule-add -title *irefo* tags $((1 << (1 - 1)))
-      riverctl rule-add -title *chrome* tags $((1 << (1 - 1)))
+      riverctl rule-add -title *hrome* tags $((1 << (1 - 1)))
       riverctl rule-add -title foot tags $((1 << (2 - 1)))
 
       # Set the default layout generator to be rivertile and start it.
