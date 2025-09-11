@@ -103,9 +103,6 @@
       riverctl map normal Alt+Shift Return zoom
       riverctl map normal Mod4+Shift Return zoom
 
-      # Set default ratio
-      riverctl send-layout-cmd rivertile "main-ratio 0.5"
-
       # Alt+H and Alt+L to decrease/increase the main ratio of rivertile(1)
       riverctl map normal Alt+Shift H send-layout-cmd rivertile "main-ratio -0.05"
       riverctl map normal Alt+Shift L send-layout-cmd rivertile "main-ratio +0.05"
@@ -260,6 +257,9 @@
       # River will send the process group of the init executable SIGTERM on exit.
       riverctl default-layout rivertile
       rivertile -view-padding 6 -outer-padding 6 &
+
+      # Set default ratio
+      riverctl send-layout-cmd rivertile "main-ratio 0.5"
 
       # Ajout des fonds d'écran
       riverctl spawn "swaybg -i /home/cheon/Images/Wallpapers/riverWP"
