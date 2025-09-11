@@ -256,10 +256,7 @@
       # Set the default layout generator to be rivertile and start it.
       # River will send the process group of the init executable SIGTERM on exit.
       riverctl default-layout rivertile
-      rivertile -view-padding 6 -outer-padding 6 &
-
-      # Set default ratio
-      riverctl send-layout-cmd rivertile "main-ratio 0.5"
+      rivertile -view-padding 6 -outer-padding 6 -main-ratio 0.5 &
 
       # Ajout des fonds d'écran
       riverctl spawn "swaybg -i /home/cheon/Images/Wallpapers/riverWP"
