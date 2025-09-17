@@ -170,7 +170,7 @@
         mode = "n";
         key = "<Leader>d";
         #action = '':r! date +\%A" "\%d" "\%B" "\%Y<CR>'';
-        action = '':r! date +\#\# \%A" "\%d" "\%B" "\%Y | sed "s/\b\(.\)/\u\1/"<CR>'';
+        action = '':r! date +\#" "\%A" "\%d" "\%B" "\%Y | sed "s/\b\(.\)/\u\1/"<CR>'';
       }
       # Pour insérer une tâche markdown - [ ]
       {
