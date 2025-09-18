@@ -1,7 +1,8 @@
 @import "./matugen/colors.css";
 
 * {
-    font-family: JetBrainsMono;
+    /*font-family: JetBrainsMono;*/
+    font-family:  'AdwaitaSans', 'JetBrainsMono';
     font-size: 15px;
     border: none;
     border-radius: 0;
