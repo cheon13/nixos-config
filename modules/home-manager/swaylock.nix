@@ -8,7 +8,7 @@
 	  indicator-caps-lock = true;
 	  image = "$HOME/Images/Wallpapers/riverWP";
 	  scaling = "fill";
-	  font = "Adwaita Mono";
+	  font = "Adwaita Sans";
 	  font-size = 20;
 	  indicator-radius = 115;
           line-color = "#3b4252";
