@@ -249,9 +249,9 @@
       # Make all views with app-id "bar" and any title use client-side decorations
       riverctl rule-add -app-id "bar" csd
 
-      riverctl rule-add -title *irefo* tags $((1 << (1 - 1)))
-      riverctl rule-add -title *hrome* tags $((1 << (1 - 1)))
-      riverctl rule-add -title foot tags $((1 << (2 - 1)))
+      #riverctl rule-add -title *irefo* tags $((1 << (1 - 1)))
+      #riverctl rule-add -title *hrome* tags $((1 << (1 - 1)))
+      #riverctl rule-add -title foot tags $((1 << (2 - 1)))
 
       # Set the default layout generator to be rivertile and start it.
       # River will send the process group of the init executable SIGTERM on exit.
