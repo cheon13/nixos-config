@@ -26,7 +26,7 @@
       #riverctl map normal Mod5 W spawn firefox
 
       # Alt+G to start an instance of firefox
-      riverctl map normal Alt G spawn google-chrome-stable
+      riverctl map normal Alt L spawn google-chrome-stable
 
       # Alt+N Pour prendre des notes rapidement
       #riverctl map normal Alt N spawn 'kitty -d ~/Documents/Cerveau nvim +/Note /home/cheon/Documents/Cerveau/index.md'
