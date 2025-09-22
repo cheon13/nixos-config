@@ -25,7 +25,7 @@
       riverctl map normal Alt R spawn firefox
       #riverctl map normal Mod5 W spawn firefox
 
-      # Alt+G to start an instance of firefox
+      # Alt+G to start an instance of google-chrome-stable
       riverctl map normal Alt L spawn google-chrome-stable
 
       # Alt+N Pour prendre des notes rapidement
@@ -62,10 +62,10 @@
       riverctl map normal Mod5+Shift E exit
 
       # Alt+J and Alt+K to focus the next/previous view in the layout stack
-      riverctl map normal Alt H focus-view left
-      riverctl map normal Alt J focus-view down
-      riverctl map normal Alt K focus-view up
-      riverctl map normal Alt L focus-view right
+      #riverctl map normal Alt H focus-view left
+      #riverctl map normal Alt J focus-view down
+      #riverctl map normal Alt K focus-view up
+      #riverctl map normal Alt L focus-view right
 
       # Ergol Mod4+J and Mod4+K to focus the next/previous view in the layout stack
       riverctl map normal Mod4 L focus-view left
@@ -114,10 +114,10 @@
       #riverctl map normal Alt+Shift L send-layout-cmd rivertile "main-count -1"
 
       # Super+Alt+{H,J,K,L} to move views
-      riverctl map normal Super+Alt H move left 100
-      riverctl map normal Super+Alt J move down 100
-      riverctl map normal Super+Alt K move up 100
-      riverctl map normal Super+Alt L move right 100
+      #riverctl map normal Super+Alt H move left 100
+      #riverctl map normal Super+Alt J move down 100
+      #riverctl map normal Super+Alt K move up 100
+      #riverctl map normal Super+Alt L move right 100
 
       # Super+Alt+Control+{H,J,K,L} to snap views to screen edges
       riverctl map normal Super+Alt+Control H snap left
