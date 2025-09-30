@@ -9,6 +9,7 @@
     ../../modules/nixos
     ../../modules/nixos/nextcloud
     ../../modules/nixos/navidrome.nix
+    ../../modules/nixos/dwl.nix
   ];
 
   # Bootloader.
