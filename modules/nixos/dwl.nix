@@ -6,6 +6,7 @@
   environment.systemPackages = with pkgs; [
     gcc
     gnumake
+    pkg-config
     wayland
     wayland-protocols
     wlroots_0_19
