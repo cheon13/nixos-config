@@ -7,6 +7,7 @@
     gcc
     gnumake
     pkg-config
+    wayland-scanner
     wayland
     wayland-protocols
     wlroots_0_19
