@@ -22,6 +22,12 @@
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
+  services.avahi = {
+    enable = true;
+    nssmdns4 = true;
+    openFirewall = true;
+  };
+
   environment.systemPackages = with pkgs; [
     # compilation de slstatus propre à portable
     (slstatus.overrideAttrs (oldAttrs: rec {
