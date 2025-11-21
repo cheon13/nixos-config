@@ -261,7 +261,8 @@
       # Ajout des fonds d'écran
       riverctl spawn "swaybg -i /home/cheon/Images/Wallpapers/riverWP"
       # Ajout de la barre
-      riverctl spawn "waybar -c ~/.config/waybar/river.config -s ~/.config/waybar/river.style.css"
+      riverctl spawn "( while date '+ %H:%m ' ; do sleep 1; done ) | creek -fn AdwaitaSans:size=15"
+      #riverctl spawn "waybar -c ~/.config/waybar/river.config -s ~/.config/waybar/river.style.css"
       # Ajout du screen saver et du lock screen
       riverctl spawn "swayidle -w\
           		timeout 300 'swaylock -f' \

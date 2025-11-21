@@ -68,6 +68,7 @@
     libnotify
     wofi
     waybar
+    creek # status bar pour river wm
     grim
     slurp
     imv
