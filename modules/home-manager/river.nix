@@ -1,8 +1,8 @@
 { config, ... }:
 
 {
-  xdg.configFile."river" = {
-    source = config.lib.file.mkOutOfStoreSymlink "/home/cheon/.dotfiles/modules/home-manager/config/river";
+  xdg.configFile."river/init" = {
+    source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.dotfiles/modules/home-manager/config/river/init";
     #recursive = true;
   };
    
