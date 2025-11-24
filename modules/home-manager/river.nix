@@ -6,6 +6,11 @@
     #recursive = true;
   };
    
+  xdg.configFile."river/matugen" = {
+    source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.dotfiles/modules/home-manager/config/river/matugen";
+    #recursive = true;
+  };
+   
   wayland.windowManager.river = {
     enable = true;
     systemd.enable = true;
