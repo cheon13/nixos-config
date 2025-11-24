@@ -3,7 +3,7 @@
 {
   xdg.configFile."river" = {
     source = config.lib.file.mkOutOfStoreSymlink "/home/cheon/.dotfiles/modules/home-manager/config/river";
-    recursive = true;
+    #recursive = true;
   };
    
   wayland.windowManager.river = {
