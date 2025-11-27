@@ -74,7 +74,7 @@
     networkmanagerapplet
     hyprcursor
     capitaine-cursors-themed
-    firefox-wayland
+    firefox
     qutebrowser
     alacritty
     kitty

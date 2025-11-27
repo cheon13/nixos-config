@@ -51,7 +51,7 @@
 #    swaybg
 #    grim
 #    imv
-#    firefox-wayland
+#    firefox
 #    kitty
 #    wezterm
 #    libreoffice
