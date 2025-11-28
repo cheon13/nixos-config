@@ -85,6 +85,10 @@ local function map(m, k, v)
     vim.keymap.set(m, k, v, { silent = true })
 end
 
+---- Pour faciliter la navigation avec Ergol
+map('n', '+', 'gj')
+map('n', '-', 'gk')
+
 ---- Pour faciliter la navigation entre les splits
 map('n', '<C-J>', '<C-W><C-J>')
 map('n', '<C-K>', '<C-W><C-K>')
@@ -110,8 +114,8 @@ map ('n', '<Leader>wf', function() require('fzf-lua').files({ cwd = '~/Documents
 map ('n', '<Leader>wg', function() require('fzf-lua').grep({ cwd = '~/Documents/Cerveau'}) end) -- Permet de cherche un fichier seulement dans Cerveau
 
 --------Pour déplacer d'un lien à l'autre dans un fichier Vimwiki
-map ('n', '<Up>', '<Plug>VimwikiPrevLink')
-map ('n', '<Down>', '<Plug>VimwikiNextLink')
+--map ('n', '<Up>', '<Plug>VimwikiPrevLink')
+--map ('n', '<Down>', '<Plug>VimwikiNextLink')
 
 -----Pour insérer la date
 map ('n', '<Leader>d', ':r! date \\+\\%A" "\\%d" "\\%B" "\\%Y| sed "s/\\b\\(.\\)/\\u\\1/"<cr>')

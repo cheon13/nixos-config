@@ -37,12 +37,6 @@
           allowUnfree = true;
         };
 
-        #overlays = [
-        #  # Désactive LTO dans tout le stdenv (fix Perl, GCC, linker)
-        #  (final: prev: {
-        #    stdenv = prev.stdenvAdapters.noLTO prev.stdenv;
-        #  })
-        #];
       };
 
     in
