@@ -2,9 +2,11 @@
   description = "Ma configuration NixOS flake de serveur";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
+    #nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
     #nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-23.11";
-    home-manager.url = "github:nix-community/home-manager";
+    #home-manager.url = "github:nix-community/home-manager";
+    home-manager.url = "github:nix-community/home-manager/release-25.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     nixos-wsl.url = "github:nix-community/NixOS-WSL";
     nixos-wsl.inputs.nixpkgs.follows = "nixpkgs";
@@ -34,6 +36,13 @@
         config = {
           allowUnfree = true;
         };
+
+        #overlays = [
+        #  # Désactive LTO dans tout le stdenv (fix Perl, GCC, linker)
+        #  (final: prev: {
+        #    stdenv = prev.stdenvAdapters.noLTO prev.stdenv;
+        #  })
+        #];
       };
 
     in
@@ -65,7 +74,7 @@
             ./hotes/portable/configuration.nix
             #stylix.nixosModules.stylix
             #nixvim.homeModules.nixvim
-            nixvim.nixosModules.nixvim
+            #nixvim.nixosModules.nixvim
             home-manager.nixosModules.home-manager
             {
               home-manager.useGlobalPkgs = true;

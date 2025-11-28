@@ -6,7 +6,7 @@
   imports = [
     ./wayland.nix
     ./syncthing.nix
-    ./nixvim.nix
+    #./nixvim.nix
     ./kanata.nix
   ];
 
@@ -152,7 +152,7 @@
     git
     gh # github CLI pour faciliter l'authentification avec github.
     gnupg
-    pinentry
+    #pinentry
     pinentry-curses
     pass
     rclone
@@ -175,7 +175,7 @@
   # Installation de fonts supplémentaires
   fonts.packages = with pkgs; [
     noto-fonts
-    noto-fonts-emoji
+    noto-fonts-color-emoji
     nerd-fonts.noto
     jetbrains-mono
     nerd-fonts.jetbrains-mono

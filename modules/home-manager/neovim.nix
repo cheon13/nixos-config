@@ -124,7 +124,7 @@ map ('n', '<Leader>f', function() require('mini.files').open() end) -- Permet de
 ----------------
 	
 ----Activation du plugin lualine
-require 'lualine'.setup()
+--require 'lualine'.setup()
 ----Activation du plugin mini.files
 require 'mini.files'.setup()
 
@@ -135,7 +135,7 @@ require 'mini.files'.setup()
          vim-pencil 
          vimwiki 
          gruvbox 
-         lualine-nvim 
+         #lualine-nvim 
          fzf-lua 
          nvim-web-devicons 
          mini-files

@@ -5,8 +5,8 @@
 {
   imports =
     [ 
-      #../../modules/home-manager/neovim.nix
-      ./nixvim.nix
+      ./neovim.nix
+      #./nixvim.nix
       ./river.nix
       ./waybar
       ./swaylock.nix
@@ -99,9 +99,9 @@
 
   programs.git = {
       enable = true;
-      userName  = "cheon13";
-      userEmail = "cheon.cv@gmail.com";
-      extraConfig = {
+      settings = {
+        user.name  = "cheon13";
+        user.email = "cheon.cv@gmail.com";
         init.defaultBranch = "main";
       };
   };
