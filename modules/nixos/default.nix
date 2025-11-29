@@ -9,6 +9,7 @@
     #./nixvim.nix
     ./kanata.nix
   ];
+  services.udisks2.enable = true;
 
   services.xserver.enable = true;
   services.xserver.displayManager.startx.enable = true;
