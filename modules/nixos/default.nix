@@ -9,7 +9,8 @@
     #./nixvim.nix
     ./kanata.nix
   ];
-  services.udisks2.enable = true;
+
+  #services.udisks2.enable = true; # pour le montage automatique des disques USB
 
   services.xserver.enable = true;
   services.xserver.displayManager.startx.enable = true;

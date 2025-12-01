@@ -130,7 +130,12 @@ map ('n', '<Leader>f', function() require('mini.files').open() end) -- Permet de
 ----Activation du plugin lualine
 --require 'lualine'.setup()
 ----Activation du plugin mini.files
-require 'mini.files'.setup()
+require("mini.files").setup({
+  mappings = {
+    go_in = '<Right>',
+    go_out = '<Left>',
+  },
+})
 
 	'';
       plugins = with pkgs.vimPlugins; [ 
