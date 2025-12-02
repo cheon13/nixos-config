@@ -120,6 +120,9 @@ map ('n', '<Leader>wg', function() require('fzf-lua').grep({ cwd = '~/Documents/
 -----Pour insérer la date
 map ('n', '<Leader>d', ':r! date \\+\\#\\#" "\\%A" "\\%d" "\\%B" "\\%Y| sed "s/\\b\\(.\\)/\\u\\1/"<cr>')
 
+-----Pour ajouter un tâche markdown
+map ('n', '<Leader>t', 'i- [ ] ')
+
 -----Pour activer ouvrir mini.files
 map ('n', '<Leader>f', function() require('mini.files').open() end) -- Permet de chercher un fichier 
 
