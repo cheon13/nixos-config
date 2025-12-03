@@ -91,8 +91,10 @@
     hunspellDicts.fr-any
     hunspellDicts.en_US
     jdk # nécessaire pour installer les extensions libreoffice
+
     typst
     typstPackages.hydra
+
     gnome-solanum # pomodoro pour gnome
   ];
 
