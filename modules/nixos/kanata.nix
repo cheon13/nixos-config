@@ -17,6 +17,7 @@
         config = ''
           (defsrc
            esc caps h j k l
+           z              /
            spc
           )
 
@@ -33,15 +34,19 @@
            j down
            k up
            l rght
+           z (tap-hold $tap-time $hold-time z lctrl) 
+           / (tap-hold $tap-time $hold-time / rctrl)
           )
 
           (deflayer base
            caps esc _ _ _ _
+           @z             @/
            @spc 
           )
 
           (deflayer navnum
-           _ _ @h @j @k @l
+           _ _ @h @j @k @l 
+           _            _
            _
           )
         '';
