@@ -36,12 +36,12 @@
            l rght
            z (tap-hold $tap-time $hold-time z lctrl) 
            / (tap-hold $tap-time $hold-time / rctrl)
-           \ (tap-hold $tap-time $hold-time \ lshift)
+           < (tap-hold $tap-time $hold-time < lshift)
           )
 
           (deflayer base
            caps esc _ _ _ _
-           @\ @z          @/
+           @< @z          @/
            @spc 
           )
 
