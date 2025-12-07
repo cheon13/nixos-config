@@ -47,7 +47,7 @@
 
           (deflayer navnum
            _ _ @h @j @k @l 
-           _            _
+           _ _          _
            _
           )
         '';
