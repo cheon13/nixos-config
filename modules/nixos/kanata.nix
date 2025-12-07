@@ -17,7 +17,7 @@
         config = ''
           (defsrc
            esc caps h j k l
-           \ z            /
+           < z            /
            spc
           )
 
