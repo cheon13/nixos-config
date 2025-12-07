@@ -17,7 +17,7 @@
         config = ''
           (defsrc
            esc caps h j k l
-           z              /
+           \ z            /
            spc
           )
 
@@ -36,11 +36,12 @@
            l rght
            z (tap-hold $tap-time $hold-time z lctrl) 
            / (tap-hold $tap-time $hold-time / rctrl)
+           \ (tap-hold $tap-time $hold-time \ lshift)
           )
 
           (deflayer base
            caps esc _ _ _ _
-           @z             @/
+           @\ @z          @/
            @spc 
           )
 
