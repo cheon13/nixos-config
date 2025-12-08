@@ -238,6 +238,9 @@
         -- configuration pour les tiling window manager
         config.adjust_window_size_when_changing_font_size = false
 
+        -- configuration pour permettre des deadkeys d'Ergo-l
+        use_dead_keys = true
+
         return config
       '';
   };
