@@ -5,8 +5,8 @@
 {
   imports =
     [ 
-      ./neovim.nix
-      #./nixvim.nix
+      #./neovim.nix
+      ./nixvim.nix
       ./river.nix
       ./waybar
       ./swaylock.nix
