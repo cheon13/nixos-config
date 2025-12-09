@@ -233,9 +233,9 @@
       };
     };
 
-    plugins.lualine = {
-      enable = true;
-    };
+    #plugins.lualine = {
+    #  enable = true;
+    #};
 
     plugins.zen-mode = {
       enable = true;
