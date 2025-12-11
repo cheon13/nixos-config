@@ -48,6 +48,7 @@
     10.0.0.200 serveur
     10.0.0.202 phone
     10.0.0.203 tablette
+    10.0.0.204 pomme
   '';
 
   # Setting environment Variables for all users
@@ -59,6 +60,7 @@
     alias phone='ssh u0_a450@phone -p8022'
     alias portable='ssh portable'
     alias serveur='ssh serveur'
+    alias pomme='ssh pomme'
   '';
 
   # Enabling bluetooth
