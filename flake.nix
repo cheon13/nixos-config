@@ -80,6 +80,21 @@
             }
           ];
         };
+        pomme = nixpkgs.lib.nixosSystem {
+          specialArgs = { inherit system; };
+          modules = [
+            ./hotes/portable/configuration.nix
+            home-manager.nixosModules.home-manager
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.users.cheon = import ./hotes/pomme/home.nix;
+              home-manager.sharedModules = [
+                inputs.nixvim.homeModules.nixvim
+              ];
+            }
+          ];
+        };
         wsl-portable = nixpkgs.lib.nixosSystem {
           specialArgs = { inherit system; };
           modules = [
