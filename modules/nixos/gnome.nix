@@ -11,9 +11,9 @@
       caffeine # pour inhiber le screen lock
     ];
 
-  services.gnome.tracker = {
-    enable = true;
-    miners.enable = true;
-  };
+  #services.gnome.tracker = {
+  #  enable = true;
+  #  miners.enable = true;
+  #};
 }
 
