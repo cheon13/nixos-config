@@ -18,7 +18,7 @@
           (defsrc
            esc caps h j k l
            < z            /
-           spc
+           spc menu
           )
 
           (defvar
@@ -42,13 +42,13 @@
           (deflayer base
            caps esc _ _ _ _
            @< @z          @/
-           @spc 
+           @spc rmeta
           )
 
           (deflayer navnum
            _ _ @h @j @k @l 
            _ _          _
-           _
+           _ _
           )
         '';
       };
