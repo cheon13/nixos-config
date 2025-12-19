@@ -17,12 +17,13 @@
         "portable" = { id = "2H6R2EE-GUGFVTC-EJ2PJV6-EGU3F3J-J32ZAGY-VG3V5Z6-CLRI2G2-T7GIIA5"; };
         "serveur" = { id = "ZXIDF7N-OYKKYUC-XV4MJEB-TT5G7TL-Q32AGSN-PE3GQJ6-3QYZQIJ-3646AQU"; };
         "phone" = { id = "WNJ5NHU-FCEJGLJ-TBESUFK-XPMKGBN-H225KSH-JZB7XB5-FGAQUWH-4WXIVQF"; };
+        "pomme" = { id = "QQ3SG5X-L3JD75V-DD2ZXSB-CONIWMA-4IMB7WR-4J5SV7Q-NSTQACG-25TEMQL"; };
       };
       settings.folders = {
         "Cerveau" = { 
           id = "mbh3e-b0zp2";
           path = "/home/cheon/Documents/Cerveau"; 
-          devices = [ "portable" "serveur" "phone"]; 
+          devices = [ "portable" "serveur" "phone" "pomme" ]; 
           versioning = { 
             type = "simple"; 
             params = { 
