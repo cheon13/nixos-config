@@ -91,6 +91,8 @@
     hunspellDicts.fr-any
     hunspellDicts.en_US
     jdk # nécessaire pour installer les extensions libreoffice
+    
+    gnumeric
 
     typst
     typstPackages.hydra
