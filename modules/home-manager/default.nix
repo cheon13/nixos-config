@@ -94,6 +94,7 @@
     
     gnumeric
     abiword
+    marp-cli # Pour faire des présentation à partir de markdown
 
     typst
     typstPackages.hydra
