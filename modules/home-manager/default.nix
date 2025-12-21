@@ -93,6 +93,7 @@
     jdk # nécessaire pour installer les extensions libreoffice
     
     gnumeric
+    abiword
 
     typst
     typstPackages.hydra
