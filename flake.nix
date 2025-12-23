@@ -11,7 +11,7 @@
     nixos-wsl.url = "github:nix-community/NixOS-WSL";
     nixos-wsl.inputs.nixpkgs.follows = "nixpkgs";
     #stylix.url = "github:danth/stylix";
-    nixvim.url = "github:nix-community/nixvim";
+    nixvim.url = "github:nix-community/nixvim/nixos-25.11";
     nixvim.inputs.nixpkgs.follows = "nixpkgs";
   };
 
