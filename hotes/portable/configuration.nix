@@ -21,7 +21,7 @@
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
-
+  # pour permettre les imprimantes autodécouvertes (IPP Everywhere)
   services.avahi = {
     enable = true;
     nssmdns4 = true;
