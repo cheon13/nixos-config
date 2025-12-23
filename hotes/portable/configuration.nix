@@ -1,6 +1,6 @@
 # configuration.nix pour portable
 
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 
 {
   imports = [
