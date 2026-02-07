@@ -4,7 +4,7 @@
   
   services.nextcloud = {
     enable = true;
-    package = pkgs.nextcloud31;
+    package = pkgs.nextcloud32;
     hostName = "10.0.0.200";
     config.adminpassFile = "/etc/nextcloud-admin-pass";
     config.dbtype = "mysql";
