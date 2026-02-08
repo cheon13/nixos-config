@@ -10,4 +10,7 @@
       EnableSharing = true;
     };
   };
+  environment.systemPackages = with pkgs; [
+    (navidrome.override { version = "0.58.0"; })
+  ];
 }
