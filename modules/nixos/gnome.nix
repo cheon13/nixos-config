@@ -7,8 +7,9 @@
   services.desktopManager.gnome.enable = true;
 
   environment.systemPackages = with pkgs.gnomeExtensions; [ 
-      pop-shell
-      caffeine # pour inhiber le screen lock
+    pop-shell
+    caffeine # pour inhiber le screen lock
+    paperwm
     ];
 
 }
