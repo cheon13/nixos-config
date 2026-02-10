@@ -159,6 +159,7 @@
     #pinentry
     pinentry-curses
     pass
+    openssl
     rclone
     xdg-utils
     pulseaudio ## pour avoir le logiciel pactl qui permet de contrôler le son en ligne de commande.
