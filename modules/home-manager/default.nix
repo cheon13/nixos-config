@@ -157,6 +157,7 @@
         editor = "/etc/profiles/per-user/cheon/bin/nvim";
         tab_bar_edge = "top";
         tab_bar_style = "powerline";
+        hide_window_decorations = "yes";
       };
       keybindings = {
         "ctrl+shift+¨" = "next_window";
