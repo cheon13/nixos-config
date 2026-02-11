@@ -8,6 +8,7 @@
     ./syncthing.nix
     #./nixvim.nix
     ./kanata.nix
+    ./niri.nix
   ];
 
   #services.udisks2.enable = true; # pour le montage automatique des disques USB
@@ -172,6 +173,7 @@
     nitrogen
     wlr-randr
     wlopm
+    fuzzel # pour niri
   ];
 
   # Installation d'un package pour ricer nixos
