@@ -18,6 +18,7 @@
       extraPortals = with pkgs; [
         xdg-desktop-portal-wlr
         xdg-desktop-portal-gtk # déactiver cet ligne si utilisation de gnome
+        xdg-desktop-portal-gnome 
       ];
     };
   };
