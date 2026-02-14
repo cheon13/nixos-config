@@ -175,7 +175,7 @@
     wlopm
     fuzzel # pour niri
     pkgs-unstable.noctalia-shell
-    pkgs-unstable.quickshell
+    #pkgs-unstable.quickshell
   ];
 
   # Installation d'un package pour ricer nixos
