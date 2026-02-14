@@ -2,8 +2,8 @@
   description = "Ma configuration NixOS flake de mes ordinateurs";
 
   inputs = {
-    #nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
+    nixpkgs-unstable.url = "github:nixos/nixpkgs?ref=nixos-unstable";
     #nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-23.11";
     #home-manager.url = "github:nix-community/home-manager";
     home-manager.url = "github:nix-community/home-manager/release-25.11";
@@ -17,6 +17,7 @@
     {
       #self,
       nixpkgs,
+      nixpkgs-unstable,
       home-manager,
       #stylix,
       nixvim,
@@ -28,10 +29,14 @@
 
       pkgs = import nixpkgs {
         inherit system;
-
         config = {
           allowUnfree = true;
         };
+      };
+
+      pkgs-unstable = import nixpkgs-unstable {
+        inherit system;
+        config.allowUnfree = true;
       };
 
     in
@@ -39,7 +44,10 @@
 
       nixosConfigurations = {
         serveur = nixpkgs.lib.nixosSystem {
-          specialArgs = { inherit system; };
+          specialArgs = { 
+            inherit system;
+            inherit pkgs-unstable; 
+          };
           modules = [
             ./hotes/serveur/configuration.nix
             #stylix.nixosModules.stylix
@@ -57,7 +65,10 @@
         };
 
         portable = nixpkgs.lib.nixosSystem {
-          specialArgs = { inherit system; };
+          specialArgs = { 
+            inherit system; 
+            inherit pkgs-unstable; 
+          };
           modules = [
             ./hotes/portable/configuration.nix
             #stylix.nixosModules.stylix
@@ -74,7 +85,10 @@
         };
 
         pomme = nixpkgs.lib.nixosSystem {
-          specialArgs = { inherit system; };
+          specialArgs = { 
+            inherit system;
+            inherit pkgs-unstable; 
+          };
           modules = [
             ./hotes/portable/configuration.nix
             home-manager.nixosModules.home-manager

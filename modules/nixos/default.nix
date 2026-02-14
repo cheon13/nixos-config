@@ -1,6 +1,6 @@
 # default.nix pour nixos
 
-{ config, pkgs, ... }:
+{ config, pkgs, pkgs-unstable, ... }:
 
 {
   imports = [
@@ -174,6 +174,7 @@
     wlr-randr
     wlopm
     fuzzel # pour niri
+    pkgs-unstable.noctalia-shell
   ];
 
   # Installation d'un package pour ricer nixos

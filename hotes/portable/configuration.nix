@@ -1,6 +1,6 @@
 # configuration.nix pour portable
 
-{ pkgs, ... }:
+{ pkgs, pkgs-unstable, ... }:
 
 {
   imports = [
