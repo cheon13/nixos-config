@@ -1,4 +1,8 @@
 {
+  environment.systemPackages = with pkgs; [
+    pkgs-unstable.navidrome
+  ];
+
   # Service de music streaming
   services.navidrome = {
     enable = true;
