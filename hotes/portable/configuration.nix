@@ -28,6 +28,11 @@
     openFirewall = true;
   };
 
+  programs.kdeconnect = {
+    enable = true;
+    package = pkgs.gnomeExtensions.gsconnect;
+  };
+
   environment.systemPackages = with pkgs; [
     # compilation de slstatus propre à portable
     (slstatus.overrideAttrs (oldAttrs: rec {
