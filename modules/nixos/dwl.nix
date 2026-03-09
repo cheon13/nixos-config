@@ -17,5 +17,6 @@
     grim
     slurp
     swaybg
+    dwlb     # barre wayland semblable à la barre dwm
   ];
 }
