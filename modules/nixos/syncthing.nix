@@ -1,7 +1,7 @@
 {config, pkgs, ...}:
 
 {
-  # Service de synchronisation Syncthing
+  # Service de synchronisation Syncthing - configuration commune à tous mes ordis
   services.syncthing = {
     enable = true;
     dataDir = "/home/cheon/Documents";
@@ -19,6 +19,7 @@
         "phone" = { id = "WNJ5NHU-FCEJGLJ-TBESUFK-XPMKGBN-H225KSH-JZB7XB5-FGAQUWH-4WXIVQF"; };
         "pomme" = { id = "QQ3SG5X-L3JD75V-DD2ZXSB-CONIWMA-4IMB7WR-4J5SV7Q-NSTQACG-25TEMQL"; };
       };
+
       settings.folders = {
         "Cerveau" = { 
           id = "mbh3e-b0zp2";
@@ -31,17 +32,7 @@
             }; 
           }; 
         };
-        "musique-dominique" = { 
-          id = "hnkxk-d5dgu";
-          path = "/var/Navidrome-music/Dominique/"; 
-          devices = [ "portable-dominique" "serveur"]; 
-          versioning = { 
-            type = "simple"; 
-            params = { 
-              keep = "10"; 
-            }; 
-          }; 
-        };
+
       };
   };
 

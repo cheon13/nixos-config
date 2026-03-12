@@ -5,7 +5,7 @@
 {
   imports = [
     ./wayland.nix
-    ./syncthing.nix
+    #./syncthing.nix
     #./nixvim.nix
     ./kanata.nix
     ./niri.nix

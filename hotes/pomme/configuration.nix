@@ -8,6 +8,7 @@
     ./hardware-configuration.nix
     ../../modules/nixos
     ../../modules/nixos/gnome.nix
+    ../../modules/nixos/syncthing.nix
   ];
   
  # services.displayManager.defaultSession = "river";

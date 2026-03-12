@@ -6,6 +6,7 @@
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
+    ./syncthing.nix
     ../../modules/nixos
     ../../modules/nixos/nextcloud
     ../../modules/nixos/navidrome.nix
