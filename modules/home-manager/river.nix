@@ -63,12 +63,14 @@
       riverctl map normal Mod5 W spawn '~/.config/river/scripts/reseau.sh'
 
       # Alt+Q to close the focused view
-      riverctl map normal Alt+Shift Q close
-      riverctl map normal Mod5+Shift Q close
+      #riverctl map normal Alt+Shift Q close
+      riverctl map normal Mod4+Shift Q close
+      #riverctl map normal Mod5+Shift Q close
 
       # Alt+Shift+E to exit river
-      riverctl map normal Alt+Shift E exit
-      riverctl map normal Mod5+Shift E exit
+      #riverctl map normal Alt+Shift E exit
+      #riverctl map normal Mod5+Shift E exit
+      riverctl map normal Mod4+Shift E exit
 
       # Alt+J and Alt+K to focus the next/previous view in the layout stack
       #riverctl map normal Alt H focus-view left
@@ -148,6 +150,9 @@
 
       # Alt + Middle Mouse Button to toggle float
       riverctl map-pointer normal Alt BTN_MIDDLE toggle-float
+
+      # Configure le défilement du pavé tactile à un mouvement naturel
+      riverctl input pointer-1267-12652-ELAN0733:00_04F3:316C_Touchpad natural-scroll enabled
 
       #for i in $(seq 1 9)
       for i in $(seq 1 5)
