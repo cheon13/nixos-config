@@ -8,6 +8,7 @@
     ./hardware-configuration.nix
     ./syncthing.nix
     ../../modules/nixos
+    ../../modules/nixos/kanata.nix
     ../../modules/nixos/nextcloud
     ../../modules/nixos/navidrome.nix
     ../../modules/nixos/actualbudget.nix

@@ -7,7 +7,7 @@
     # Include the results of the hardware scan.
     #/home/cheon/.dotfiles/hotes/pomme/hardware-configuration.nix
     ./hardware-configuration.nix
-    #./kanata.nix
+    ./kanata.nix
     ../../modules/nixos
     ../../modules/nixos/gnome.nix
     ../../modules/nixos/syncthing.nix

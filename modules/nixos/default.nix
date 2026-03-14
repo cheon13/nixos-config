@@ -7,7 +7,7 @@
     ./wayland.nix
     #./syncthing.nix
     #./nixvim.nix
-    ./kanata.nix
+    #./kanata.nix
     ./niri.nix
   ];
 

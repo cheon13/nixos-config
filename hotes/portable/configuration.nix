@@ -7,6 +7,7 @@
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
     ../../modules/nixos
+    ../../modules/nixos/kanata.nix
     ../../modules/nixos/gnome.nix
     ../../modules/nixos/syncthing.nix
   ];
