@@ -8,11 +8,6 @@
       ../../modules/home-manager/nixvim.nix
     ];
 
-  home.packages = with pkgs; [ 
-    #ajouter les packages propres à pomme
-    #google-chrome
-  ];
-
   home.stateVersion = "25.11";
 
   home.username = "cheon";
