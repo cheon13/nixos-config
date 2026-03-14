@@ -6,6 +6,7 @@
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
+    #./kanata.nix
     ../../modules/nixos
     ../../modules/nixos/gnome.nix
     ../../modules/nixos/syncthing.nix
@@ -17,12 +18,26 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
+  # load broadcom wireless driver and front camera du macbook air 2014
+  boot.kernelModules = [ "wl" "facetimehd" ];
+  boot.extraModulePackages = with config.boot.kernelPackages; [ broadcom_sta facetimehd ];
+  
+  # blacklist similar modules to avoid collision
+  boot.blacklistedKernelModules = [ "b43" "bcma" ];
+  
+  nixpkgs.config.permittedInsecurePackages = [
+    "broadcom-sta-6.30.223.271-59-6.12.69"
+  ];
+  # Extraire et installer le firmware nécessaire pour la caméra du macbook air 2014
+  hardware.facetimehd.enable = true;
+
   networking.hostName = "pomme"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Enable CUPS to print documents.
-  #services.printing.enable = true;
+  services.printing.enable = true;
 
+  # pour permettre les imprimantes autodécouvertes (IPP Everywhere)
   services.avahi = {
     enable = true;
     nssmdns4 = true;
@@ -37,23 +52,6 @@
     enableSSHSupport = true;
   };
 
-  # Configuration spécifique à portable 
-  # La configuration générale se trouve dans modules/nixos/kanata.nix
-  services.kanata = {
-    keyboards = {
-      internalKeyboard = {
-         devices = [
-           "/dev/input/by-path/platform-i8042-serio-0-event-kbd"
-           "/dev/input/by-id/usb-Keychron_Keychron_K2-event-kbd"
-           #"/dev/input/by-path/pci-0000:00:14.0-usb-0:9:1.1-event-kbd"
-           #"/dev/input/by-path/pci-0000:00:14.0-usbv2-0:9:1.1-event-kbd"
-           #"/dev/input/by-id/usb-Logitech_USB_Receiver-if01-event-kbd"
-           #"/dev/input/event15"
-         ];
-      };
-    };
-  };
-
-  system.stateVersion = "25.11"; # Did you read the comment?
+  system.stateVersion = "25.11"; 
 
 }

@@ -11,10 +11,10 @@
   home.packages = with pkgs; [ 
     #ajouter les packages propres à portable
     google-chrome
-    brave
-    lollypop # Pour lecture de musique seulement - gnome
-    signal-desktop
-    nushell
+    #brave
+    #lollypop # Pour lecture de musique seulement - gnome
+    #signal-desktop
+    #nushell
     spotify
 
     # Pour les livres numériques
@@ -22,7 +22,7 @@
     foliate
 
     # Intelligence artificielle
-    jan
+    #jan
   ];
 
   xsession = {
