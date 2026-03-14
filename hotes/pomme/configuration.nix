@@ -5,6 +5,7 @@
 {
   imports = [
     # Include the results of the hardware scan.
+    #/home/cheon/.dotfiles/hotes/pomme/hardware-configuration.nix
     ./hardware-configuration.nix
     #./kanata.nix
     ../../modules/nixos

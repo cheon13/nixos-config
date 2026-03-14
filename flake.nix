@@ -90,12 +90,13 @@
             inherit pkgs-unstable; 
           };
           modules = [
-            ./hotes/portable/configuration.nix
+            ./hotes/pomme/configuration.nix
             home-manager.nixosModules.home-manager
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
               home-manager.users.cheon = import ./hotes/pomme/home.nix;
+              home-manager.backupFileExtension = "backup";
               home-manager.sharedModules = [
                 inputs.nixvim.homeModules.nixvim
               ];
