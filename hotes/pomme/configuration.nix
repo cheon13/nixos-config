@@ -53,6 +53,9 @@
     enableSSHSupport = true;
   };
 
+  environment.systemPackages = with pkgs; [
+    slstatus 
+  ];
   system.stateVersion = "25.11"; 
 
 }
