@@ -176,6 +176,10 @@
     fuzzel # pour niri
     pkgs-unstable.noctalia-shell
     #pkgs-unstable.quickshell
+    #packages temporaire pour l'instatllation de sops-nix
+    age
+    ssh-to-age
+    sops
   ];
 
   # Installation d'un package pour ricer nixos
