@@ -1,0 +1,32 @@
+keys:
+  - &portable age14jqp4xae5eu020gntdeusgev3htjgjz2dc6tjm8jur3epu5yageqphx3dq
+  - &serveur  age1lfamgda3tvwwld4kw42yuvfdtmgr2lj2wcwngxczp5zupgale98s49shgd
+  - &pomme    age18urz3h7xmz8te5qepxmncfz05v9lcgwnzzfks8492cnz5ct9zyyq8ckweu
+  - &admin    age17h7ms50fkzx80jsxzt49q9vmu5jsfrxyk78vr68akj96ge282p0qf4jjx9
+
+creation_rules:
+  - path_regex: secrets/common/.*
+    key_groups:
+      - age:
+          - *portable
+          - *serveur
+          - *pomme
+          - *admin
+
+  - path_regex: secrets/portable/.*
+    key_groups:
+      - age:
+          - *portable
+          - *admin
+
+  - path_regex: secrets/serveur/.*
+    key_groups:
+      - age:
+          - *serveur
+          - *admin
+
+  - path_regex: secrets/pomme/.*
+    key_groups:
+      - age:
+          - *pomme
+          - *admin

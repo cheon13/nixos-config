@@ -9,6 +9,7 @@
     #./nixvim.nix
     #./kanata.nix
     ./niri.nix
+    ./sops.nix
   ];
 
   #services.udisks2.enable = true; # pour le montage automatique des disques USB
@@ -132,6 +133,7 @@
   users.users.cheon = {
     isNormalUser = true;
     description = "Christian Héon";
+    hashedPasswordFile = config.sops.secrets.user_password.path;  # nouveau
     extraGroups = [
       "networkmanager"
       "wheel"
