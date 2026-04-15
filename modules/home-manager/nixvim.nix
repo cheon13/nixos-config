@@ -26,6 +26,8 @@
           go_out = '<Left>',
         },
       })
+
+      require("claudecode").setup({})
     '';
 
     opts = {
@@ -190,6 +192,19 @@
         key = "<Escape>";
         action = ''<C-\><C-n>'';
       }
+      # Raccourci pour utiliser Claude Code
+      {
+        mode = "n";
+        key = "<leader>cc";
+        action = "<cmd>ClaudeCode<CR>";
+        options.desc = "Toggle Claude Code";
+      }
+      {
+        mode = "v";
+        key = "<leader>cs";
+        action = "<cmd>ClaudeCodeSend<CR>";
+        options.desc = "Envoyer la sélection à Claude";
+      }
     ];
 
     plugins.lsp = {
@@ -252,6 +267,15 @@
     extraPlugins = with pkgs.vimPlugins; [
       vimwiki
       mini-files
+     (pkgs.vimUtils.buildVimPlugin {                  # nouveau
+       name = "claudecode-nvim";
+       src = pkgs.fetchFromGitHub {
+         owner = "coder";
+         repo = "claudecode.nvim";
+         rev = "main";
+         hash = "sha256-r8hAUpSsr8zNm+av8Mu5oILaTfEsXEnJmkzRmvi9pF8=";
+       };
+     })
     ];
 
   };

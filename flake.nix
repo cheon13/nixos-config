@@ -9,6 +9,8 @@
     nixvim.inputs.nixpkgs.follows = "nixpkgs";
     sops-nix.url = "github:Mic92/sops-nix";                          # nouveau
     sops-nix.inputs.nixpkgs.follows = "nixpkgs";                     # nouveau
+    claude-code.url = "github:sadjow/claude-code-nix";
+    claude-code.inputs.nixpkgs.follows = "nixpkgs";
   };
   outputs =
     {
@@ -17,6 +19,7 @@
       home-manager,
       nixvim,
       sops-nix,                                                        # nouveau
+      claude-code,
       ...
     }@inputs:
     let
@@ -29,6 +32,7 @@
         inherit system;
         config.allowUnfree = true;
       };
+    claudePkg = claude-code.packages.${system}.claude-code;  # nouveau
     in
     {
       nixosConfigurations = {
@@ -36,6 +40,7 @@
           specialArgs = {
             inherit system;
             inherit pkgs-unstable;
+            inherit claudePkg;                              # nouveau
           };
           modules = [
             ./hotes/serveur/configuration.nix
@@ -57,6 +62,7 @@
           specialArgs = {
             inherit system;
             inherit pkgs-unstable;
+            inherit claudePkg;                              # nouveau
           };
           modules = [
             ./hotes/portable/configuration.nix
@@ -78,6 +84,7 @@
           specialArgs = {
             inherit system;
             inherit pkgs-unstable;
+            inherit claudePkg;                              # nouveau
           };
           modules = [
             ./hotes/pomme/configuration.nix

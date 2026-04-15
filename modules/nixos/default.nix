@@ -1,6 +1,6 @@
 # default.nix pour nixos
 
-{ config, pkgs, pkgs-unstable, ... }:
+{ config, pkgs, pkgs-unstable, claudePkg, ... }:
 
 {
   imports = [
@@ -158,6 +158,7 @@
     lua-language-server
     git
     gh # github CLI pour faciliter l'authentification avec github.
+    claudePkg
     gnupg
     #pinentry
     pinentry-curses
