@@ -1,5 +1,5 @@
 
-{self, pkgs, ...}: {
+{ ... }: {
 
   services.kanata = {
     enable = true;

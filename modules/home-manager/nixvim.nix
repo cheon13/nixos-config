@@ -1,7 +1,7 @@
 # Configuration de neovim avec nixvim
 # Samedi 04 janvier 2025
 
-{ self, pkgs, ... }:
+{ pkgs, ... }:
 {
   # Import all your configuration modules here
   imports = [

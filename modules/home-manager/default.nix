@@ -1,6 +1,6 @@
 # Module de home-manager
 
-{ config, pkgs, inputs, ...}:
+{ pkgs, ... }:
 
 {
   imports =

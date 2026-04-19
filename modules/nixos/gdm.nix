@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ ... }:
 
 {
   # Installation du display manager gdm
