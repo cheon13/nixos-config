@@ -45,14 +45,16 @@
           sops-nix.nixosModules.sops
           home-manager.nixosModules.home-manager
           {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.users.cheon = import ./hotes/${hote}/home.nix;
-            home-manager.backupFileExtension = "backup";
-            home-manager.sharedModules = [
-              inputs.nixvim.homeModules.nixvim
-              sops-nix.homeManagerModules.sops
-            ];
+            home-manager = {
+              useGlobalPkgs = true;
+              useUserPackages = true;
+              users.cheon = import ./hotes/${hote}/home.nix;
+              backupFileExtension = "backup";
+              sharedModules = [
+                inputs.nixvim.homeModules.nixvim
+                sops-nix.homeManagerModules.sops
+              ];
+            };
           }
         ];
       };
