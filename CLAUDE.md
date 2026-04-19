@@ -21,8 +21,8 @@ sudo nixos-rebuild switch --flake .#serveur
 sudo nixos-rebuild switch --flake .#pomme
 
 # Déployer à distance
-nixos-rebuild switch --flake .#serveur --target-host cheon@serveur --use-remote-sudo
-nixos-rebuild switch --flake .#pomme --target-host cheon@pomme --use-remote-sudo
+nixos-rebuild switch --flake .#serveur --target-host cheon@serveur --sudo
+nixos-rebuild switch --flake .#pomme --target-host cheon@pomme --sudo
 
 # Tester sans appliquer
 nixos-rebuild build --flake .#portable
