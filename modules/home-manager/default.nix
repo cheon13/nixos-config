@@ -1,6 +1,6 @@
 # Module de home-manager
 
-{ pkgs, ... }:
+{ pkgs, pkgs-unstable, ... }:
 
 {
   imports =
@@ -83,7 +83,7 @@
     qutebrowser
     alacritty
     kitty
-    wezterm
+    #wezterm
 
     # Applications de bureau
     iotas # application pour prendre des notes markdown et qui se synchronise avec nextcloud notes
@@ -210,6 +210,7 @@
 
   programs.wezterm = {
       enable = true;
+      package = pkgs-unstable.wezterm;
       extraConfig = ''
         local config = wezterm.config_builder()
         -- -- Ajout pour le problème de rendering de font après update 14 octobre 2024

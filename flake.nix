@@ -50,6 +50,7 @@
               useUserPackages = true;
               users.cheon = import ./hotes/${hote}/home.nix;
               backupFileExtension = "backup";
+              extraSpecialArgs = { inherit pkgs-unstable; };
               sharedModules = [
                 inputs.nixvim.homeModules.nixvim
                 sops-nix.homeManagerModules.sops
