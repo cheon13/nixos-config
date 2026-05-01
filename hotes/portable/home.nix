@@ -15,7 +15,7 @@
     #lollypop # Pour lecture de musique seulement - gnome
     #signal-desktop
     #nushell
-    spotify
+    #spotify
 
     # Pour les livres numériques
     calibre
