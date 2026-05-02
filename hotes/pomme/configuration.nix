@@ -54,8 +54,12 @@
   };
 
   environment.systemPackages = with pkgs; [
-    slstatus 
+    # compilation de slstatus propre à pomme
+    (slstatus.overrideAttrs (oldAttrs: rec {
+      src = ./slstatus;
+    }))
   ];
+
   system.stateVersion = "25.11"; 
 
 }
