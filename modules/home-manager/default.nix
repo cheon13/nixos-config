@@ -83,7 +83,6 @@
     qutebrowser
     alacritty
     kitty
-    #wezterm
 
     # Applications de bureau
     iotas # application pour prendre des notes markdown et qui se synchronise avec nextcloud notes
