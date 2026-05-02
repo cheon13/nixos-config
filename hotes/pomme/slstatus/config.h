@@ -66,10 +66,10 @@ static const struct arg args[] = {
 	/* function format            argument */
 	{ battery_perc, " 󰁹 %s% | ",  "BAT0" },
 	{ run_command, "󰕾 %s | ",   "~/.dotfiles/hotes/portable/slstatus/scripts/volume.sh" },
-	/*{ wifi_essid, " 󰖩 %s (| ",  "wlp3s0" },*/
-	/*{ wifi_perc, "%s%) | ",  "wlp3s0" },*/
-	{ wifi_essid, "󰖩 %s (",  "wlp0s20f3" },
-	{ wifi_perc, "%s%) | ",  "wlp0s20f3" },
+	{ wifi_essid, " 󰖩 %s (| ",  "wlp3s0" },
+	{ wifi_perc, "%s%) | ",  "wlp3s0" },
+  /*{ wifi_essid, "󰖩 %s (",  "wlp0s20f3" },*/
+  /*{ wifi_perc, "%s%) | ",  "wlp0s20f3" },*/
 	/* { run_command, "󰕾 %s | ",   "volume.sh" },*/
 	/* { run_command, "󰕾 %s | ",   "~/.config/slstatus/volume.sh" },*/
 	/* { temp, " %sC | ",         "/sys/class/thermal/thermal_zone0/temp" },*/
