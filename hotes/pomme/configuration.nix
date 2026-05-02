@@ -27,7 +27,7 @@
   boot.blacklistedKernelModules = [ "b43" "bcma" ];
   
   nixpkgs.config.permittedInsecurePackages = [
-    "broadcom-sta-6.30.223.271-59-6.12.69"
+    "broadcom-sta-6.30.223.271-59-6.12.84"
   ];
   # Extraire et installer le firmware nécessaire pour la caméra du macbook air 2014
   hardware.facetimehd.enable = true;
@@ -54,8 +54,12 @@
   };
 
   environment.systemPackages = with pkgs; [
-    slstatus 
+    # compilation de slstatus propre à pomme
+    (slstatus.overrideAttrs (oldAttrs: rec {
+      src = ./slstatus;
+    }))
   ];
+
   system.stateVersion = "25.11"; 
 
 }
