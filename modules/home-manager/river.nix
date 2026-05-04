@@ -79,10 +79,10 @@
       #riverctl map normal Alt L focus-view right
 
       # Ergol Mod4+J and Mod4+K to focus the next/previous view in the layout stack
-      riverctl map normal Mod4 L focus-view left
-      riverctl map normal Mod4 R focus-view down
-      riverctl map normal Mod4 T focus-view up
-      riverctl map normal Mod4 I focus-view right
+      riverctl map normal Mod4 L focus-view previous
+      #riverctl map normal Mod4 R focus-view down
+      #riverctl map normal Mod4 T focus-view up
+      riverctl map normal Mod4 I focus-view next
 
       # Alt+Shift+J and Alt+Shift+K to swap the focused view with the next/previous
       # view in the layout stack
@@ -186,7 +186,9 @@
 
       # Ergol map tags 1,2,3,4 to h g , k
       riverctl map normal Mod4 H set-focused-tags $((1 << (1 - 1)))
+      riverctl map normal Mod4 T set-focused-tags $((1 << (1 - 1)))
       riverctl map normal Mod4 G set-focused-tags $((1 << (2 - 1)))
+      riverctl map normal Mod4 R set-focused-tags $((1 << (2 - 1)))
       riverctl map normal Mod4 Comma set-focused-tags $((1 << (3 - 1)))
       riverctl map normal Mod4 K set-focused-tags $((1 << (4 - 1)))
 
