@@ -11,9 +11,9 @@
   home.packages = with pkgs; [ 
     #ajouter les packages propres à portable
     google-chrome
+    signal-desktop
     #brave
     #lollypop # Pour lecture de musique seulement - gnome
-    #signal-desktop
     #nushell
     #spotify
 
