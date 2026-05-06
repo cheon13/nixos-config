@@ -10,6 +10,7 @@
     ../../modules/nixos/kanata.nix
     ../../modules/nixos/gnome.nix
     ../../modules/nixos/syncthing.nix
+    ../../modules/nixos/virt-manager.nix
   ];
   
  # services.displayManager.defaultSession = "river";
