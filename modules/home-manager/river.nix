@@ -37,6 +37,9 @@
       # Alt+G to start an instance of google-chrome-stable
       riverctl map normal Alt L spawn google-chrome-stable
 
+      # Alt+S to start an instance of signal-desktop
+      riverctl map normal Alt S spawn ' signal-desktop --password-store="gnome-libsecret" '
+
       # Alt+N Pour prendre des notes rapidement
       #riverctl map normal Alt N spawn 'kitty -d ~/Documents/Cerveau nvim +/Note /home/cheon/Documents/Cerveau/index.md'
       riverctl map normal Alt I spawn 'foot -T Notes -D ~/Documents/Cerveau nvim +/Note /home/cheon/Documents/Cerveau/index.md'
