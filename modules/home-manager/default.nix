@@ -139,6 +139,10 @@
         river = "dbus-run-session river";
         qw = "~/Scripts/qw.sh";
         er = "~/Scripts/er.sh";
+        rm = "rm -i --preserve-root";
+        cp = "cp -i";
+        mkdir = "mkdir -p";
+        ping = "ping -c 5";
       };
   };
 
