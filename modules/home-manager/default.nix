@@ -184,8 +184,9 @@
         resize-by-cells = "no"; # pour régler problème dans paperwm
 	    };
       csd = {
-        preferred = "server";
-        hide-when-maximized = "yes";
+        preferred = "none";
+        #preferred = "server";
+        #hide-when-maximized = "yes";
       };
 	   # colors = { 
 	   #   alpha = 0.9;
