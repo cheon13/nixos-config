@@ -177,10 +177,11 @@
     settings = {
 	    main = {
 	      term = "foot";
-              font = "Adwaita Mono:size=14";
-              #font = "JetBrainsMono Nerd Font Mono:size=14";
-              include = "~/.config/foot/foot-colors.ini";
-              #include = "~/.config/foot/gruvbox.foot.ini";
+        font = "Adwaita Mono:size=14";
+        #font = "JetBrainsMono Nerd Font Mono:size=14";
+        include = "~/.config/foot/foot-colors.ini";
+        #include = "~/.config/foot/gruvbox.foot.ini";
+        resize-by-cells = "no"; # pour régler problème dans paperwm
 	    };
       csd = {
         preferred = "server";
