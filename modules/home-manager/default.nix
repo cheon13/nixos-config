@@ -69,6 +69,7 @@
     wofi
     waybar
     creek # status bar pour river wm
+    dwlb  # status bar pour dwl 
     grim
     slurp
     imv
