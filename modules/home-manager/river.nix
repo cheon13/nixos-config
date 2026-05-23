@@ -23,98 +23,64 @@
       # Note: the "Alt" modifier is also known as Logo, GUI, Windows, Mod4, etc.
       #       the "Alt-char" modifier is Mod5
 
-      # Alt+Return to start an instance of wezterm terminal
-      #riverctl map normal Alt Return spawn wezterm
-
       # Alt+Return to start an instance of foot terminal
-      riverctl map normal Alt Return spawn foot
       riverctl map normal Alt T spawn foot
 
-      # Alt+W to start an instance of firefox
+      # Alt+R to start an instance of firefox
       riverctl map normal Alt R spawn firefox
-      #riverctl map normal Mod5 W spawn firefox
 
-      # Alt+G to start an instance of google-chrome-stable
+      # Alt+L to start an instance of google-chrome-stable
       riverctl map normal Alt L spawn google-chrome-stable
 
       # Alt+S to start an instance of signal-desktop
       riverctl map normal Alt S spawn ' signal-desktop --password-store="gnome-libsecret" '
 
-      # Alt+N Pour prendre des notes rapidement
+      # Alt+I Pour prendre des notes rapidement
       #riverctl map normal Alt N spawn 'kitty -d ~/Documents/Cerveau nvim +/Note /home/cheon/Documents/Cerveau/index.md'
       riverctl map normal Alt I spawn 'foot -T Notes -D ~/Documents/Cerveau nvim +/Note /home/cheon/Documents/Cerveau/index.md'
-      #riverctl map normal Alt N spawn 'wezterm start  --cwd  ~/Documents/Cerveau nvim +/Note /home/cheon/Documents/Cerveau/index.md'
 
-      # Alt+Shift S Pour prendre copie-écran
+      # Alt+Shift T Pour prendre copie-écran
       riverctl map normal Alt+Shift T spawn 'slurp | grim -g -'
-      riverctl map normal Mod5+Shift S spawn 'slurp | grim -g -'
 
       # Alt P Pour afficher passmenu pour passwordstore
-      riverctl map normal Alt Y spawn '~/.config/river/scripts/passmenu.sh'
-      #riverctl map normal Mod5 P spawn 'passmenu'
+      riverctl map normal Alt P spawn '~/.config/river/scripts/passmenu.sh'
 
       # Mapping pour le menu wofi 
       riverctl map normal Alt D spawn 'wofi --show drun'
-      #riverctl map normal Mod5 D spawn 'wofi --show drun'
 
       # Mapping pour le menu bemenu-run
       #riverctl map normal Alt D spawn '~/.config/river/scripts/menu-run.sh' 
-      #riverctl map normal Mod5 D spawn 'bemenu-run --prompt "Lancer" -i -W 0.3 -c -l 20 --fn JetBrainsMono 14 --fb "#282828" --ff "#ebdbb2" --nb "#282828" --nf "#ebdbb2" --tb "#282828" --hb "#282828" --tf "#fb4934" --hf "#fabd2f"  --af "#ebdbb2" --ab "#282828" -B 2 --bdr "#ebdbb2"'
 
       # Mapping pour le menu réseau 
       riverctl map normal Alt W spawn '~/.config/river/scripts/reseau.sh'
-      riverctl map normal Mod5 W spawn '~/.config/river/scripts/reseau.sh'
 
-      # Alt+Q to close the focused view
-      #riverctl map normal Alt+Shift Q close
+      # Mod4+Q to close the focused view
       riverctl map normal Mod4+Shift Q close
-      #riverctl map normal Mod5+Shift Q close
 
-      # Alt+Shift+E to exit river
-      #riverctl map normal Alt+Shift E exit
-      #riverctl map normal Mod5+Shift E exit
+      # Mod4+Shift+E to exit river
       riverctl map normal Mod4+Shift E exit
 
-      # Alt+J and Alt+K to focus the next/previous view in the layout stack
-      #riverctl map normal Alt H focus-view left
-      #riverctl map normal Alt J focus-view down
-      #riverctl map normal Alt K focus-view up
-      #riverctl map normal Alt L focus-view right
+      # Mod4+R and Mod4+T to focus the next/previous view in the layout stack
+      riverctl map normal Mod4 R focus-view next
+      riverctl map normal Mod4 T focus-view previous
 
-      # Ergol Mod4+J and Mod4+K to focus the next/previous view in the layout stack
-      riverctl map normal Mod4 L focus-view previous
-      #riverctl map normal Mod4 R focus-view down
-      #riverctl map normal Mod4 T focus-view up
-      riverctl map normal Mod4 I focus-view next
-
-      # Alt+Shift+J and Alt+Shift+K to swap the focused view with the next/previous
+      # Mod4+Shift+R and Mod4+Shift+T to swap the focused view with the next/previous
       # view in the layout stack
-      riverctl map normal Alt+Shift J swap next
-      riverctl map normal Alt+Shift K swap previous
       riverctl map normal Mod4+Shift R swap next
       riverctl map normal Mod4+Shift T swap previous
 
-      # Alt+Period and Alt+Comma to focus the next/previous output
-      riverctl map normal Alt Period focus-output next
-      riverctl map normal Alt Comma focus-output previous
+      # Mod4+D and Mod4+M to focus the next/previous output
+      riverctl map normal Mod4 Comma focus-output next
+      riverctl map normal Mod4 G focus-output previous
 
-      # Ergol Mod4+D and Mod4+M to focus the next/previous output
-      riverctl map normal Mod4 D focus-output next
-      riverctl map normal Mod4 M focus-output previous
+      # Mod4+H to focus the previous tag
+      riverctl map normal Mod4 H focus-previous-tags
 
-      # Ergol Mod4+H to focus the previous tag
-      riverctl map normal Mod4 Period focus-previous-tags
-
-      # Alt+Shift+{Period,Comma} to send the focused view to the next/previous output
-      riverctl map normal Alt+Shift Period send-to-output next
-      riverctl map normal Alt+Shift Comma send-to-output previous
-
-      # Ergol Mod4+Shift+{Period,Comma} to send the focused view to the next/previous output
-      riverctl map normal Mod4+Shift D send-to-output next
-      riverctl map normal Mod4+Shift M send-to-output previous
+      # Mod4+Shift+{Period,Comma} to send the focused view to the next/previous output
+      riverctl map normal Mod4+Shift Comma send-to-output next
+      riverctl map normal Mod4+Shift G send-to-output previous
 
       # Alt+Shift+Return to bump the focused view to the top of the layout stack
-      riverctl map normal Alt+Shift Return zoom
       riverctl map normal Mod4+Shift Return zoom
 
       # Alt+H and Alt+L to decrease/increase the main ratio of rivertile(1)
@@ -188,17 +154,17 @@
       done
 
       # Ergol map tags 1,2,3,4 to h g , k
-      riverctl map normal Mod4 H set-focused-tags $((1 << (1 - 1)))
-      riverctl map normal Mod4 T set-focused-tags $((1 << (1 - 1)))
-      riverctl map normal Mod4 G set-focused-tags $((1 << (2 - 1)))
-      riverctl map normal Mod4 R set-focused-tags $((1 << (2 - 1)))
-      riverctl map normal Mod4 Comma set-focused-tags $((1 << (3 - 1)))
-      riverctl map normal Mod4 K set-focused-tags $((1 << (4 - 1)))
+      #riverctl map normal Mod4 H set-focused-tags $((1 << (1 - 1)))
+      #riverctl map normal Mod4 T set-focused-tags $((1 << (1 - 1)))
+      #riverctl map normal Mod4 G set-focused-tags $((1 << (2 - 1)))
+      #riverctl map normal Mod4 R set-focused-tags $((1 << (2 - 1)))
+      #riverctl map normal Mod4 Comma set-focused-tags $((1 << (3 - 1)))
+      #riverctl map normal Mod4 K set-focused-tags $((1 << (4 - 1)))
 
-      riverctl map normal Mod4+Shift H set-view-tags $((1 << (1 - 1)))
-      riverctl map normal Mod4+Shift G set-view-tags $((1 << (2 - 1)))
-      riverctl map normal Mod4+Shift Comma set-view-tags $((1 << (3 - 1)))
-      riverctl map normal Mod4+Shift K set-view-tags $((1 << (4 - 1)))
+      #riverctl map normal Mod4+Shift H set-view-tags $((1 << (1 - 1)))
+      #riverctl map normal Mod4+Shift G set-view-tags $((1 << (2 - 1)))
+      #riverctl map normal Mod4+Shift Comma set-view-tags $((1 << (3 - 1)))
+      #riverctl map normal Mod4+Shift K set-view-tags $((1 << (4 - 1)))
 
 
       # Alt+0 to focus all tags
