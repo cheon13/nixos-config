@@ -172,6 +172,7 @@
     }))
     dmenu
     dmenu-wayland # pour permettre d'utiliser dmenu et passmenu dans wayland
+    wmenu
     xclip
     nitrogen
     wlr-randr
