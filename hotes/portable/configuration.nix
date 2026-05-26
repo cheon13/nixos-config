@@ -12,9 +12,10 @@
     ../../modules/nixos/syncthing.nix
     ../../modules/nixos/virt-manager.nix
   ];
+
    # Créer l'entrée de session pour GDM
   services.displayManager.sessionPackages = [
-    (pkgs.writeTextFile {
+    (pkgs.writeTextFile rec {
       name = "dwl-session";
       destination = "/share/wayland-sessions/dwl.desktop";
       text = ''
@@ -24,9 +25,13 @@
         Exec=/home/cheon/Projets/mon-dwl/result/bin/dwl
         Type=Application
       '';
+      
+      # IMPORTANT : déclarer la session fournie
+      passthru.providedSessions = [ "dwl" ];
     })
-  ];
- # services.displayManager.defaultSession = "river";
+  ]; 
+
+  # services.displayManager.defaultSession = "river";
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
