@@ -13,13 +13,19 @@
     ../../modules/nixos/virt-manager.nix
   ];
    # Créer l'entrée de session pour GDM
-  environment.etc."wayland-sessions/dwl.desktop".text = ''
-    [Desktop Entry]
-    Name=DWL
-    Comment=dwm pour Wayland
-    Exec=/home/cheon/Projets/mon-dwl/result/bin/dwl
-    Type=Application
-  ''; 
+  services.displayManager.sessionPackages = [
+    (pkgs.writeTextFile {
+      name = "dwl-session";
+      destination = "/share/wayland-sessions/dwl.desktop";
+      text = ''
+        [Desktop Entry]
+        Name=DWL
+        Comment=dwm pour Wayland
+        Exec=/home/cheon/Projets/mon-dwl/result/bin/dwl
+        Type=Application
+      '';
+    })
+  ];
  # services.displayManager.defaultSession = "river";
 
   # Bootloader.
