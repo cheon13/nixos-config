@@ -17,7 +17,7 @@
     [Desktop Entry]
     Name=DWL
     Comment=dwm pour Wayland
-    Exec=~/Projets/mon-dwl/result/bin/dwl
+    Exec=/home/cheon/Projets/mon-dwl/result/bin/dwl
     Type=Application
   ''; 
  # services.displayManager.defaultSession = "river";
