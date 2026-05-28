@@ -22,7 +22,7 @@
         [Desktop Entry]
         Name=DWL
         Comment=dwm pour Wayland
-        Exec=/home/cheon/startdwl
+        Exec=/home/cheon/.config/dwl/startdwl
         Type=Application
       '';
       
