@@ -177,6 +177,7 @@
     nitrogen
     wlr-randr
     wlopm
+    hyprpicker # Pour sélectionner une couleur dans une image
     fuzzel # pour niri
     pkgs-unstable.noctalia-shell
     #pkgs-unstable.quickshell
