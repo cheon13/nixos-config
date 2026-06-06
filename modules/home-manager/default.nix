@@ -293,6 +293,12 @@
       "x-scheme-handler/https"  = "firefox.desktop";
       "x-scheme-handler/about"  = "firefox.desktop";
       "x-scheme-handler/unknown" = "firefox.desktop";
+      "image/jpeg"               = "imv.desktop";
+      "image/png"                = "imv.desktop";
+      "image/gif"                = "imv.desktop";
+      "image/webp"               = "imv.desktop";
+      "image/svg+xml"            = "imv.desktop";
+      "image/tiff"               = "imv.desktop";
     };
   };
 
