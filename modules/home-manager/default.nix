@@ -299,6 +299,11 @@
       "image/webp"               = "imv.desktop";
       "image/svg+xml"            = "imv.desktop";
       "image/tiff"               = "imv.desktop";
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.document" = "writer.desktop";
+      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"       = "calc.desktop";
+      "application/msword"       = "writer.desktop";
+      "application/vnd.ms-excel" = "calc.desktop";
+      "application/pdf"          = "org.pwmt.zathura.desktop";
     };
   };
 
