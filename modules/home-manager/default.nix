@@ -7,9 +7,9 @@
     [ 
       #./neovim.nix
       ./nixvim.nix
-      ./river.nix
-      ./niri.nix
-      ./waybar
+      #./river.nix
+      #./niri.nix
+      #./waybar
       ./swaylock.nix
       ./wofi.nix
       #./sway.nix

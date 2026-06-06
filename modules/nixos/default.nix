@@ -8,7 +8,7 @@
     #./syncthing.nix
     #./nixvim.nix
     #./kanata.nix
-    ./niri.nix
+    #./niri.nix
     ./sops.nix
   ];
 
