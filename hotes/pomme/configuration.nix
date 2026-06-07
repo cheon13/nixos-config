@@ -13,6 +13,24 @@
     ../../modules/nixos/syncthing.nix
   ];
   
+   # Créer l'entrée de session pour GDM
+  services.displayManager.sessionPackages = [
+    (pkgs.writeTextFile rec {
+      name = "dwl-session";
+      destination = "/share/wayland-sessions/dwl.desktop";
+      text = ''
+        [Desktop Entry]
+        Name=DWL
+        Comment=dwm pour Wayland
+        Exec=/home/cheon/.config/dwl/startdwl
+        Type=Application
+      '';
+      
+      # IMPORTANT : déclarer la session fournie
+      passthru.providedSessions = [ "dwl" ];
+    })
+  ]; 
+
  # services.displayManager.defaultSession = "river";
 
   # Bootloader.
