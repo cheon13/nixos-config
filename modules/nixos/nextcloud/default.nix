@@ -10,7 +10,7 @@
     config.dbtype = "mysql";
     database.createLocally = true;
     extraApps = {
-      inherit (pkgs.nextcloud31Packages.apps) notes;
+      inherit (pkgs.nextcloud32Packages.apps) notes;
     };
   extraAppsEnable = true;
   };
