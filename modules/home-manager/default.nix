@@ -49,7 +49,7 @@
     python3
     lua
     lazygit
-    nixfmt-rfc-style # formateur pour les fichiers nix dans nvim
+    nixfmt # formateur pour les fichiers nix dans nvim
 
     # Pour la musique
     pavucontrol
