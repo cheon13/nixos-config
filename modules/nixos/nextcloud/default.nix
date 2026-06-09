@@ -4,13 +4,13 @@
   
   services.nextcloud = {
     enable = true;
-    package = pkgs.nextcloud32;
+    package = pkgs.nextcloud33;
     hostName = "10.0.0.200";
     config.adminpassFile = "/etc/nextcloud-admin-pass";
     config.dbtype = "mysql";
     database.createLocally = true;
     extraApps = {
-      inherit (pkgs.nextcloud32Packages.apps) notes;
+      inherit (pkgs.nextcloud33Packages.apps) notes;
     };
   extraAppsEnable = true;
   };
