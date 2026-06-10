@@ -93,6 +93,7 @@
     hunspellDicts.en_US
     jdk # nécessaire pour installer les extensions libreoffice
     
+    butterfly # Logiciel de dessin et tableau blanc
     gnumeric
     abiword
     marp-cli # Pour faire des présentation à partir de markdown
