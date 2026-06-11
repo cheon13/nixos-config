@@ -33,13 +33,6 @@
   # Enable CUPS to print documents.
   # services.printing.enable = true;
 
-  environment.systemPackages = with pkgs; [
-    # compilation de slstatus propre à serveur
-    (slstatus.overrideAttrs (oldAttrs: rec {
-      src = ./slstatus;
-    }))
-  ];
-
   # Installation de gnugp avec une configuration de base
   programs.gnupg.agent = {
     enable = true;

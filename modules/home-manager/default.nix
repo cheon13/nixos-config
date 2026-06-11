@@ -7,15 +7,9 @@
     [ 
       #./neovim.nix
       ./nixvim.nix
-      #./river.nix
-      #./niri.nix
       ./dwl.nix
-      #./waybar
       ./swaylock.nix
       ./wofi.nix
-      #./sway.nix
-      #./hyprland.nix
-      #./hyprpaper.nix
     ];
   home.username = "cheon";
   home.homeDirectory = "/home/cheon";
@@ -68,9 +62,7 @@
     mako
     libnotify
     wofi
-    waybar
-    creek # status bar pour river wm
-    dwlb  # status bar pour dwl 
+    dwlb  # status bar pour dwl
     grim
     slurp
     imv
@@ -140,7 +132,6 @@
         df = "df -h -x tmpfs";
         nk = "NVIM_APPNAME='nvim-kickstart' nvim";
         nt = "NVIM_APPNAME='nvim-test' nvim";
-        river = "dbus-run-session river";
         qw = "~/Scripts/qw.sh";
         er = "~/Scripts/er.sh";
         rm = "rm -i --preserve-root";

@@ -8,7 +8,6 @@
     #./syncthing.nix
     #./nixvim.nix
     #./kanata.nix
-    #./niri.nix
     ./sops.nix
     ./dwl.nix
   ];
@@ -17,10 +16,6 @@
 
   services.xserver.enable = true;
   services.xserver.displayManager.startx.enable = true;
-  #services.xserver.windowManager.dwm.enable = true;
-  #services.xserver.windowManager.dwm.package = pkgs.dwm.overrideAttrs {
-  #  src = ./dwm;
-  #};
   services.xserver.xkb = {
     layout = "fr";
     variant = "ergol";
@@ -29,9 +24,6 @@
     #options = "caps:swapescape";
     model = "pc101";
   };
-  #programs.hyprland.enable = true;
-  #programs.sway.enable = true;
-  #programs.river-classic.enable = true;
 
   nix.settings.experimental-features = [
     "nix-command"
@@ -168,9 +160,6 @@
     rclone
     xdg-utils
     pulseaudio ## pour avoir le logiciel pactl qui permet de contrôler le son en ligne de commande.
-    (st.overrideAttrs (oldAttrs: rec {
-      src = ./st;
-    }))
     dmenu
     dmenu-wayland # pour permettre d'utiliser dmenu et passmenu dans wayland
     wmenu
