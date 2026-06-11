@@ -7,7 +7,7 @@ dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
 systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP DISPLAY
 
 export MOZ_ENABLE_WAYLAND=1
-firefox &
+#firefox &
 swaybg -i ~/Images/Wallpapers/$wallpaper &
 ~/.config/dwl/screensaver.sh &
 dwlb -font "${font}:size=${size}" -center-title -active-bg-color $bg -occupied-bg-color $bg -middle-bg-color-selected $bg -inactive-fg-color $inactiveFg
