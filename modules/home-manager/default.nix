@@ -9,6 +9,7 @@
       ./nixvim.nix
       #./river.nix
       #./niri.nix
+      ./dwl.nix
       #./waybar
       ./swaylock.nix
       ./wofi.nix

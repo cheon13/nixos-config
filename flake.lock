@@ -79,6 +79,23 @@
         "type": "github"
       }
     },
+    "mon-dwl": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1781137357,
+        "narHash": "sha256-dL+kLbVlQnmL2zg20912X6T9g18jgMvisbxSp28HRvU=",
+        "owner": "cheon13",
+        "repo": "mon-dwl",
+        "rev": "0db5983eee987538264cf30c674651e61251e4d1",
+        "type": "github"
+      },
+      "original": {
+        "owner": "cheon13",
+        "ref": "mon-dwl",
+        "repo": "mon-dwl",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1779971959,
@@ -168,6 +185,7 @@
       "inputs": {
         "claude-code": "claude-code",
         "home-manager": "home-manager",
+        "mon-dwl": "mon-dwl",
         "nixpkgs": "nixpkgs_2",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "nixvim": "nixvim",

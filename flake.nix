@@ -16,6 +16,14 @@
 
     claude-code.url = "github:sadjow/claude-code-nix";
     claude-code.inputs.nixpkgs.follows = "nixpkgs";
+
+    # Mon fork personnel de DWL (suit la branche mon-dwl).
+    # flake = false : on récupère seulement les sources, le build est défini
+    # dans modules/nixos/dwl.nix.
+    mon-dwl = {
+      url = "github:cheon13/mon-dwl/mon-dwl";
+      flake = false;
+    };
   };
 
   outputs =
@@ -26,6 +34,7 @@
       nixvim,
       sops-nix,
       claude-code,
+      mon-dwl,
       ...
     }@inputs:
     let
@@ -39,6 +48,7 @@
       mkHost = hote: nixpkgs.lib.nixosSystem {
         specialArgs = {
           inherit system pkgs-unstable claudePkg;
+          dwlSrc = mon-dwl;
         };
         modules = [
           ./hotes/${hote}/configuration.nix

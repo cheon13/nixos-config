@@ -1,0 +1,13 @@
+#!/bin/sh
+####################################
+#
+# Script pour démarrer dwl avec la barre dwlb
+#
+####################################
+
+# Requis pour que xdg-desktop-portal choisisse le bon portail (wlr)
+export XDG_CURRENT_DESKTOP=dwl
+
+slstatus -s | dwlb -status-stdin all &
+# dwl est fourni par le module modules/nixos/dwl.nix (dans le PATH)
+dwl -s ~/.config/dwl/dwlb.sh

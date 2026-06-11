@@ -10,6 +10,7 @@
     #./kanata.nix
     #./niri.nix
     ./sops.nix
+    ./dwl.nix
   ];
 
   #services.udisks2.enable = true; # pour le montage automatique des disques USB
