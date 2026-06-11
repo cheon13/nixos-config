@@ -162,13 +162,9 @@
     pulseaudio ## pour avoir le logiciel pactl qui permet de contrôler le son en ligne de commande.
     dmenu
     dmenu-wayland # pour permettre d'utiliser dmenu et passmenu dans wayland
-    wmenu
     xclip
     nitrogen
     wlr-randr
-    wlopm
-    hyprpicker # Pour sélectionner une couleur dans une image
-    fuzzel # pour niri
     pkgs-unstable.noctalia-shell
     #pkgs-unstable.quickshell
   ];

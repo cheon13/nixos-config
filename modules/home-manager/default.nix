@@ -9,7 +9,6 @@
       ./nixvim.nix
       ./dwl.nix
       ./swaylock.nix
-      ./wofi.nix
     ];
   home.username = "cheon";
   home.homeDirectory = "/home/cheon";
@@ -54,17 +53,11 @@
     yt-dlp # pour télécharger la musique de youtube
     clementine # Pour jouer et indexer la musique
 
-          # All of the below is for wayland window manager (sway,river and Hyprland)
+    # Outils wayland généraux (la pile propre à dwl est dans modules/nixos/dwl.nix)
     swaylock
     swayidle
-    swaybg
-    wl-clipboard
     mako
     libnotify
-    wofi
-    dwlb  # status bar pour dwl
-    grim
-    slurp
     imv
     brightnessctl
     matugen # générateur de couleur pour le ricing d'applications automatique
@@ -257,28 +250,6 @@
     gtk3.extraConfig.gtk-application-prefer-dark-theme = 1;
   };
 
-  programs.bemenu = {
-    enable = true;
-    settings = {
-      ignorecase = true;
-      width-factor = 0.3;
-      center = true;
-      list = 20;
-      fn = "JetBrainsMono 14";
-      fb = "#282828";
-      ff = "#ebdbb2";
-      nb = "#282828";
-      nf = "#ebdbb2";
-      tb = "#282828";
-      hb = "#282828";
-      tf = "#fb4934";
-      hf = "#fabd2f";
-      af = "#ebdbb2";
-      ab = "#282828";
-      border = 1;
-      bdr = "#ebdbb2";
-    };
-  };
   xdg.mimeApps = {
     enable = true;
     defaultApplications = {

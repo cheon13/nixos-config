@@ -39,15 +39,19 @@ let
   };
 in
 {
-  # mon-dwl + les outils utilisés par dwl et ses scripts (~/.config/dwl)
+  # mon-dwl + tous les outils invoqués par dwl et ses scripts (~/.config/dwl).
+  # bemenu (le lanceur principal) est fourni à part par programs.bemenu (home-manager),
+  # et slstatus — qui alimente dwlb — est compilé par hôte dans hotes/<machine>.
   environment.systemPackages = with pkgs; [
     mon-dwl
-    foot
-    wmenu
+    foot        # terminal lancé par dwl
+    dwlb        # barre wayland semblable à la barre dwm
+    wmenu       # lanceur secondaire (menus dwl)
+    swaybg      # fond d'écran
+    grim        # capture d'écran
+    slurp       # sélection de zone pour grim
     wl-clipboard
-    grim
-    slurp
-    swaybg
-    dwlb     # barre wayland semblable à la barre dwm
+    wlopm       # gestion de l'alimentation des écrans (économiseur d'écran)
+    hyprpicker  # pipette : sélectionner une couleur à l'écran
   ];
 }
