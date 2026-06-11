@@ -83,6 +83,7 @@
     #capitaine-cursors-themed
     firefox# À vérifier si l'extension -wayland est toujours pertinente
     qutebrowser
+    geary # email client
     alacritty
     kitty
 
