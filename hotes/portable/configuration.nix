@@ -86,13 +86,6 @@
     };
   };
 
-  # Installation pour LLM local pour faire un RAG 
-  services.ollama = {
-    enable = true;
-    host = "0.0.0.0";
-    # Pas d'accélération GPU pour l'instant — CPU uniquement
-  };
-
   # service pour installer des logiciel flatpak
   services.flatpak.enable = true;
 
