@@ -6,5 +6,5 @@
 
 ~/.config/dwl/stop-screensaver.sh
 export WINE_EXPERIMENTAL_WAYLAND="1" 
-/usr/local/bin/zwift
+/home/cheon/.local/bin/zwift
 #~/.config/dwl/screensaver.sh
