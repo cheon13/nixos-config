@@ -1,6 +1,15 @@
 
 { ... }: {
 
+  # Le service kanata quitte parfois sur "failed poll: EINTR" (interruption
+  # système). Le module NixOS fixe Restart=no, donc le service reste mort
+  # jusqu'à un redémarrage manuel. On force le redémarrage automatique pour
+  # qu'il se rétablisse seul.
+  systemd.services."kanata-internalKeyboard".serviceConfig = {
+    Restart = "always";
+    RestartSec = 3;
+  };
+
   services.kanata = {
     enable = true;
     keyboards = {

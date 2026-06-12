@@ -54,12 +54,11 @@
     keyboards = {
       internalKeyboard = {
          devices = [
-           #"/dev/input/by-path/platform-i8042-serio-0-event-kbd"
-           #"/dev/input/by-id/usb-Keychron_Keychron_K2-event-kbd"
-           "/dev/input/by-path/pci-0000:00:14.0-usb-0:9:1.1-event-kbd"
-           "/dev/input/by-path/pci-0000:00:14.0-usbv2-0:9:1.1-event-kbd"
+           # Récepteur Logitech (clavier sans fil) — chemin stable via by-id.
+           # Les 3 anciens chemins pointaient tous vers le même /dev/input/event0
+           # et /dev/input/event15 n'existait pas : source des "removing kbd
+           # device" et des plantages. On ne garde donc qu'un seul chemin stable.
            "/dev/input/by-id/usb-Logitech_USB_Receiver-if01-event-kbd"
-           "/dev/input/event15"
          ];
       };
     };
