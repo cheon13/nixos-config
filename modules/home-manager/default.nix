@@ -12,7 +12,7 @@
     ];
   home.username = "cheon";
   home.homeDirectory = "/home/cheon";
-  home.sessionPath = ["/usr/local/bin"];
+  home.sessionPath = ["/usr/local/bin" "/home/cheon/.local/bin"];
 
   home.packages = with pkgs; [ 
     fortune
