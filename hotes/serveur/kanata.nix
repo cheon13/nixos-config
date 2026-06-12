@@ -22,7 +22,14 @@
          #  "/dev/input/by-id/usb-Logitech_USB_Receiver-if01-event-kbd"
          #  "/dev/input/event15"
          #];
-        extraDefCfg = "process-unmapped-keys yes";
+        # Le MX Keys Mini est connecté en Bluetooth : pas de chemin stable
+        # dans /dev/input/by-id, et son numéro d'event change. On le capture
+        # donc par son nom plutôt que par un chemin (voir devices dans
+        # configuration.nix, désormais vide).
+        extraDefCfg = ''
+          process-unmapped-keys yes
+          linux-dev-names-include ("MX Keys Mini Keyboard")
+        '';
         config = ''
           (defsrc
            esc caps h j k l

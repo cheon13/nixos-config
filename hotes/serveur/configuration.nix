@@ -49,20 +49,10 @@
   };
 
   # Configuration spécifique à serveur
-  # La configuration générale se trouve dans modules/nixos/kanata.nix
-  services.kanata = {
-    keyboards = {
-      internalKeyboard = {
-         devices = [
-           # Récepteur Logitech (clavier sans fil) — chemin stable via by-id.
-           # Les 3 anciens chemins pointaient tous vers le même /dev/input/event0
-           # et /dev/input/event15 n'existait pas : source des "removing kbd
-           # device" et des plantages. On ne garde donc qu'un seul chemin stable.
-           "/dev/input/by-id/usb-Logitech_USB_Receiver-if01-event-kbd"
-         ];
-      };
-    };
-  };
+  # La configuration générale (dont le matching du clavier MX Keys Mini par
+  # nom via linux-dev-names-include) se trouve dans ./kanata.nix.
+  # On ne fixe aucun `devices` ici : le clavier est en Bluetooth et n'a pas
+  # de chemin stable, kanata le détecte par son nom.
 
   system.stateVersion = "23.05"; # Did you read the comment?
 
