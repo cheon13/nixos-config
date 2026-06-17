@@ -18,6 +18,7 @@
     defaultApplications = {
       "inode/directory" = "pcmanfm.desktop";
     };
+  };
 
   home.stateVersion = "23.11";
 
