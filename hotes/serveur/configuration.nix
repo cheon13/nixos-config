@@ -9,6 +9,7 @@
     ./syncthing.nix
     ../../modules/nixos
     ./kanata.nix
+    ./kmscon.nix
     ../../modules/nixos/nextcloud
     ../../modules/nixos/navidrome.nix
     ../../modules/nixos/actualbudget.nix
