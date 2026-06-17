@@ -13,6 +13,12 @@
     pcmanfm
   ];
 
+  xdg.mimeApps = {
+    enable = true;
+    defaultApplications = {
+      "inode/directory" = "pcmanfm.desktop";
+    };
+
   home.stateVersion = "23.11";
 
 }
