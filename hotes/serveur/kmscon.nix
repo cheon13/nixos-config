@@ -19,7 +19,7 @@
       }
     ];
     extraConfig = ''
-      font-size=16
+      font-size=18
     '';
 
     # Réutilise la disposition clavier de services.xserver.xkb,
