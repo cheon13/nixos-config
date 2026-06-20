@@ -51,7 +51,9 @@ in
     grim        # capture d'écran
     slurp       # sélection de zone pour grim
     wl-clipboard
+    libnotify
     wlopm       # gestion de l'alimentation des écrans (économiseur d'écran)
     hyprpicker  # pipette : sélectionner une couleur à l'écran
+    whisper-cpp # speech to text
   ];
 }
