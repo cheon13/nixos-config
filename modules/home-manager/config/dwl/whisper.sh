@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-MODEL="${WHISPER_MODEL:-$HOME/.local/share/whisper/ggml-base.bin}"
+MODEL="${WHISPER_MODEL:-$HOME/.local/share/whisper/ggml-small.bin}"
 PIDFILE="/tmp/dictation.pid"
 TMP_WAV="$(mktemp --suffix=.wav)"
 TMP_DIR="$(mktemp -d)"
