@@ -254,6 +254,7 @@
 
     plugins.zen-mode = {
       enable = true;
+      width = 80;
     };
 
     #plugins.twilight = {
