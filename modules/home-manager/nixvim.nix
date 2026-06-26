@@ -231,6 +231,18 @@
       enable = true;
       autoEnableSources = true;
       settings = {
+        # Désactiver la complétion pour les fichiers markdown et vimwiki
+        enabled = {
+          __raw = ''
+            function()
+              local ft = vim.bo.filetype
+              if ft == "markdown" or ft == "vimwiki" then
+                return false
+              end
+              return true
+            end
+          '';
+        };
         sources = [
           { name = "nvim_lsp"; }
           { name = "path"; }
