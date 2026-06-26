@@ -256,7 +256,7 @@
       enable = true;
       settingsOptions = {
         window = {
-          width = 80;
+          width = 0.5;
         };
       };
     };
