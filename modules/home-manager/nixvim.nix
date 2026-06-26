@@ -256,6 +256,7 @@
       enable = true;
       settings = {
         window = {
+          backdrop = 1;
           width = 0.5;
         };
       };
