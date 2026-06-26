@@ -256,10 +256,10 @@
       enable = true;
     };
 
-    plugins.twilight = {
-      enable = true;
-      treesitter = false;
-    };
+    #plugins.twilight = {
+    #  enable = true;
+    #  treesitter = false;
+    #};
 
     plugins.fzf-lua = {
       enable = true;
