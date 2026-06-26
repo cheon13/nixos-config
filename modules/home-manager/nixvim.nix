@@ -254,8 +254,10 @@
 
     plugins.zen-mode = {
       enable = true;
-      window = {
-        width = 80;
+      settingsOptions = {
+        window = {
+          width = 80;
+        };
       };
     };
 
