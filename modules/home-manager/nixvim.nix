@@ -258,6 +258,7 @@
 
     plugins.twilight = {
       enable = true;
+      treesitter = false;
     };
 
     plugins.fzf-lua = {
