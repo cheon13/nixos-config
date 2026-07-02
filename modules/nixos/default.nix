@@ -39,11 +39,12 @@
 
   # Ajout manuel au fichiers /etc/hosts
   networking.extraHosts = ''
-    10.0.0.201 portable
     10.0.0.200 serveur
+    10.0.0.201 portable
     10.0.0.202 phone
     10.0.0.203 tablette
     10.0.0.204 pomme
+    10.0.0.205 mammouth
   '';
 
   # Setting environment Variables for all users
