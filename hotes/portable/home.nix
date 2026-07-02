@@ -12,7 +12,6 @@
     #ajouter les packages propres à portable
     google-chrome
     signal-desktop
-    emacs
     emacs-gtk
     #brave
     #lollypop # Pour lecture de musique seulement - gnome
