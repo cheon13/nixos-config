@@ -12,7 +12,7 @@
     #ajouter les packages propres à portable
     google-chrome
     signal-desktop
-    emacs-gtk
+    emacs-pgtk
     #brave
     #lollypop # Pour lecture de musique seulement - gnome
     #nushell
