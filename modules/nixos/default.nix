@@ -182,7 +182,7 @@
     nerd-fonts.jetbrains-mono
     font-awesome
     adwaita-fonts
-    nerd-fonts.fira-code
+    nerd-fonts.symbols-only
     #nerd-fonts.adwaita-mono
     # fonts compatible avec Microsoft Arial, Courrier New et Times New Roman
     liberation_ttf
