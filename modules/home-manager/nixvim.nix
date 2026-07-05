@@ -45,6 +45,9 @@
       undofile = true;
       ignorecase = true;
       smartcase = true;
+
+      conceallevel = 2;
+      concealcursor = "nc";
     };
 
     clipboard.register = "unnamedplus";
