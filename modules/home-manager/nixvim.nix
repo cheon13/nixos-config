@@ -264,6 +264,10 @@
       enable = true;
     };
 
+    plugins.orgmode = {
+      enable = true;
+    };
+
     plugins.zen-mode = {
       enable = true;
       settings = {
