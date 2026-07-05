@@ -266,6 +266,10 @@
 
     plugins.orgmode = {
       enable = true;
+      settings = {
+        org_agenda_files = "~/Documents/Cerveau/**/*";
+        org_default_notes_file = "~/Documents/Cerveau/refile.org";
+      };
     };
 
     plugins.zen-mode = {
