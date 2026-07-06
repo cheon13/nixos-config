@@ -35,10 +35,9 @@
     zathura
     pandoc
     #texlive.combined.scheme-small
-    texlive.combined.scheme-medium.withPackages (ps: with ps; [
-      wrapfig
-      rotating
-    ])
+    (texlive.combine {
+      inherit (texlive) scheme-medium wrapfig rotating;
+    })
     slides
     lynx	
     tldr
