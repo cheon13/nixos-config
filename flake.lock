@@ -82,11 +82,11 @@
     "mon-dwl": {
       "flake": false,
       "locked": {
-        "lastModified": 1782001120,
-        "narHash": "sha256-aqykvGDuzKG2kLxsRnWGD8ck+ZGKnUZ3KOE3T4MMXvk=",
+        "lastModified": 1783296658,
+        "narHash": "sha256-H97gwsfL3YDDRN+oiFBB9XR0BPYmwii+SKuKJLbVgYQ=",
         "owner": "cheon13",
         "repo": "mon-dwl",
-        "rev": "11de112c90d0240d42fd174a739019edb7579bac",
+        "rev": "cc18fe657cd663ebb32e96298e44c837976cac77",
         "type": "github"
       },
       "original": {
