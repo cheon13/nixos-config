@@ -34,7 +34,8 @@
     yazi
     zathura
     pandoc
-    texlive.combined.scheme-small
+    #texlive.combined.scheme-small
+    texlive.combined.scheme-medium  Pour pouvoir utiliser avec doom-emacs et pandoc
     slides
     lynx	
     tldr
