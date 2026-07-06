@@ -188,6 +188,11 @@
     liberation_ttf
   ];
 
+  programs.localsend = {
+    enable = true;
+    openFirewall = true; # true par défaut, mais explicite ne fait pas de mal
+  };
+
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
