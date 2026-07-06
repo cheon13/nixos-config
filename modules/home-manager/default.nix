@@ -36,7 +36,7 @@
     pandoc
     #texlive.combined.scheme-small
     (texlive.combine {
-      inherit (texlive) scheme-medium wrapfig;
+      inherit (texlive) scheme-medium wrapfig capt-of listings;
     })
     slides
     lynx	
