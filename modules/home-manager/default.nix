@@ -128,8 +128,6 @@
         df = "df -h -x tmpfs";
         nk = "NVIM_APPNAME='nvim-kickstart' nvim";
         nt = "NVIM_APPNAME='nvim-test' nvim";
-        qw = "~/Scripts/qw.sh";
-        er = "~/Scripts/er.sh";
         rm = "rm -i --preserve-root";
         cp = "cp -i";
         mkdir = "mkdir -p";
@@ -204,49 +202,6 @@
     };
   };
 
-  programs.wezterm = {
-      enable = true;
-      package = pkgs-unstable.wezterm;
-      extraConfig = ''
-        local config = wezterm.config_builder()
-        -- -- Ajout pour le problème de rendering de font après update 14 octobre 2024
-        -- config.front_end = "WebGpu" 
-        
-        config.font = wezterm.font 'JetBrainsMono Nerd Font Mono'
-        config.font_size = 14.0
-        
-        -- config.color_scheme = 'GruvboxDark'
-        config.color_scheme_dirs = { '~/.config/wezterm/colors' }
-        config.color_scheme = 'matugen'
-        
-        -- Le max_fps est 60 par défaut, mais le scrolling est plus smooth à 120
-        config.max_fps =120 
-
-        config.window_background_opacity = 0.9
-        -- config.text_background_opacity = 0.9
-        
-        -- Activer ou désactiver la tab bar
-        config.enable_tab_bar = false
-        
-        -- Configuration temporaire pour contourner un bug avec wayland et Hyprland
-        -- config.enable_wayland = false
-
-        -- configuration des espaces entre le texte et la bordure de la fenêtre
-        config.window_padding = {
-          left = 2,
-          right = 2,
-          top = 0,
-          bottom = 0,
-        }
-        -- configuration pour les tiling window manager
-        config.adjust_window_size_when_changing_font_size = false
-
-        -- configuration pour permettre des deadkeys d'Ergo-l
-        use_dead_keys = true
-
-        return config
-      '';
-  };
 
   gtk = {
     enable = true;
