@@ -41,7 +41,7 @@
            hr-f (tap-hold $tap-time $hold-time f lshift)
            hr-j (tap-hold $tap-time $hold-time j rshift)
            hr-k (tap-hold $tap-time $hold-time k rctrl)
-           hr-l (tap-hold $tap-time $hold-time l ralt)
+           hr-l (tap-hold $tap-time $hold-time l lalt)
            hr-sc (tap-hold $tap-time $hold-time ; rmet)
            z (tap-hold $tap-time $hold-time z lctrl) 
            / (tap-hold $tap-time $hold-time / rctrl)
