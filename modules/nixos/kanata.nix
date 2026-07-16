@@ -16,7 +16,7 @@
         extraDefCfg = "process-unmapped-keys yes";
         config = ''
           (defsrc
-           esc caps h j k l
+           esc caps  a s d f  h j k l ;
            < z            /
            spc menu
           )
@@ -34,19 +34,29 @@
            j down
            k up
            l rght
+           ;; home row
+           hr-a (tap-hold $tap-time $hold-time a lmet)
+           hr-s (tap-hold $tap-time $hold-time s lalt)
+           hr-d (tap-hold $tap-time $hold-time d lctrl)
+           hr-f (tap-hold $tap-time $hold-time f lshift)
+           hr-j (tap-hold $tap-time $hold-time j rshift)
+           hr-k (tap-hold $tap-time $hold-time k rctrl)
+           hr-l (tap-hold $tap-time $hold-time l ralt)
+           hr-sc (tap-hold $tap-time $hold-time ; rmet)
            z (tap-hold $tap-time $hold-time z lctrl) 
            / (tap-hold $tap-time $hold-time / rctrl)
            < (tap-hold $tap-time $hold-time < lshift)
           )
 
           (deflayer base
-           caps esc _ _ _ _
+           caps esc  @hr-a @hr-s @hr-d @hr-f  _ @hr-j @hr-k @hr-l @hr-sc
+
            @< @z          @/
            @spc rmeta
           )
 
           (deflayer navnum
-           _ _ @h @j @k @l 
+           _ _  _ _ _ _  @h @j @k @l _
            _ _          _
            _ _
           )
