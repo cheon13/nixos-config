@@ -9,6 +9,7 @@
       ./nixvim.nix
       ./dwl.nix
       ./swaylock.nix
+      ./emacs.nix
     ];
   home.username = "cheon";
   home.homeDirectory = "/home/cheon";
@@ -128,7 +129,6 @@
         df = "df -h -x tmpfs";
         nk = "NVIM_APPNAME='nvim-kickstart' nvim";
         nt = "NVIM_APPNAME='nvim-test' nvim";
- 	ev = ''emacs -q --eval "(setq user-emacs-directory \"~/.config/emacs/\")" -l ~/.config/emacs/init.el'';
         rm = "rm -i --preserve-root";
         cp = "cp -i";
         mkdir = "mkdir -p";

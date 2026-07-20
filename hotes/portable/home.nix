@@ -12,7 +12,7 @@
     #ajouter les packages propres à portable
     google-chrome
     signal-desktop
-    emacs-pgtk
+    # emacs-pgtk est désormais fourni par modules/home-manager/emacs.nix (partagé)
     #brave
     #lollypop # Pour lecture de musique seulement - gnome
     #nushell
