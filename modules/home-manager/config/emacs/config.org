@@ -76,7 +76,11 @@ pas de cloche sonore, numéros de ligne et ligne courante visibles.
 #+begin_src emacs-lisp
 (setq inhibit-startup-screen t
       ring-bell-function 'ignore
-      use-short-answers t)           ; y/n au lieu de yes/no
+      use-short-answers t            ; y/n au lieu de yes/no
+      ;; init.el et config.org sont des symlinks vers le dépôt ~/.dotfiles
+      ;; (géré par home-manager). Sans ça, Emacs demande à chaque ouverture
+      ;; « Symbolic link git-controlled source file; follow link? ».
+      vc-follow-symlinks t)          ; suivre le lien sans poser de question
 
 (menu-bar-mode -1)
 (tool-bar-mode -1)
