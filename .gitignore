@@ -1,5 +1,8 @@
 *.vim
 
+# Fichiers de verrou Emacs
+.#*
+
 # Liens créés par nixos-rebuild build
 result
 result-*

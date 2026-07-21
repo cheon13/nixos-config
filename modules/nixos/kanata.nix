@@ -55,7 +55,6 @@
           (deflayer base
                                               y u i o     
            caps esc  @hr-a @hr-s @hr-d @hr-f  _ @hr-j @hr-k @hr-l @hr-sc
-
            @< @z          @/
            @spc rmeta
           )
