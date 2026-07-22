@@ -23,4 +23,6 @@ in
   # Symlink out-of-store.
   home.file.".config/emacs/init.el".source =
     config.lib.file.mkOutOfStoreSymlink "${emacsSrc}/init.el";
+  home.file.".config/emacs/early-init.el".source =
+  config.lib.file.mkOutOfStoreSymlink "${emacsSrc}/early-init.el";
 }

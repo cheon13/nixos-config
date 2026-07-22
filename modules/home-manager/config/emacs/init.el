@@ -3,6 +3,16 @@
 ;; Config vanilla construite par étapes en remplacement de Doom Emacs.
 ;; Les commentaires expliquent le *pourquoi* des choix, pour pouvoir y
 ;; revenir dans 6 mois sans redécouvrir le raisonnement.
+;;
+;; Le réglage du seuil GC vit maintenant dans early-init.el (chargé
+;; avant ce fichier). Ici, on restaure juste les valeurs normales une
+;; fois le chargement terminé.
+
+(add-hook 'emacs-startup-hook
+          (lambda ()
+            (setq gc-cons-threshold (* 20 1024 1024)   ; 20 Mo en usage normal
+                  gc-cons-percentage 0.1
+                  file-name-handler-alist my/file-name-handler-alist-backup)))
 
 ;;; Gestion des paquets
 ;; package.el natif + use-package, sans straight.el ni elpaca — le choix
@@ -21,15 +31,14 @@
 
 (require 'use-package)
 (setq use-package-always-ensure t)   ; installe automatiquement si absent
+(setq use-package-compute-statistics t)  ; DIAGNOSTIC TEMPORAIRE — à retirer après
 
-;;; Page d'accueil (index.org)
-;; Plutôt qu'un dashboard séparé, index.org à la racine d'org-directory
-;; joue ce rôle. Emacs s'ouvre dessus, et C-c i y ramène de n'importe où.
+;;; Accès rapide à index.org
+;; Le lancement "avec index.org" est géré par un raccourci DWL dédié qui
+;; ouvre Emacs directement sur ce fichier. Ici, on garde seulement C-c i
+;; pour y revenir depuis n'importe quel autre buffer/session.
 
 (defvar my/index-file "~/Documents/Cerveau/index.org")
-
-(setq initial-buffer-choice my/index-file)
-
 (global-set-key (kbd "C-c i") (lambda () (interactive) (find-file my/index-file)))
 
 ;;; Thème
@@ -130,12 +139,12 @@
          ("M-y"   . consult-yank-pop)))
 
 ;;; Projets (projectile)
-;; Détection automatique des projets (racine via .git…). Un projet est
-;; enregistré dès qu'un fichier y est ouvert. Chargé au démarrage
-;; (:demand) car utilisé par le template de capture « p » plus bas.
+;; Détection automatique des projets (racine via .git…). LAZY : se charge
+;; au premier C-c p. Le template de capture « p » dégrade gracieusement
+;; sans lui (bound-and-true-p renvoie nil tant qu'il n'est pas chargé,
+;; donc juste la liste Aires/ jusqu'au premier usage de C-c p).
 
 (use-package projectile
-  :demand t
   :bind-keymap ("C-c p" . projectile-command-map)
   :config
   (projectile-mode 1))
@@ -148,12 +157,15 @@
   :bind ("C-x g" . magit-status))
 
 ;;; Org-mode
-;; Outil principal, chargé directement au démarrage (:demand) plutôt
-;; qu'en lazy-loading.
+;; Repassé en LAZY (contrairement à une version précédente en :demand t) :
+;; avec deux raccourcis DWL séparés (Emacs vide vs Emacs+index.org), il
+;; n'y a plus besoin de forcer org à charger à chaque lancement — org se
+;; charge de lui-même dès qu'un fichier .org est ouvert, ou via C-c a/c.
+;; Ce changement à lui seul règle un ralentissement mesuré à 0.76s sur
+;; le chargement d'org en mode :demand t.
 
 (use-package org
   :ensure nil   ; built-in, pas besoin de le télécharger
-  :demand t     ; chargé directement au démarrage, pas en lazy
   :bind (("C-c a" . org-agenda)
          ("C-c c" . org-capture))
   :config
