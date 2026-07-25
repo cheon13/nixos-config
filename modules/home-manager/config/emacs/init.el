@@ -27,7 +27,7 @@
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
   (package-install 'use-package))
-  
+
 (require 'use-package)
 (setq use-package-always-ensure t)   ; installe automatiquement si absent
 
@@ -57,7 +57,17 @@
 (use-package doom-themes
   :config
   (load-theme 'doom-pine t)
-  (doom-themes-org-config))
+  (doom-themes-org-config)
+  ;; Fix contraste mode-line : contrairement à doom-one/modus-vivendi,
+  ;; doom-pine rend la mode-line active moins visible que l'inactive.
+  ;; doom-color va chercher dans la palette du thème chargé, donc la
+  ;; correction reste cohérente avec les teintes de doom-pine.
+  (set-face-attribute 'mode-line nil
+                       :background (doom-color 'green)
+                       :foreground (doom-color 'bg))
+  (set-face-attribute 'mode-line-inactive nil
+                       :background (doom-color 'bg-alt)
+                       :foreground (doom-color 'fg-alt)))
 
 ;;; which-key
 ;; Affiche les raccourcis disponibles après un préfixe (ex: C-c p montre
