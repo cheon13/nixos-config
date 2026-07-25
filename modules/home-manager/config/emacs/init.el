@@ -11,8 +11,7 @@
 (add-hook 'emacs-startup-hook
           (lambda ()
             (setq gc-cons-threshold (* 20 1024 1024)   ; 20 Mo en usage normal
-                  gc-cons-percentage 0.1
-                  file-name-handler-alist my/file-name-handler-alist-backup)))
+                  gc-cons-percentage 0.1)))
 
 ;;; Gestion des paquets
 ;; package.el natif + use-package, sans straight.el ni elpaca — le choix
@@ -28,10 +27,19 @@
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
   (package-install 'use-package))
-
+  
 (require 'use-package)
 (setq use-package-always-ensure t)   ; installe automatiquement si absent
-(setq use-package-compute-statistics t)  ; DIAGNOSTIC TEMPORAIRE — à retirer après
+
+;;; Fichier de customizations séparé
+;; Sans ça, Emacs écrit automatiquement (via M-x customize-*, ou certains
+;; paquets qui proposent d'enregistrer un réglage) directement dans
+;; init.el, ce qui mélange config écrite à la main et config générée.
+;; Chargé tôt : init.el garde le dernier mot sur tout réglage qui serait
+;; sauvegardé ici par erreur (ex: un thème testé via customize-themes).
+(setq custom-file (locate-user-emacs-file "custom.el"))
+(when (file-exists-p custom-file)
+  (load custom-file))
 
 ;;; Accès rapide à index.org
 ;; Le lancement "avec index.org" est géré par un raccourci DWL dédié qui
@@ -48,7 +56,7 @@
 
 (use-package doom-themes
   :config
-  (load-theme 'doom-one t)
+  (load-theme 'doom-pine t)
   (doom-themes-org-config))
 
 ;;; which-key
@@ -77,10 +85,10 @@
 (global-display-line-numbers-mode 1)
 (global-hl-line-mode 1)
 
-;; Police : Adwaita Mono à 18pt (chasse fixe — important pour l'alignement
+;; Police : Adwaita Mono à 14pt (chasse fixe — important pour l'alignement
 ;; des tableaux org et du code). Ajustement à la volée : C-x C-+, C-x C--.
-(set-face-attribute 'default nil :font "Adwaita Mono-18")
-(add-to-list 'default-frame-alist '(font . "Adwaita Mono-18"))
+(set-face-attribute 'default nil :font "Adwaita Mono-14")
+(add-to-list 'default-frame-alist '(font . "Adwaita Mono-14"))
 
 ;; Sauvegardes regroupées dans un sous-répertoire plutôt qu'éparpillées.
 ;; Création automatique des dossiers pour ne pas dépendre d'une étape
@@ -91,33 +99,6 @@
   (make-directory autosave-dir t)
   (setq backup-directory-alist `(("." . ,backup-dir))
         auto-save-file-name-transforms `((".*" ,autosave-dir t))))
-
-;;; Evil-mode — scopé à l'édition
-;; Contrairement à Doom qui active evil partout, evil ne s'applique qu'aux
-;; buffers d'édition. Les interfaces de « gestion » (dired, magit, listes…)
-;; gardent leurs raccourcis natifs Emacs.
-
-(use-package evil
-  :init
-  (setq evil-want-integration t
-        evil-want-keybinding nil     ; laisse evil-collection gérer l'intégration
-        evil-undo-system 'undo-redo
-        evil-want-C-u-scroll t)      ; C-u pour scroller (comportement vim classique)
-  :config
-  (evil-mode 1)
-  ;; Modes « gestion/listing » à garder en bindings natifs Emacs.
-  (dolist (mode '(dired-mode
-                  org-agenda-mode
-                  magit-status-mode
-                  magit-log-mode
-                  magit-diff-mode
-                  ibuffer-mode
-                  package-menu-mode
-                  help-mode
-                  Info-mode
-                  Custom-mode
-                  proced-mode))
-    (evil-set-initial-state mode 'emacs)))
 
 ;;; Complétion
 ;; vertico + orderless + marginalia + consult — équivalent du module
@@ -150,19 +131,15 @@
   (projectile-mode 1))
 
 ;;; Magit
-;; C-x g pour ouvrir le statut du dépôt. Les modes magit sont déjà dans
-;; la liste des exceptions evil (bindings natifs Emacs/magit).
+;; C-x g pour ouvrir le statut du dépôt.
 
 (use-package magit
   :bind ("C-x g" . magit-status))
 
 ;;; Org-mode
-;; Repassé en LAZY (contrairement à une version précédente en :demand t) :
-;; avec deux raccourcis DWL séparés (Emacs vide vs Emacs+index.org), il
-;; n'y a plus besoin de forcer org à charger à chaque lancement — org se
-;; charge de lui-même dès qu'un fichier .org est ouvert, ou via C-c a/c.
-;; Ce changement à lui seul règle un ralentissement mesuré à 0.76s sur
-;; le chargement d'org en mode :demand t.
+;; LAZY : avec deux raccourcis DWL séparés (Emacs vide vs Emacs+index.org),
+;; il n'y a plus besoin de forcer org à charger à chaque lancement — org
+;; se charge de lui-même dès qu'un fichier .org est ouvert, ou via C-c a/c.
 
 (use-package org
   :ensure nil   ; built-in, pas besoin de le télécharger
@@ -176,6 +153,18 @@
          ;; (directory-files-recursively "~/Documents/Cerveau/Projets/" "\\.org$")
          (directory-files-recursively "~/Documents/Cerveau/Aires/" "\\.org$")
          '("~/Documents/Cerveau/")))
+
+  ;; Équivalent de projectile-invalidate-cache pour l'agenda : org-agenda-files
+  ;; est calculé une seule fois au chargement, donc un nouveau fichier .org
+  ;; sous Aires/ n'apparaît pas tant qu'on ne relance pas ce scan (ou Emacs).
+  (defun my/refresh-agenda-files ()
+    "Recalcule org-agenda-files (nouveaux fichiers .org sous Aires/ inclus)."
+    (interactive)
+    (setq org-agenda-files
+          (append
+           (directory-files-recursively "~/Documents/Cerveau/Aires/" "\\.org$")
+           '("~/Documents/Cerveau/")))
+    (message "org-agenda-files rafraîchi (%d fichiers)" (length org-agenda-files)))
 
   ;; Export PDF via LuaLaTeX, locale française, classe article
   ;; personnalisée (marges 3cm, sections non numérotées).
@@ -224,11 +213,7 @@
 
           ("p" "Note dans un projet" entry
            (file my/capture-target-notes)
-           "* %?\n  %U")))
-
-  ;; Fix conflit evil/org : en mode normal evil, TAB est bindé à
-  ;; evil-jump-forward, ce qui masque org-cycle. Rebind explicite.
-  (evil-define-key 'normal org-mode-map (kbd "TAB") #'org-cycle))
+           "* %?\n  %U"))))
 
 ;; org-superstar : remplace les astérisques bruts par des glyphes Unicode.
 (use-package org-superstar
