@@ -83,6 +83,7 @@
 (setq inhibit-startup-screen t
       ring-bell-function 'ignore
       use-short-answers t            ; y/n au lieu de yes/no
+      delete-by-moving-to-trash t    ; déplace vers la corbeille plutôt que suppression définitive
       ;; init.el est un symlink vers le dépôt ~/.dotfiles (géré par
       ;; home-manager). Sans ça, Emacs demande à chaque ouverture
       ;; « Symbolic link git-controlled source file; follow link? ».
