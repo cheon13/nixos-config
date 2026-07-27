@@ -127,6 +127,9 @@
   :init (marginalia-mode 1))
 
 (use-package consult
+  :init
+  (recentf-mode 1)   ; nécessaire pour que consult-buffer inclue les
+                      ; fichiers récents en plus des buffers ouverts
   :bind (("C-x b" . consult-buffer)
          ("M-y"   . consult-yank-pop)))
 
@@ -229,6 +232,10 @@
 ;; org-superstar : remplace les astérisques bruts par des glyphes Unicode.
 (use-package org-superstar
   :hook (org-mode . org-superstar-mode))
+
+;; Repli visuel des longues lignes aux limites des mots, sans insérer de
+;; vrais retours à la ligne dans le fichier (comme 'wrap' dans vim).
+(add-hook 'org-mode-hook #'visual-line-mode)
 
 ;;; Ouverture de fichiers externes
 ;; openwith intercepte l'ouverture globalement (dired, find-file, liens
