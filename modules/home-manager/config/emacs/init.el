@@ -180,6 +180,9 @@
            '("~/Documents/Cerveau/")))
     (message "org-agenda-files rafraîchi (%d fichiers)" (length org-agenda-files)))
 
+  ;; Configuration pour suivre les liens avec un RET
+  (setq org-return-follows-link t)
+  
   ;; Export PDF via LuaLaTeX, locale française, classe article
   ;; personnalisée (marges 3cm, sections non numérotées).
   (require 'ox-latex)
