@@ -181,8 +181,6 @@
            '("~/Documents/Cerveau/")))
     (message "org-agenda-files rafraîchi (%d fichiers)" (length org-agenda-files)))
 
-  ;; Export présentation via beamer latex
-  (require 'ox-beamer)
   ;; Export PDF via LuaLaTeX, locale française, classe article
   ;; personnalisée (marges 3cm, sections non numérotées).
   (require 'ox-latex)
@@ -204,6 +202,10 @@
            ("\\section{%s}" . "\\section*{%s}")
            ("\\subsection{%s}" . "\\subsection*{%s}")
            ("\\subsubsection{%s}" . "\\subsubsection*{%s}"))))
+
+  ;; Chargé après le setq ci-dessus : ox-beamer réenregistre lui-même sa
+  ;; classe « beamer » dans org-latex-classes (sinon écrasée par le setq).
+  (require 'ox-beamer)
 
   ;; Templates de capture : selon le contexte, une note va dans un inbox
   ;; générique à trier, ou directement dans un projet précis.
