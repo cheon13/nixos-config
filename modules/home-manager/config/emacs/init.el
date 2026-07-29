@@ -246,6 +246,20 @@
 ;; vrais retours à la ligne dans le fichier (comme 'wrap' dans vim).
 (add-hook 'org-mode-hook #'visual-line-mode)
 
+;; Mode sans distraction : centre une colonne étroite et masque le
+;; superflu (mode-line, fringes). Bascule manuelle via C-c w, pas de
+;; hook automatique — on l'active seulement quand on veut écrire.
+(use-package writeroom-mode
+  :bind ("C-c w" . writeroom-mode)
+  :custom
+  (writeroom-width 80)                      ; largeur de la colonne
+  (writeroom-fullscreen-effect 'maximized)
+  :config
+  ;; writeroom ne touche pas aux numéros de ligne par défaut : on ajoute
+  ;; un effet local qui les éteint à l'activation, les rallume à la sortie.
+  (add-to-list 'writeroom-local-effects
+               (lambda (arg) (display-line-numbers-mode (if (> arg 0) -1 1)))))
+
 ;;; Ouverture de fichiers externes
 ;; openwith intercepte l'ouverture globalement (dired, find-file, liens
 ;; org) — plus large qu'org-file-apps qui ne couvre que les liens org.
