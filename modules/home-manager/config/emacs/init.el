@@ -252,7 +252,7 @@
 (use-package writeroom-mode
   :bind ("C-c w" . writeroom-mode)
   :custom
-  (writeroom-width 80)                      ; largeur de la colonne
+  (writeroom-width 70)                      ; largeur de la colonne
   (writeroom-fullscreen-effect 'maximized)
   :config
   ;; writeroom ne touche pas aux numéros de ligne par défaut : on ajoute
