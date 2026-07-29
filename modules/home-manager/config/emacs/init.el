@@ -161,6 +161,7 @@
          ("C-c c" . org-capture))
   :config
   (setq org-directory "~/Documents/Cerveau/")
+  (setq org-return-follows-link t)  ; RET sur un lien le suit, plutôt qu'insérer une nouvelle ligne
 
   (setq org-agenda-files
         (append
@@ -180,9 +181,8 @@
            '("~/Documents/Cerveau/")))
     (message "org-agenda-files rafraîchi (%d fichiers)" (length org-agenda-files)))
 
-  ;; Configuration pour suivre les liens avec un RET
-  (setq org-return-follows-link t)
-  
+  ;; Export présentation via beamer latex
+  (require 'ox-beamer)
   ;; Export PDF via LuaLaTeX, locale française, classe article
   ;; personnalisée (marges 3cm, sections non numérotées).
   (require 'ox-latex)
@@ -230,7 +230,11 @@
 
           ("p" "Note dans un projet" entry
            (file my/capture-target-notes)
-           "* %?\n  %U"))))
+           "* %?\n  %U")
+
+          ("r" "Rendez-vous" entry
+           (file+headline "~/Documents/Cerveau/inbox.org" "Rendez-vous")
+           "* %^{Nom du rendez-vous}\nSCHEDULED: %^T"))))
 
 ;; org-superstar : remplace les astérisques bruts par des glyphes Unicode.
 (use-package org-superstar
@@ -248,7 +252,7 @@
   :config
   (setq openwith-associations
         '(("\\.pdf\\'" "zathura" (file))
-          ("\\.\\(ods\\|odt\\|odp\\)\\'" "libreoffice" (file))))
+          ("\\.\\(ods\\|odt\\|odp\\|docx\\|xlsx\\|pptx\\)\\'" "libreoffice" (file))))
   (openwith-mode 1))
 
 ;;; Langages additionnels
