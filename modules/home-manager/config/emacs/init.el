@@ -255,6 +255,11 @@
   (writeroom-width 70)                      ; largeur de la colonne
   (writeroom-fullscreen-effect 'maximized)
   :config
+  ;; writeroom délègue les marges à visual-fill-column. Par défaut celui-ci
+  ;; garde la largeur en pixels constante au zoom, ce qui fait varier le
+  ;; nombre de colonnes. À nil, il fige les 70 caractères quelle que soit
+  ;; la taille de police.
+  (setq visual-fill-column-adjust-for-text-scale nil)
   ;; writeroom ne touche pas aux numéros de ligne par défaut : on ajoute
   ;; un effet local qui les éteint à l'activation, les rallume à la sortie.
   (add-to-list 'writeroom-local-effects
