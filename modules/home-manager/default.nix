@@ -109,7 +109,7 @@
       enableCompletion  = true;
       historySize = 100000;
       bashrcExtra = ''
-        export PATH="$PATH:/usr/local/bin"
+        export PATH="$PATH:/usr/local/bin:/home/cheon/.local/bin"
         export MANPAGER="sh -c 'col -bx | bat -l man -p'"
         export MANROFFOPT="-c"
         bind '"\e[A": history-search-backward'

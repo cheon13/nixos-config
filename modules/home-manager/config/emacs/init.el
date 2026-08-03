@@ -95,6 +95,7 @@
 (column-number-mode 1)
 (global-display-line-numbers-mode 1)
 (global-hl-line-mode 1)
+(global-set-key [remap list-buffers] 'ibuffer)
 
 ;; Police : Adwaita Mono à 14pt (chasse fixe — important pour l'alignement
 ;; des tableaux org et du code). Ajustement à la volée : C-x C-+, C-x C--.
