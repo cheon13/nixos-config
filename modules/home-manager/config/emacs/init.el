@@ -96,11 +96,12 @@
 (global-display-line-numbers-mode 1)
 (global-hl-line-mode 1)
 (global-set-key [remap list-buffers] 'ibuffer)
+(global-set-key (kbd "M-o") 'other-window)
 
-;; Police : Adwaita Mono à 14pt (chasse fixe — important pour l'alignement
+;; Police : Adwaita Mono à 12pt (chasse fixe — important pour l'alignement
 ;; des tableaux org et du code). Ajustement à la volée : C-x C-+, C-x C--.
-(set-face-attribute 'default nil :font "Adwaita Mono-14")
-(add-to-list 'default-frame-alist '(font . "Adwaita Mono-14"))
+(set-face-attribute 'default nil :font "Adwaita Mono-12")
+(add-to-list 'default-frame-alist '(font . "Adwaita Mono-12"))
 
 ;; Sauvegardes regroupées dans un sous-répertoire plutôt qu'éparpillées.
 ;; Création automatique des dossiers pour ne pas dépendre d'une étape
