@@ -238,7 +238,7 @@
 
           ("r" "Rendez-vous" entry
            (file+headline "~/Documents/Cerveau/inbox.org" "Rendez-vous")
-           "* %^{Nom du rendez-vous}\nSCHEDULED: %^T"))))
+           "* %^{Nom du rendez-vous}\n%^T"))))
 
 ;; org-superstar : remplace les astérisques bruts par des glyphes Unicode.
 (use-package org-superstar
