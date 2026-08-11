@@ -14,7 +14,7 @@ echo " -------------------- "
 
 nix flake update
 git add .
-git commit -m 'Mise à jour'
+git commit -m "nix flake update"
 
 echo " ----------------------- "
 echo " reconstruire le système "
