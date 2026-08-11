@@ -49,7 +49,8 @@
 
   # Setting environment Variables for all users
   environment.sessionVariables = {
-    EDITOR = "nvim";
+    # Éditeur par défaut : client du daemon Emacs, avec repli terminal.
+    EDITOR = "emacsclient -t -a emacs";
   };
 
   environment.interactiveShellInit = ''

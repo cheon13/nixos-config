@@ -18,7 +18,17 @@ let
 in
 {
   # Build native Wayland (pgtk) — cf. environnement dwl du portable.
-  home.packages = [ pkgs.emacs-pgtk ];
+  programs.emacs = {
+    enable = true;
+    package = pkgs.emacs-pgtk;
+  };
+
+  # Démarre le daemon Emacs au login (service utilisateur systemd).
+  # Partagé par les 3 machines. On lance les clients avec `emacsclient`.
+  services.emacs = {
+    enable = true;
+    defaultEditor = true;  # EDITOR pointe vers emacsclient (daemon)
+  };
 
   # Symlink out-of-store.
   home.file.".config/emacs/init.el".source =
