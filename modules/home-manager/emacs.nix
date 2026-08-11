@@ -27,7 +27,11 @@ in
   # Partagé par les 3 machines. On lance les clients avec `emacsclient`.
   services.emacs = {
     enable = true;
-    defaultEditor = true;  # EDITOR pointe vers emacsclient (daemon)
+    # Laissé à false volontairement : cette option écrirait un wrapper
+    # `emacsclient --create-frame` (fenêtre graphique) dans ~/.profile, en
+    # conflit avec le `emacsclient -t -a emacs` (frame terminal) défini dans
+    # modules/nixos/default.nix — seule source de vérité pour EDITOR/VISUAL.
+    defaultEditor = false;
   };
 
   # Symlink out-of-store.

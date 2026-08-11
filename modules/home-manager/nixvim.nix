@@ -11,7 +11,7 @@
     enable = true;
     globals.mapleader = " ";
 
-    defaultEditor = false;  # Emacs (daemon) est l'éditeur par défaut — cf. emacs.nix
+    defaultEditor = false;  # EDITOR est défini dans modules/nixos/default.nix (emacsclient)
     vimAlias = true;
     viAlias = true;
 

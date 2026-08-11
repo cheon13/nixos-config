@@ -48,9 +48,17 @@
   '';
 
   # Setting environment Variables for all users
+  #
+  # SOURCE UNIQUE de l'éditeur par défaut pour les 3 machines.
+  # `-t` ouvre un frame dans le terminal courant ; `-a emacs` démarre un Emacs
+  # autonome si le daemon n'est pas (encore) disponible.
+  # Ne PAS redéfinir EDITOR côté Home Manager : `services.emacs.defaultEditor`
+  # y écrirait un wrapper `emacsclient --create-frame` (fenêtre graphique) dans
+  # ~/.profile, qui prendrait le dessus dans les shells de login — cf.
+  # modules/home-manager/emacs.nix.
   environment.sessionVariables = {
-    # Éditeur par défaut : client du daemon Emacs, avec repli terminal.
     EDITOR = "emacsclient -t -a emacs";
+    VISUAL = "emacsclient -t -a emacs";  # certains outils préfèrent VISUAL
   };
 
   environment.interactiveShellInit = ''
