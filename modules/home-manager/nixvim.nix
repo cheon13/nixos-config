@@ -304,8 +304,8 @@
        src = pkgs.fetchFromGitHub {
          owner = "coder";
          repo = "claudecode.nvim";
-         rev = "main";
-         hash = "sha256-NHhoAqCTa1+go+DYFj25eH0ZDmAqbA9tpHtj3IarCUU=";
+         rev = "2390c6e45c4789072c293ac69de051d169668b29";  # épinglé pour éviter les dérives de hash
+         hash = "sha256-oMBPSRQFDmJ9Lq+ZP8vFMHaocm4sPX3D/orVMNwVXuM=";
        };
      })
     ];
