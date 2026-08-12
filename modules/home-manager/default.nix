@@ -208,9 +208,22 @@
     gtk3.extraConfig.gtk-application-prefer-dark-theme = 1;
   };
 
+  # Associations MIME.
+  #
+  # ~/.config/mimeapps.list est un lien vers le nix store, donc en LECTURE SEULE :
+  # `xdg-mime default …` en ligne de commande échouera. Tout se déclare ici.
+  #
+  # Sans entrée explicite, xdg retombe sur le mimeinfo.cache et c'est l'ordre de
+  # XDG_DATA_DIRS qui tranche — où Flatpak passe avant les profils Nix. C'est
+  # ainsi qu'Apostrophe (flatpak) récupérait text/plain. D'où les entrées texte
+  # ci-dessous, explicites.
   xdg.mimeApps = {
     enable = true;
-    defaultApplications = {
+    defaultApplications = let
+      # Daemon Emacs : `--reuse-frame` quand un fichier est passé en argument,
+      # `--alternate-editor=` démarre le daemon s'il ne tourne pas encore.
+      emacs = "emacsclient.desktop";
+    in {
       "text/html"                = "firefox.desktop";
       "x-scheme-handler/http"   = "firefox.desktop";
       "x-scheme-handler/https"  = "firefox.desktop";
@@ -227,6 +240,34 @@
       "application/msword"       = "writer.desktop";
       "application/vnd.ms-excel" = "calc.desktop";
       "application/pdf"          = "org.pwmt.zathura.desktop";
+
+      # Texte et markdown
+      "text/plain"               = emacs;
+      "text/markdown"            = emacs;
+      "text/x-markdown"          = emacs;
+      "text/x-log"               = emacs;
+
+      # Code
+      "text/x-python"            = emacs;
+      "text/x-lua"               = emacs;
+      "text/x-csrc"              = emacs;
+      "text/x-chdr"              = emacs;
+      "text/x-c++src"            = emacs;
+      "text/x-c++hdr"            = emacs;
+      "text/x-java"              = emacs;
+      "text/x-makefile"          = emacs;
+      "text/x-tex"               = emacs;
+      "text/x-shellscript"       = emacs;
+      "application/x-shellscript" = emacs;
+
+      # Configuration / données
+      "text/x-nix"               = emacs;
+      "application/json"         = emacs;
+      "application/x-yaml"       = emacs;
+      "application/yaml"         = emacs;  # type enregistré depuis RFC 9512
+      "text/x-yaml"              = emacs;
+      "application/toml"         = emacs;
+      "text/x-ini"               = emacs;
     };
   };
 
