@@ -42,11 +42,33 @@
   ];
 
   # Installation de gnugp avec une configuration de base
+  #
+  # pinentry-curses et non -gtk2 (contrairement à portable et pomme) :
+  # serveur n'a pas de session graphique, une invite GTK n'a nulle part
+  # où s'afficher et la saisie de phrase de passe échoue.
   programs.gnupg.agent = {
     enable = true;
-    pinentryPackage = pkgs.pinentry-gtk2;
-    #pinentryPackage = pkgs.pinentry-curses;
-    enableSSHSupport = true;
+    pinentryPackage = pkgs.pinentry-curses;
+    # Laissé à false volontairement : gpg-agent ne sert que les clés qu'on
+    # lui confie explicitement par ssh-add, il ne lit pas ~/.ssh/id_ed25519.
+    # Avec true, ssh retombait sur le fichier et redemandait la phrase de
+    # passe à chaque connexion. On confie SSH à ssh-agent ci-dessous, et on
+    # garde gpg-agent pour GPG seul. Les deux sont mutuellement exclusifs :
+    # NixOS refuse enableSSHSupport et programs.ssh.startAgent ensemble.
+    enableSSHSupport = false;
+  };
+
+  # Agent SSH classique. Sur portable et pomme, ce rôle est tenu par
+  # gnome-keyring (via modules/nixos/gnome.nix) ; serveur étant sans
+  # environnement de bureau, il faut le déclarer explicitement ici.
+  programs.ssh = {
+    startAgent = true;
+    # ssh-agent démarre vide : sans ceci, il faudrait un ssh-add manuel
+    # à chaque session. AddKeysToAgent confie la clé à l'agent lors de la
+    # première utilisation, la phrase n'est donc demandée qu'une fois.
+    extraConfig = ''
+      AddKeysToAgent yes
+    '';
   };
 
   # Configuration spécifique à serveur
