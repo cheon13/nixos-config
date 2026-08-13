@@ -278,6 +278,29 @@
           ("\\.\\(ods\\|odt\\|odp\\|docx\\|xlsx\\|pptx\\)\\'" "libreoffice" (file))))
   (openwith-mode 1))
 
+;;; Terminal (vterm)
+;; Vrai émulateur de terminal (liaison C vers libvterm), contrairement à
+;; term/eshell qui sont en Elisp : rendu rapide, true color, et les
+;; applications plein écran (htop, tmux, nvim, pagers) fonctionnent.
+;;
+;; :ensure nil est ESSENTIEL ici — le paquet vient de Nix
+;; (programs.emacs.extraPackages dans modules/home-manager/emacs.nix) et
+;; non de MELPA. Sans ça, use-package-always-ensure tenterait de le
+;; réinstaller et de compiler le module natif à la volée.
+
+(use-package vterm
+  :ensure nil
+  :bind ("C-c t" . vterm)
+  :custom
+  (vterm-max-scrollback 10000)
+  :config
+  ;; Les modes globaux (numéros de ligne, ligne courante) n'ont pas de sens
+  ;; dans un terminal et perturbent l'alignement des applications curses.
+  (add-hook 'vterm-mode-hook
+            (lambda ()
+              (display-line-numbers-mode -1)
+              (setq-local global-hl-line-mode nil))))
+
 ;;; Langages additionnels
 ;; Org et Elisp sont colorisés nativement. Markdown et Nix ont besoin
 ;; d'un mode dédié, absent du vanilla par défaut.

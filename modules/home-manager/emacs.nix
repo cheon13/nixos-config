@@ -21,6 +21,13 @@ in
   programs.emacs = {
     enable = true;
     package = pkgs.emacs-pgtk;
+
+    # Paquets Emacs fournis par Nix plutôt que par package.el/MELPA.
+    # Réservé aux paquets qui embarquent du code natif : vterm compile un
+    # module C contre libvterm, ce que package.el ne peut pas faire ici
+    # (il chercherait cmake/libtool/libvterm à l'exécution). Le paquet Nix
+    # livre le .so déjà compilé. Le reste de la config reste sur MELPA.
+    extraPackages = epkgs: [ epkgs.vterm ];
   };
 
   # Démarre le daemon Emacs au login (service utilisateur systemd).
