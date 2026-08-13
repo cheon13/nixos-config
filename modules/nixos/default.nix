@@ -143,8 +143,14 @@
     # `nixos-rebuild --target-host` non interactif et reproductible. Sans
     # ça, les accès dérivent machine par machine et hors dépôt.
     #
-    # Ce module étant partagé par les 3 hôtes, la clé du portable autorise
-    # aussi la connexion vers portable lui-même — sans effet en pratique.
+    # Ce module étant partagé par les 3 hôtes, déclarer les 3 clés donne un
+    # maillage complet : chaque machine peut joindre les deux autres. Chacune
+    # s'autorise aussi elle-même — sans effet en pratique.
+    #
+    # Le commentaire en fin de clé est celui choisi à la génération et ne
+    # constitue pas une identification fiable : deux machines portent ici le
+    # même « cheon.cv@gmail.com ». C'est le commentaire Nix au-dessus de
+    # chaque entrée qui fait foi sur la provenance.
     #
     # Attention : il s'agit de clés SSH publiques, à ne pas confondre avec
     # les clés *age* de clés-publiques.md, qui sont dérivées des clés d'hôte
@@ -152,6 +158,10 @@
     openssh.authorizedKeys.keys = [
       # portable — ~/.ssh/id_ed25519.pub
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMF9mEulxwRGXWdbtbuT3BtIZQpCehj815hjpTbDixUc cheon.cv@gmail.com"
+      # serveur — ~/.ssh/id_ed25519.pub
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICCUrVLH7ZxQxfnmvP087aBW12XPk9KCxXf9O28z5SgX cheon@serveur"
+      # pomme — ~/.ssh/id_ed25519.pub
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIlRRsdzo3u1PseY7UGiPtie4TYBM8cH8nHhA1Y/neGt cheon.cv@gmail.com"
     ];
 
     extraGroups = [
