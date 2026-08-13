@@ -137,6 +137,23 @@
     isNormalUser = true;
     description = "Christian Héon";
     hashedPasswordFile = config.sops.secrets.user_password.path;  # nouveau
+
+    # Clés SSH autorisées, déclarées ici plutôt que posées à la main dans
+    # ~/.ssh/authorized_keys sur chaque machine : c'est ce qui rend
+    # `nixos-rebuild --target-host` non interactif et reproductible. Sans
+    # ça, les accès dérivent machine par machine et hors dépôt.
+    #
+    # Ce module étant partagé par les 3 hôtes, la clé du portable autorise
+    # aussi la connexion vers portable lui-même — sans effet en pratique.
+    #
+    # Attention : il s'agit de clés SSH publiques, à ne pas confondre avec
+    # les clés *age* de clés-publiques.md, qui sont dérivées des clés d'hôte
+    # et servent uniquement au chiffrement SOPS.
+    openssh.authorizedKeys.keys = [
+      # portable — ~/.ssh/id_ed25519.pub
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMF9mEulxwRGXWdbtbuT3BtIZQpCehj815hjpTbDixUc cheon.cv@gmail.com"
+    ];
+
     extraGroups = [
       "networkmanager"
       "wheel"
