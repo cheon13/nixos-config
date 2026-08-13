@@ -242,6 +242,26 @@
   # List services that you want to enable:
 
   # Enable the OpenSSH daemon.
-  services.openssh.enable = true;
+  # Note : `enable = true` ouvre aussi le port 22 dans le pare-feu
+  # (services.openssh.openFirewall vaut true par défaut).
+  services.openssh = {
+    enable = true;
+
+    # Authentification par clé exclusivement. Le mot de passe du compte est
+    # aussi celui de sudo (hashedPasswordFile plus haut) : le laisser
+    # devinable à distance exposerait la machine entière, cheon étant dans
+    # le groupe wheel. Les clés autorisées sont déclarées dans
+    # users.users.cheon.openssh.authorizedKeys.keys.
+    #
+    # Les deux réglages sont nécessaires : désactiver PasswordAuthentication
+    # seul laisse keyboard-interactive proposer un mot de passe via PAM.
+    #
+    # Reprise en main en cas de perte de clé : par la console physique de la
+    # machine. À reconsidérer avant d'ajouter un hôte sans accès physique.
+    settings = {
+      PasswordAuthentication = false;
+      KbdInteractiveAuthentication = false;
+    };
+  };
 
 }
