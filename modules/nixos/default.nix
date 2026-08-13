@@ -138,10 +138,16 @@
     description = "Christian Héon";
     hashedPasswordFile = config.sops.secrets.user_password.path;  # nouveau
 
-    # Clés SSH autorisées, déclarées ici plutôt que posées à la main dans
-    # ~/.ssh/authorized_keys sur chaque machine : c'est ce qui rend
-    # `nixos-rebuild --target-host` non interactif et reproductible. Sans
-    # ça, les accès dérivent machine par machine et hors dépôt.
+    # Clés SSH autorisées. Avant cette déclaration, aucune clé ne l'était
+    # sur aucune machine : toutes les connexions passaient par mot de passe,
+    # y compris les `nixos-rebuild --target-host`. C'est ce qui rend le
+    # déploiement non interactif, et ce qui a permis de désactiver ensuite
+    # l'authentification par mot de passe (voir services.openssh plus bas).
+    #
+    # Ces clés sont l'unique source d'autorisation : sshd lit aussi
+    # ~/.ssh/authorized_keys (cf. AuthorizedKeysFile), mais ce fichier
+    # n'existe sur aucune des 3 machines — à garder ainsi pour que le
+    # dépôt reste seul maître des accès.
     #
     # Ce module étant partagé par les 3 hôtes, déclarer les 3 clés donne un
     # maillage complet : chaque machine peut joindre les deux autres. Chacune
