@@ -188,7 +188,12 @@
   (require 'ox-latex)
   (setq org-latex-compiler "lualatex")
   (setq org-export-with-toc nil)
-  (setq org-latex-remove-logfiles nil)
+  ;; Ménage automatique des fichiers auxiliaires après un export PDF réussi
+  ;; (.aux, .log, .out, .fls…) ; « tex » s'ajoute à la liste par défaut pour
+  ;; ne conserver que le PDF. En cas d'échec de compilation, Org signale une
+  ;; erreur avant le nettoyage : les journaux restent pour le diagnostic.
+  (setq org-latex-remove-logfiles t)
+  (add-to-list 'org-latex-logfiles-extensions "tex")
   (setq org-export-default-language "fr")
   (setq org-latex-classes
         '(("article"
