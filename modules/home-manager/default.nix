@@ -53,7 +53,9 @@
     pavucontrol
     termusic
     termsonic
-    cliamp
+    # Version unstable : celle de la stable (1.50.0) a un bug d'authentification
+    # à Spotify Premium.
+    pkgs-unstable.cliamp
     cava
     yt-dlp # pour télécharger la musique de youtube
     clementine # Pour jouer et indexer la musique
