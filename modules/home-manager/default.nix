@@ -53,6 +53,7 @@
     pavucontrol
     termusic
     termsonic
+    cliamp
     cava
     yt-dlp # pour télécharger la musique de youtube
     clementine # Pour jouer et indexer la musique
