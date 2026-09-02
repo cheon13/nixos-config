@@ -306,6 +306,43 @@
               (display-line-numbers-mode -1)
               (setq-local global-hl-line-mode nil))))
 
+;;; Correction orthographique (hunspell)
+;; hunspell et les dictionnaires viennent de Nix (hunspellDicts.fr-any et
+;; hunspellDicts.en_US dans modules/home-manager/default.nix).
+;;
+;; Pourquoi ispell-dictionary est OBLIGATOIRE ici : au démarrage, hunspell
+;; déduit son dictionnaire par défaut de $LANG, soit « fr_CA » sur cette
+;; machine. Or fr-any installe le dictionnaire sous le nom
+;; « fr-toutesvariantes » — il n'existe pas de fr_CA. hunspell démarre donc
+;; sans dictionnaire chargé, et ispell échoue avec le message
+;; « Can't find Hunspell dictionary with a .aff affix file ».
+;; En fixant ispell-dictionary, ispell relance la détection avec
+;; « -d fr-toutesvariantes » et trouve bien le fichier .aff.
+;;
+;; C-c d bascule vers l'anglais (en_US) dans le tampon courant.
+
+(use-package ispell
+  :ensure nil                          ; intégré à Emacs
+  :bind ("C-c d" . ispell-change-dictionary)
+  :custom
+  (ispell-program-name "hunspell")
+  (ispell-dictionary "fr-toutesvariantes")
+  ;; Dictionnaire personnel commun aux deux langues, versionné hors dépôt.
+  (ispell-personal-dictionary (locate-user-emacs-file "dictionnaire-perso")))
+
+;; Vérification à la volée : soulignement des fautes pendant la frappe.
+;; Uniquement dans les modes texte (org, markdown, LaTeX…) ; en mode
+;; programmation on se limite aux commentaires et chaînes via
+;; flyspell-prog-mode, pour ne pas signaler chaque identifiant.
+(use-package flyspell
+  :ensure nil
+  :hook ((text-mode . flyspell-mode)
+         (prog-mode . flyspell-prog-mode))
+  :custom
+  ;; Le menu souris par défaut est peu pratique au clavier ; M-$ sur un mot
+  ;; (ispell-word) reste la façon normale de corriger.
+  (flyspell-issue-message-flag nil))   ; évite un message à chaque mot vérifié
+
 ;;; Langages additionnels
 ;; Org et Elisp sont colorisés nativement. Markdown et Nix ont besoin
 ;; d'un mode dédié, absent du vanilla par défaut.
