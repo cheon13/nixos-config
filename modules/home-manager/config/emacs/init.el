@@ -103,6 +103,33 @@
 (set-face-attribute 'default nil :font "Adwaita Mono-12")
 (add-to-list 'default-frame-alist '(font . "Adwaita Mono-12"))
 
+;; Chasse variable, utilisée par la face `variable-pitch' — donc par
+;; mixed-pitch dans writeroom (voir plus bas), seul endroit où on la
+;; veut. Noto Serif plutôt que DejaVu Serif : elle vient de noto-fonts,
+;; déjà déclaré dans fonts.packages (modules/nixos/default.nix), alors
+;; que DejaVu n'est là qu'au titre de famille de repli de fontconfig.
+(set-face-attribute 'variable-pitch nil :family "Noto Serif")
+
+;; mixed-pitch remappe les tableaux et le code sur la face `fixed-pitch',
+;; dont la famille par défaut est « Monospace » — que fontconfig résout
+;; ici en DejaVu Sans Mono. Sans cette ligne, les tableaux changeraient
+;; donc de police en entrant dans writeroom. On la fixe sur la même
+;; police que la face `default' pour que la chasse fixe reste identique
+;; partout. Pas de taille : elle hérite ainsi du zoom (C-x C-+).
+(set-face-attribute 'fixed-pitch nil :family "Adwaita Mono")
+
+;; Transparence du fond du cadre (0 = invisible, 100 = opaque). Ne touche
+;; que la couleur de fond par défaut : les faces à fond explicite
+;; (hl-line, région, mode-line) restent opaques, ce qui garde le texte
+;; lisible par-dessus le papier peint.
+;; Nécessite Emacs 29+ et un compositeur — les deux sont là : build
+;; emacs-pgtk (cf. modules/home-manager/emacs.nix) sous dwl/wlroots.
+;; Deux lignes, comme pour la police : `default-frame-alist' vaut pour les
+;; cadres créés ensuite (emacsclient), `set-frame-parameter' rattrape le
+;; cadre initial, créé avant le chargement de ce fichier.
+(set-frame-parameter nil 'alpha-background 90)
+(add-to-list 'default-frame-alist '(alpha-background . 90))
+
 ;; Sauvegardes regroupées dans un sous-répertoire plutôt qu'éparpillées.
 ;; Création automatique des dossiers pour ne pas dépendre d'une étape
 ;; manuelle au premier lancement sur une nouvelle machine.
@@ -256,6 +283,17 @@
 ;; Mode sans distraction : centre une colonne étroite et masque le
 ;; superflu (mode-line, fringes). Bascule manuelle via C-c w, pas de
 ;; hook automatique — on l'active seulement quand on veut écrire.
+;;
+;; mixed-pitch fait le travail que `variable-pitch-mode' ferait trop
+;; brutalement : il bascule la prose en chasse variable, mais garde en
+;; chasse fixe toutes les faces listées dans
+;; `mixed-pitch-fixed-pitch-faces' — tableaux org, blocs de code,
+;; verbatim, formules, mots-clés, numéros de ligne. L'alignement des
+;; tableaux survit donc au passage en Noto Serif.
+;; :defer t → chargé au premier appel (autoload), pas au démarrage.
+(use-package mixed-pitch
+  :defer t)
+
 (use-package writeroom-mode
   :bind ("C-c w" . writeroom-mode)
   :custom
@@ -270,7 +308,12 @@
   ;; writeroom ne touche pas aux numéros de ligne par défaut : on ajoute
   ;; un effet local qui les éteint à l'activation, les rallume à la sortie.
   (add-to-list 'writeroom-local-effects
-               (lambda (arg) (display-line-numbers-mode (if (> arg 0) -1 1)))))
+               (lambda (arg) (display-line-numbers-mode (if (> arg 0) -1 1))))
+  ;; Même principe pour la chasse variable : local au tampon, et défait
+  ;; automatiquement en quittant writeroom. Hors writeroom, la config
+  ;; reste intégralement en chasse fixe.
+  (add-to-list 'writeroom-local-effects
+               (lambda (arg) (mixed-pitch-mode (if (> arg 0) 1 -1)))))
 
 ;;; Ouverture de fichiers externes
 ;; openwith intercepte l'ouverture globalement (dired, find-file, liens
