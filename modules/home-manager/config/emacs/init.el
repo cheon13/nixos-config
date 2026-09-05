@@ -297,7 +297,7 @@
 (use-package writeroom-mode
   :bind ("C-c w" . writeroom-mode)
   :custom
-  (writeroom-width 85)                      ; largeur de la colonne
+  (writeroom-width 95)                      ; largeur de la colonne
   (writeroom-fullscreen-effect 'maximized)
   :config
   ;; writeroom délègue les marges à visual-fill-column. Par défaut celui-ci
