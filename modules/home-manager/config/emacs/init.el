@@ -270,7 +270,39 @@
 
           ("r" "Rendez-vous" entry
            (file+headline "~/Documents/Cerveau/inbox.org" "Rendez-vous")
-           "* %^{Nom du rendez-vous}\n%^T"))))
+           "* %^{Nom du rendez-vous}\n%^T")
+
+          ;; Déclenchés depuis Firefox via org-protocol (cf. ci-dessous) et
+          ;; non depuis C-c c : les %: viennent des paramètres de l'URL —
+          ;; %:link (url), %:description (title), %i (texte sélectionné).
+          ("L" "Lien web (org-protocol)" entry
+           (file+headline "~/Documents/Cerveau/inbox.org" "Liens")
+           "* [[%:link][%:description]]\n  %U"
+           :immediate-finish t)
+
+          ("w" "Extrait web (org-protocol)" entry
+           (file+headline "~/Documents/Cerveau/inbox.org" "Notes")
+           "* %:description\n  %U\n  [[%:link][source]]\n\n  #+begin_quote\n  %i\n  #+end_quote\n\n  %?")))
+
+  ;; Referme la frame dédiée créée par org-protocol-capture (cf. emacs.nix).
+  ;; Le test sur le nom laisse intactes les captures lancées par C-c c depuis
+  ;; une frame ordinaire.
+  (defun my/org-capture-delete-frame ()
+    "Ferme la frame « org-capture » à la fin d'une capture."
+    (when (equal "org-capture" (frame-parameter nil 'name))
+      (delete-frame)))
+  (add-hook 'org-capture-after-finalize-hook #'my/org-capture-delete-frame))
+
+;;; org-protocol
+;; C'est `org-protocol' qui installe dans `file-name-handler-alist' le handler
+;; interceptant les arguments « org-protocol://… » passés à emacsclient. Il
+;; doit donc être chargé AVANT l'arrivée de l'URL : impossible de s'en remettre
+;; au chargement paresseux d'org ci-dessus, qui n'aurait lieu qu'une fois
+;; l'URL déjà traitée (et donc ouverte comme un nom de fichier littéral).
+;;
+;; Le timer d'inactivité préserve malgré tout un démarrage léger : le daemon
+;; rend la main immédiatement au login, et charge org une seconde plus tard.
+(run-with-idle-timer 1 nil (lambda () (require 'org-protocol)))
 
 ;; org-superstar : remplace les astérisques bruts par des glyphes Unicode.
 (use-package org-superstar

@@ -15,6 +15,22 @@
 let
   # Chemin absolu vers les sources dans le dépôt (hors /nix/store).
   emacsSrc = "${config.home.homeDirectory}/.dotfiles/modules/home-manager/config/emacs";
+
+  # Cible du schéma « org-protocol:// » (capture depuis Firefox).
+  #
+  # Passer par un script plutôt que d'écrire la commande directement dans
+  # Exec= évite les règles d'échappement des guillemets du format .desktop :
+  # l'alist passée à -F en contient.
+  #
+  #   -c   crée une frame : le daemon peut très bien tourner sans frame
+  #        visible, auquel cas le tampon de capture s'ouvrirait dans le vide.
+  #   -F   nomme cette frame « org-capture » ; init.el la referme une fois
+  #        la capture finalisée ou abandonnée.
+  #   -a   chaîne vide = démarre le daemon s'il ne tourne pas encore.
+  orgProtocolCapture = pkgs.writeShellScriptBin "org-protocol-capture" ''
+    exec ${config.programs.emacs.finalPackage}/bin/emacsclient \
+      -c -a "" -F '((name . "org-capture"))' -- "$1"
+  '';
 in
 {
   # Build native Wayland (pgtk) — cf. environnement dwl du portable.
@@ -40,6 +56,34 @@ in
     # modules/nixos/default.nix — seule source de vérité pour EDITOR/VISUAL.
     defaultEditor = false;
   };
+
+  # org-protocol : capture web depuis Firefox.
+  #
+  # Chaîne complète : bookmarklet Firefox → URL « org-protocol://capture?… »
+  # → Firefox délègue le schéma inconnu au bureau → mimeapps.list résout
+  # x-scheme-handler/org-protocol vers ce desktop entry → emacsclient →
+  # handler org-protocol dans Emacs → org-capture.
+  #
+  # Côté Emacs, org-protocol doit être chargé pour installer son handler
+  # dans file-name-handler-alist : cf. init.el, section Org-mode.
+  home.packages = [ orgProtocolCapture ];
+
+  xdg.desktopEntries.org-protocol = {
+    name = "org-protocol";
+    exec = "${orgProtocolCapture}/bin/org-protocol-capture %u";
+    icon = "emacs";
+    type = "Application";
+    terminal = false;
+    categories = [ "Utility" ];
+    mimeType = [ "x-scheme-handler/org-protocol" ];
+    # Handler de schéma, pas une application à proposer dans les menus.
+    noDisplay = true;
+  };
+
+  # S'ajoute aux associations déclarées dans modules/home-manager/default.nix
+  # (les définitions d'un attrset se fusionnent entre modules).
+  xdg.mimeApps.defaultApplications."x-scheme-handler/org-protocol" =
+    "org-protocol.desktop";
 
   # Symlink out-of-store.
   home.file.".config/emacs/init.el".source =
