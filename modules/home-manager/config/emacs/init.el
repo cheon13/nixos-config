@@ -384,26 +384,54 @@ distant et la boîte de réception des événements créés à distance.")
   "Chemin absolu du fichier calendrier NOM, sous `my/calendriers-directory'."
   (expand-file-name nom my/calendriers-directory))
 
-;; Identifiants, URLs et secrets OAuth2 : hors du dépôt, qui est public.
-;; sops-nix les déchiffre au démarrage vers /run/secrets (cf.
-;; modules/nixos/calendrier.nix). `load-file' et non `load' : le fichier n'a
-;; pas d'extension .el, que `load' ajouterait d'office au chemin.
+;;;; Identifiants
 ;;
-;; Chargé inconditionnellement plutôt que paresseusement : ce ne sont que
-;; quelques setq, et les avoir tôt permet aux blocs use-package ci-dessous
-;; de s'y référer sans ordre de chargement subtil.
-(defvar my/calendrier-secrets "/run/secrets/calendrier-prive"
-  "Fichier elisp déchiffré par sops : URLs, identifiants et secrets OAuth2.")
+;; Ce dépôt est public : les identifiants de calendriers et les mots de passe
+;; n'y figurent pas. sops-nix les déchiffre au démarrage vers /run/secrets
+;; (cf. modules/nixos/calendrier.nix).
+;;
+;; Ce sont des VALEURS et non du code : un secret ne contient qu'une chaîne,
+;; jamais quelque chose qu'on exécute. Toute la logique reste ici, et cette
+;; section se lit intégralement sans rien déchiffrer — seules les valeurs
+;; manquent à la lecture.
 
-(if (file-readable-p my/calendrier-secrets)
-    (load-file my/calendrier-secrets)
-  (message "Calendriers : %s illisible — synchronisation non configurée"
-           my/calendrier-secrets))
+(defun my/calendrier-secret (nom)
+  "Contenu du secret NOM déchiffré par sops dans /run/secrets, ou nil.
+Le saut de ligne final que laissent la plupart des éditeurs est retiré :
+il casserait aussi bien une URL qu'un identifiant de calendrier."
+  (let ((fichier (expand-file-name nom "/run/secrets/")))
+    (when (file-readable-p fichier)
+      (string-trim
+       (with-temp-buffer
+         (insert-file-contents fichier)
+         (buffer-string))))))
 
-;; Le mot de passe d'application Zoho passe par auth-source : org-caldav
-;; s'authentifie via le paquet `url', qui ne sait consulter que lui. D'où ce
-;; netrc distinct du fichier elisp ci-dessus — ce n'est pas un doublon, les
-;; deux mécanismes de lecture sont imposés par les outils.
+(defun my/calendrier-auth (hote)
+  "Couple (IDENTIFIANT . SECRET) trouvé dans auth-source pour HOTE, ou nil.
+auth-source renvoie le secret sous forme de fonction quand la source est
+chiffrée ; on l'appelle pour obtenir la chaîne."
+  (when-let* ((entree (car (auth-source-search :host hote :max 1))))
+    (cons (plist-get entree :user)
+          (let ((secret (plist-get entree :secret)))
+            (if (functionp secret) (funcall secret) secret)))))
+
+;; Lus une fois au démarrage plutôt qu'à chaque usage : trois lectures de
+;; fichiers minuscules, et les valeurs deviennent inspectables avec C-h v.
+(defvar my/zoho-calendar-id (my/calendrier-secret "calendrier-zoho-id")
+  "Identifiant du calendrier professionnel, tiré de la CalDAV URL de Zoho.")
+
+(defvar my/gcal-perso (my/calendrier-secret "calendrier-gcal-perso")
+  "Identifiant du calendrier Google personnel (en général l'adresse Gmail).")
+
+(defvar my/gcal-famille (my/calendrier-secret "calendrier-gcal-famille")
+  "Identifiant du calendrier Google familial partagé.")
+
+(unless (and my/zoho-calendar-id my/gcal-perso my/gcal-famille)
+  (message "Calendriers : identifiants absents de /run/secrets — synchronisation non configurée"))
+
+;; Le mot de passe d'application Zoho et le couple client OAuth2 de Google
+;; passent par auth-source : org-caldav s'authentifie via le paquet `url',
+;; qui ne sait consulter que lui. Le format netrc n'est donc pas un choix.
 (let ((netrc "/run/secrets/calendrier-authinfo"))
   (when (file-readable-p netrc)
     (require 'auth-source)
@@ -423,11 +451,18 @@ distant et la boîte de réception des événements créés à distance.")
   :defer t
   :commands (org-caldav-sync)
   :init
-  ;; org-caldav-url et org-caldav-calendar-id viennent du fichier secret.
-  ;;
-  ;; org-caldav-files reste nil : l'inbox y est ajoutée d'office, et c'est
-  ;; ici le même fichier — il est à la fois source et destination.
-  (setq org-caldav-inbox (my/calendrier-file "pro-zoho.org")
+  ;; Le %s n'est pas une coquille : chez Zoho l'identifiant du calendrier
+  ;; est au MILIEU du chemin, suivi de /events/. org-caldav-events-url teste
+  ;; la présence d'un %s dans l'URL et y substitue org-caldav-calendar-id ;
+  ;; sans lui, il collerait l'identifiant à la fin et viserait une URL
+  ;; inexistante. Le domaine dépend du centre de données du compte —
+  ;; zohocloud.ca pour un compte canadien — et doit être identique à celui
+  ;; de l'entrée netrc, qu'auth-source apparie sur le nom d'hôte exact.
+  (setq org-caldav-url "https://calendar.zohocloud.ca/caldav/%s/events"
+        org-caldav-calendar-id my/zoho-calendar-id
+        ;; L'inbox est ajoutée d'office à org-caldav-files, et c'est ici le
+        ;; même fichier — source et destination à la fois. D'où le nil.
+        org-caldav-inbox (my/calendrier-file "pro-zoho.org")
         org-caldav-files nil
         ;; L'état de synchronisation vit à côté des fichiers org plutôt que
         ;; dans ~/.config/emacs : s'ils sont un jour synchronisés entre
@@ -444,18 +479,39 @@ distant et la boîte de réception des événements créés à distance.")
 (use-package org-gcal
   :defer t
   :commands (org-gcal-sync org-gcal-fetch org-gcal-post-at-point)
+  ;; Tout en :init et rien en :config, contrairement à l'évidence — org-gcal.el
+  ;; se termine par un test de niveau supérieur, exécuté PENDANT le chargement
+  ;; du fichier et donc avant tout :config :
+  ;;
+  ;;   (if (and org-gcal-client-id org-gcal-client-secret)
+  ;;       (org-gcal-reload-client-id-secret)
+  ;;     (warn "org-gcal: must set ..."))
+  ;;
+  ;; C'est ce test qui enregistre le fournisseur Google dans
+  ;; `oauth2-auto-additional-providers-alist'. Renseigner les identifiants en
+  ;; :config arrive trop tard : les variables sont bien posées, mais
+  ;; l'enregistrement OAuth2 n'a jamais eu lieu, et org-gcal émet un
+  ;; avertissement en invitant à lancer `org-gcal-reload-client-id-secret' à la
+  ;; main. En :init, les variables existent avant le chargement et org-gcal
+  ;; s'enregistre lui-même.
+  ;;
+  ;; Le surcoût au démarrage est une lecture du netrc, soit quelques
+  ;; millisecondes — le paquet lui-même reste chargé paresseusement.
   :init
   ;; plstore sert de coffre au jeton OAuth2, chiffré par GPG. Sans ce
   ;; réglage il redemande la passphrase à chaque accès, soit plusieurs fois
   ;; par synchronisation.
   (setq plstore-cache-passphrase-for-symmetric-encryption t)
-  :config
-  ;; Associe chaque calendrier distant à son fichier. Les identifiants
-  ;; viennent du fichier secret ; construit en :config pour que l'absence de
-  ;; celui-ci (machine non configurée) n'échoue qu'au premier usage réel.
+
+  ;; Le client OAuth2 est une paire identifiant/secret : auth-source est
+  ;; fait pour ça, inutile de lui inventer un autre rangement.
+  (when-let* ((client (my/calendrier-auth "org-gcal")))
+    (setq org-gcal-client-id (car client)
+          org-gcal-client-secret (cdr client)))
+
   (setq org-gcal-fetch-file-alist
-        `((,my/gcal-calendrier-perso   . ,(my/calendrier-file "perso-gmail.org"))
-          (,my/gcal-calendrier-famille . ,(my/calendrier-file "famille.org")))))
+        `((,my/gcal-perso   . ,(my/calendrier-file "perso-gmail.org"))
+          (,my/gcal-famille . ,(my/calendrier-file "famille.org")))))
 
 ;;;; Commande unifiée
 
@@ -503,15 +559,13 @@ retour de cette commande."
             `("rc" "Rendez-vous personnel (Google)" entry
               (file ,(my/calendrier-file "perso-gmail.org"))
               ,(concat "* %^{Nom du rendez-vous}\nSCHEDULED: %^T\n"
-                       ":PROPERTIES:\n:calendar-id: "
-                       (or (bound-and-true-p my/gcal-calendrier-perso) "")
+                       ":PROPERTIES:\n:calendar-id: " (or my/gcal-perso "")
                        "\n:END:\n%?"))
 
             `("rf" "Rendez-vous familial (Google partagé)" entry
               (file ,(my/calendrier-file "famille.org"))
               ,(concat "* %^{Nom du rendez-vous}\nSCHEDULED: %^T\n"
-                       ":PROPERTIES:\n:calendar-id: "
-                       (or (bound-and-true-p my/gcal-calendrier-famille) "")
+                       ":PROPERTIES:\n:calendar-id: " (or my/gcal-famille "")
                        "\n:END:\n%?"))))
     (add-to-list 'org-capture-templates tpl t)))
 

@@ -82,17 +82,43 @@ chaque calendrier reste là où sa fonction sociale l'exige.
 1. Si la double authentification est active : *Security → App Passwords →
    Generate New Password*. Noter le mot de passe généré.
 2. *Paramètres → Calendriers*, choisir le calendrier professionnel, section
-   *Integrate Calendar*, copier la *CalDAV URL*.
-3. Cette URL se découpe en deux pour ~org-caldav~ : le dernier segment du chemin
-   est l'identifiant du calendrier (~org-caldav-calendar-id~), tout ce qui
-   précède est l'URL de base (~org-caldav-url~). Par exemple, pour
-   =https://calendar.zoho.com/caldav/zzzzzz/events/abcdef/= :
+   *Integrate Calendar*, copier la *CalDAV URL*. Elle a la forme
+   =https://calendar.<domaine-zoho>/caldav/IDENTIFIANT/events/=.
 
-   - ~org-caldav-url~ → =https://calendar.zoho.com/caldav/zzzzzz/events=
-   - ~org-caldav-calendar-id~ → =abcdef=
+3. *Le domaine dépend du centre de données du compte*, et ce n'est pas toujours
+   un suffixe de =zoho.com= : un compte canadien est sur =calendar.zohocloud.ca=,
+   un européen sur =calendar.zoho.eu=, etc. Prendre le domaine tel qu'il
+   apparaît dans la CalDAV URL, et le reporter *à l'identique* dans l'entrée
+   netrc — auth-source apparie sur le nom d'hôte exact, et un domaine erroné
+   se traduit par une demande de mot de passe à chaque synchronisation.
 
-   Le domaine varie selon la région du compte (=.com=, =.eu=, =.au=…).
-4. Le nom d'utilisateur est l'*adresse e-mail* Zoho, pas le nom d'utilisateur.
+4. Le découpage pour ~org-caldav~ passe par un =%s=, et non par une séparation
+   du dernier segment. ~org-caldav-events-url~ contient ceci :
+
+   #+begin_src elisp
+   (if (string-match ".*%s.*" url)
+       (format url org-caldav-calendar-id)
+     (concat url "/" org-caldav-calendar-id "/"))
+   #+end_src
+
+   Comme l'identifiant est *au milieu* du chemin Zoho et non à la fin, c'est la
+   première branche qu'il faut viser :
+
+   - ~org-caldav-url~ → =https://calendar.zohocloud.ca/caldav/%s/events=
+   - ~org-caldav-calendar-id~ → l'identifiant tiré de la CalDAV URL
+
+   La branche =concat= donnerait ~org-caldav-calendar-id~ = ="events"=, ce qui
+   reconstruirait bien la bonne URL mais nommerait le fichier d'état de
+   synchronisation d'après =events= — ~org-caldav-sync-state-filename~ le
+   dérive du seul calendar-id. Deux calendriers Zoho se partageraient alors le
+   même fichier d'état.
+
+5. *Ne pas utiliser le « Calendar ID » que Zoho affiche* dans cette même page —
+   la longue chaîne commençant par =zz…=. Elle sert aux abonnements ICS et au
+   partage public, pas au CalDAV. Le seul identifiant qui compte ici est celui
+   qui figure dans la CalDAV URL.
+
+6. Le nom d'utilisateur est l'*adresse e-mail* Zoho, pas le nom d'utilisateur.
 
 ** Côté Google — client OAuth2
 
@@ -115,43 +141,54 @@ Une seule fois, ~10 minutes, sur la [[https://console.cloud.google.com/][console
    l'agenda → ID de l'agenda*. Le personnel est en général l'adresse Gmail ; le
    familial partagé est de la forme =xxxxx@group.calendar.google.com=.
 
-** Les deux secrets SOPS
+** Les quatre secrets SOPS
 
 Ils sont déclarés dans =modules/nixos/calendrier.nix=, importé par =portable= et
 =pomme= seulement — le serveur n'a pas à les détenir.
+
+Tous sont des *valeurs*, jamais du code. Un fichier de secrets qu'Emacs
+exécuterait — par =load-file= sur un bout d'elisp chiffré — rendrait la
+configuration illisible sans déchiffrement, et ferait dépendre le démarrage
+d'Emacs de la syntaxe d'un fichier qu'aucun outil ne valide. Ici, =init.el=
+garde toute la logique : seules les valeurs viennent de =/run/secrets=.
 
 #+begin_quote
 *À faire avant toute reconstruction.* sops-nix vérifie la présence des clés dès
 =nixos-rebuild build= : un secret déclaré mais absent du fichier chiffré fait
 échouer le /build/ — pas seulement l'activation — avec le message =manifest is
-not valid: secret calendrier-authinfo … the key 'calendrier-authinfo' cannot be
-found=. Ajouter les deux entrées d'abord.
+not valid: … the key '…' cannot be found=. Ajouter les quatre entrées d'abord.
 #+end_quote
 
 #+begin_src bash
 sops secrets/common/secrets.yaml
 #+end_src
 
-Ajouter ces deux clés :
-
 #+begin_src yaml
 calendrier-authinfo: |
-    machine calendar.zoho.com:443 port https login MOI@EXEMPLE.COM password MOT-DE-PASSE-APPLICATION
+    machine calendar.zohocloud.ca:443 port https login MOI@EXEMPLE.COM password MOT-DE-PASSE-APPLICATION
+    machine org-gcal port https login XXXXX.apps.googleusercontent.com password CLIENT-SECRET
 
-calendrier-prive: |
-    ;; -*- lexical-binding: t; -*-
-    (setq org-caldav-url "https://calendar.zoho.com/caldav/ZZZZZZ/events")
-    (setq org-caldav-calendar-id "ABCDEF")
-    (setq org-gcal-client-id "XXXXX.apps.googleusercontent.com")
-    (setq org-gcal-client-secret "YYYYY")
-    (defvar my/gcal-calendrier-perso "moi@gmail.com")
-    (defvar my/gcal-calendrier-famille "zzzzz@group.calendar.google.com")
+calendrier-zoho-id: 'IDENTIFIANT-TIRE-DE-LA-CALDAV-URL'
+calendrier-gcal-perso: 'moi@gmail.com'
+calendrier-gcal-famille: 'zzzzz@group.calendar.google.com'
 #+end_src
 
-Le format netrc du premier est imposé par ~auth-source~, seul mécanisme que
-sache consulter le paquet ~url~ dont dépend ~org-caldav~ : noter le port *deux
-fois* (=:443= dans =machine=, puis =port https=), ce n'est pas une erreur de
-frappe.
+Quelques pièges de syntaxe, tous rencontrés au moins une fois :
+
+- Le =|= ouvre un bloc littéral : à l'intérieur, rien ne s'échappe, mais
+  l'indentation doit rester constante d'une ligne à l'autre.
+- Les apostrophes autour des trois identifiants ne sont pas décoratives. Sans
+  elles, une valeur commençant par ={=, =&=, =*=, =!=, =%=, =@= ou =-= fait
+  échouer le parseur avec un message peu parlant du genre =did not find
+  expected ',' or '}'=.
+- Dans le netrc, le port figure *deux fois* — =:443= dans =machine=, puis
+  =port https=. C'est la syntaxe qu'attend auth-source, pas une coquille.
+- Le nom d'hôte du netrc doit correspondre *exactement* au domaine de
+  ~org-caldav-url~ : auth-source apparie sur l'hôte, et un domaine erroné se
+  manifeste par une demande de mot de passe à chaque synchronisation.
+
+Le ~org-caldav-url~ lui-même reste en clair dans =init.el= : il ne contient
+qu'un domaine et un =%s=, rien de personnel.
 
 Puis :
 
@@ -162,7 +199,7 @@ sudo nixos-rebuild switch --flake ~/.dotfiles
 Vérifier que les secrets sont en place :
 
 #+begin_src bash
-ls -l /run/secrets/calendrier-authinfo /run/secrets/calendrier-prive
+ls -l /run/secrets/calendrier-*
 #+end_src
 
 ** Première synchronisation
@@ -209,7 +246,7 @@ est lisible, que le =machine= correspond exactement au domaine de
 ~org-caldav-url~, et que le port y figure bien deux fois. Diagnostic :
 
 #+begin_src elisp
-(auth-source-search :host "calendar.zoho.com:443")
+(auth-source-search :host "calendar.zohocloud.ca:443")
 #+end_src
 
 ** Google : invalid_grant, ou réautorisation hebdomadaire
