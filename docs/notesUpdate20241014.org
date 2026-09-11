@@ -1,16 +1,23 @@
-# Notes de l'update 
+#+TITLE: Notes de mise à jour — 14 octobre 2024
+#+OPTIONS: toc:nil num:nil
 
-lun 14 oct 2024 14:00:07 EDT
+Lundi 14 octobre 2024, 14:00 EDT.
 
-## commandes exécutées
+En résumé : la mise à jour casse la compilation de =dwl=, qui ne trouve plus
+=wlroots= via pkg-config. Deux options obsolètes sont également signalées
+(~sound~ et ~hardware.opengl.driSupport~), ainsi que le passage de taskwarrior
+2.6 à 3.
 
-### Update flake.lock
-	nix flake update
-#### Apply the updates
- sudo nixos-rebuild switch --flake ~/.dotfiles
+* Commandes exécutées
 
-## Message reçus
+#+begin_src bash
+nix flake update
+sudo nixos-rebuild switch --flake ~/.dotfiles
+#+end_src
 
+* Messages reçus
+
+#+begin_example
        error:
        Failed assertions:
        - The option definition `sound' in `/nix/store/vdgw6dv3dm9fkfm8hy74xlspinsrag07-source/hotes/serveur/configuration.nix' no longer has any effect; please remove it.
@@ -44,3 +51,4 @@ error: builder for '/nix/store/ccyk309v0pxx26i2v4l8njslzx4c2qa3-dwl-0.7.drv' fai
        For full logs, run 'nix log /nix/store/ccyk309v0pxx26i2v4l8njslzx4c2qa3-dwl-0.7.drv'.
 error: 1 dependencies of derivation '/nix/store/g6wnyv1i5ybsaapkqdaz1kg68kjvi3yb-system-path.drv' failed to build
 error: 1 dependencies of derivation '/nix/store/vxwwqjwi2xb1635n64v5s8g2zil2j6fx-nixos-system-serveur-24.11.20241009.5633bcf.drv' failed to build
+#+end_example

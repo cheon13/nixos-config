@@ -1,3 +1,17 @@
+#+TITLE: Notes de mise à jour — 27 novembre 2025
+#+OPTIONS: toc:nil num:nil
+
+En résumé : l'évaluation échoue sur =noto-fonts-emoji=, renommé en
+=noto-fonts-color-emoji=. Trois avertissements l'accompagnent — les options
+~programs.git.userName~/~userEmail~/~extraConfig~ renommées vers
+~programs.git.settings~, un écart de version entre Home Manager 26.05 et
+Nixpkgs 25.11, et un rappel sur la montée de version de Nextcloud.
+
+Session lancée par =./build.sh 'changer firefox-wayland à firefox'=.
+
+* Sortie complète
+
+#+begin_example
 ❯ ./build.sh 'changer firefox-wayland à firefox'
 [main fc4a9e6] changer firefox-wayland à firefox
  4 files changed, 4 insertions(+), 4 deletions(-)
@@ -73,3 +87,4 @@ error:
 
        error: 'noto-fonts-emoji' has been renamed to/replaced by 'noto-fonts-color-emoji'
 Command 'nix --extra-experimental-features 'nix-command flakes' build --print-out-paths '/home/cheon/.dotfiles#nixosConfigurations."serveur".config.system.build.toplevel' --no-link' returned non-zero exit status 1.#
+#+end_example

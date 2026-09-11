@@ -112,15 +112,28 @@
       enable = true;
       enableCompletion  = true;
       historySize = 100000;
+      # Variables d'environnement : elles ont leur place dans TOUS les shells,
+      # y compris les shells non interactifs — c'est par eux que passent ssh
+      # et nixos-rebuild --target-host.
       bashrcExtra = ''
         export PATH="$PATH:/usr/local/bin:/home/cheon/.local/bin"
         export MANPAGER="sh -c 'col -bx | bat -l man -p'"
         export MANROFFOPT="-c"
+      '';
+
+      # Réservé aux shells interactifs : home-manager place initExtra derrière
+      # un test sur $- (présence de « i »). Les `bind' ont besoin de readline,
+      # et fzf comme starship installent des raccourcis clavier et un prompt —
+      # autant de choses qui n'existent pas dans un shell non interactif, où
+      # elles produisaient « bind: édition de ligne non activée » et
+      # « starship: Under a 'dumb' terminal » à chaque déploiement distant.
+      initExtra = ''
         bind '"\e[A": history-search-backward'
         bind '"\e[B": history-search-forward'
-       	eval "$(fzf --bash)"
-       	# eval "$(zoxide init bash)"
-       	eval "$(starship init bash)"
+        eval "$(fzf --bash)"
+        eval "$(starship init bash)"
+        # zoxide est déjà intégré par programs.zoxide.enableBashIntegration
+        # ci-dessous : pas de `eval "$(zoxide init bash)"' ici, il ferait doublon.
       '';
       shellAliases = {
         ls = "eza --icons --group-directories-first";

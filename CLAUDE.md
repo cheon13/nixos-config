@@ -21,8 +21,12 @@ sudo nixos-rebuild switch --flake .#serveur
 sudo nixos-rebuild switch --flake .#pomme
 
 # Déployer à distance
-nixos-rebuild switch --flake .#serveur --target-host cheon@serveur --sudo
-nixos-rebuild switch --flake .#pomme --target-host cheon@pomme --sudo
+# --ask-sudo-password est requis depuis nixos-rebuild-ng (réécriture Python,
+# devenue le défaut) : contrairement à l'ancien script shell, il ne devine plus
+# le mot de passe du sudo distant, et échoue avec « a terminal is required to
+# read the password ».
+nixos-rebuild switch --flake .#serveur --target-host cheon@serveur --sudo --ask-sudo-password
+nixos-rebuild switch --flake .#pomme --target-host cheon@pomme --sudo --ask-sudo-password
 
 # Tester sans appliquer
 nixos-rebuild build --flake .#portable
@@ -58,7 +62,7 @@ sops secrets/common/secrets.yaml
 mkpasswd -m sha-512   # générer le hash, puis l'insérer via sops
 ```
 
-Voir `docs/changement-mot-de-passe.md` pour la procédure complète.
+Voir `docs/changement-mot-de-passe.org` pour la procédure complète.
 
 ## Règles importantes
 
@@ -66,3 +70,4 @@ Voir `docs/changement-mot-de-passe.md` pour la procédure complète.
 - Ne jamais modifier `flake.lock` manuellement — c'est le rôle de `nix flake update`
 - Les secrets ne doivent jamais apparaître en clair — tout passe par `sops`
 - `nixpkgs-unstable` est disponible via `pkgs-unstable` pour les paquets qui en ont besoin (ex: claude-code)
+- **La documentation s'écrit en `.org`, jamais en Markdown.** Tout fichier de `docs/` est un fichier org, lu et édité dans Emacs : titres `*`, `#+TITLE:` en tête, `~symbole~` pour le code et les options, `=chemin=` pour les fichiers et commandes, blocs `#+begin_src <langage>` (ou `#+begin_example` pour une sortie de terminal), tableaux org, liens `[[url][texte]]`. Penser à mettre à jour les renvois au fichier dans le code lorsqu'on en crée ou renomme un.

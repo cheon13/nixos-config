@@ -1,16 +1,23 @@
-# Notes de l'update 
+#+TITLE: Notes de mise à jour — 7 juin 2026
+#+OPTIONS: toc:nil num:nil
 
-## Dimanche 07 juin 2026
+Dimanche 7 juin 2026.
 
-## commandes exécutées
+En résumé : =hash mismatch= sur la source du greffon =claudecode-nvim=, qui fait
+tomber en cascade neovim, nixvim, puis toute la génération home-manager. Deux
+avertissements sans rapport : le =follows= sur l'entrée nixpkgs de nixvim, et
+=nixfmt-rfc-style= désormais identique à =pkgs.nixfmt=.
 
-### Update flake.lock
-	nix flake update
-#### Apply the updates
- sudo nixos-rebuild switch --flake ~/.dotfiles
+* Commandes exécutées
 
-## Message reçus
+#+begin_src bash
+nix flake update
+sudo nixos-rebuild switch --flake ~/.dotfiles
+#+end_src
 
+* Messages reçus
+
+#+begin_example
 ❯ sudo nixos-rebuild switch --flake .#portable
 [sudo] Mot de passe de cheon : 
 building the system configuration...
@@ -82,3 +89,4 @@ error: Cannot build '/nix/store/y2hml2srxpf9sqmy3wk3x4w509kv9pwh-nixos-system-po
 [8/241/387 built (1 failed), 16/1820/2043 copied (9.1/12.2 GiB), 2.5/3.5 GiB DL] building unit-dbus.socket
 error: Build failed due to failed dependency
 Command 'nix --extra-experimental-features 'nix-command flakes' build --print-out-paths '.#nixosConfigurations."portable".config.system.build.toplevel' --no-link' returned non-zero exit status 1.
+#+end_example

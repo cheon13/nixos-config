@@ -1,0 +1,79 @@
+#+TITLE: Changement de mot de passe utilisateur (sops-nix)
+#+OPTIONS: toc:nil num:nil
+
+Le mot de passe de =cheon= est stocké sous forme de hash dans
+=secrets/common/secrets.yaml=, chiffré par sops. Un seul changement le met à
+jour sur les trois machines.
+
+* Prérequis
+
+- Accès au dépôt =.dotfiles=
+- =sops= et =mkpasswd= disponibles (les deux sont dans la configuration)
+
+* Procédure
+
+** Générer le nouveau hash
+
+#+begin_src bash
+mkpasswd -m sha-512
+#+end_src
+
+Saisir le nouveau mot de passe quand il est demandé, puis copier le hash
+=$6$…= obtenu.
+
+** Éditer le fichier de secrets
+
+#+begin_src bash
+sops secrets/common/secrets.yaml
+#+end_src
+
+Remplacer l'ancien hash par le nouveau :
+
+#+begin_src yaml
+user_password: '$6$rounds=656000$votre_nouveau_hash_ici'
+#+end_src
+
+Les apostrophes simples ne sont pas décoratives : un hash contient =$=, =.= et
+=/=, et commence par un caractère que YAML interprète volontiers de travers.
+Tout ce qu'elles entourent est pris au pied de la lettre.
+
+Sauvegarder et quitter — sops rechiffre automatiquement.
+
+** Déployer sur toutes les machines
+
+Localement, sur =portable= :
+
+#+begin_src bash
+sudo nixos-rebuild switch --flake .#portable
+#+end_src
+
+À distance :
+
+#+begin_src bash
+nixos-rebuild switch --flake .#serveur --target-host cheon@serveur --sudo --ask-sudo-password
+nixos-rebuild switch --flake .#pomme --target-host cheon@pomme --sudo --ask-sudo-password
+#+end_src
+
+=--sudo --ask-sudo-password= remplace l'ancien =--use-remote-sudo= : depuis
+=nixos-rebuild-ng= (la réécriture Python, devenue le défaut), le mot de passe du
+sudo distant n'est plus deviné, et son absence se solde par « /a terminal is
+required to read the password/ ».
+
+** Valider le changement
+
+Se connecter sur une console virtuelle (=Ctrl+Alt+F2=) avec le nouveau mot de
+passe, avant de fermer la session en cours. C'est le seul moyen de constater une
+erreur pendant qu'on peut encore la corriger.
+
+** Commiter
+
+#+begin_src bash
+git commit -am "secret: mise à jour mot de passe cheon"
+git push
+#+end_src
+
+* Notes
+
+- =secrets/common/secrets.yaml= est chiffré : il se commite sans risque.
+- Un seul changement met à jour le mot de passe sur *toutes* les machines.
+- Ne jamais sortir le hash en clair de =sops=.
