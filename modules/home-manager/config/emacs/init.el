@@ -49,6 +49,14 @@
 (defvar my/index-file "~/Documents/Cerveau/index.org")
 (global-set-key (kbd "C-c i") (lambda () (interactive) (find-file my/index-file)))
 
+;; Dossier des fichiers de calendrier synchronisés. Déclaré ici et non dans
+;; la section « Synchronisation des calendriers » plus bas, parce que
+;; org-agenda-files en a besoin avant elle.
+(defvar my/calendriers-directory "~/Documents/Cerveau/Calendriers/"
+  "Dossier des fichiers de calendrier.
+Chaque fichier y est à la fois la source exportée vers le calendrier
+distant et la boîte de réception des événements créés à distance.")
+
 ;;; Thème
 ;; doom-themes fonctionne indépendamment du framework Doom — juste une
 ;; collection de thèmes. doom-themes-org-config harmonise la
@@ -196,6 +204,7 @@
         (append
          ;; (directory-files-recursively "~/Documents/Cerveau/Projets/" "\\.org$")
          (directory-files-recursively "~/Documents/Cerveau/Aires/" "\\.org$")
+         (list my/calendriers-directory)
          '("~/Documents/Cerveau/")))
 
   ;; Équivalent de projectile-invalidate-cache pour l'agenda : org-agenda-files
@@ -207,6 +216,7 @@
     (setq org-agenda-files
           (append
            (directory-files-recursively "~/Documents/Cerveau/Aires/" "\\.org$")
+           (list my/calendriers-directory)
            '("~/Documents/Cerveau/")))
     (message "org-agenda-files rafraîchi (%d fichiers)" (length org-agenda-files)))
 
@@ -267,10 +277,6 @@
           ("p" "Note dans un projet" entry
            (file my/capture-target-notes)
            "* %?\n  %U")
-
-          ("r" "Rendez-vous" entry
-           (file+headline "~/Documents/Cerveau/inbox.org" "Rendez-vous")
-           "* %^{Nom du rendez-vous}\n%^T")
 
           ;; Déclenchés depuis Firefox via org-protocol (cf. ci-dessous) et
           ;; non depuis C-c c : les %: viennent des paramètres de l'URL —
@@ -346,6 +352,168 @@
   ;; reste intégralement en chasse fixe.
   (add-to-list 'writeroom-local-effects
                (lambda (arg) (mixed-pitch-mode (if (> arg 0) 1 -1)))))
+
+;;; Synchronisation des calendriers
+;;
+;; Trois calendriers, deux outils. La répartition ne vient pas d'une
+;; préférence technique mais de là où vivent réellement les calendriers :
+;;
+;;   - Zoho (professionnel) : CalDAV standard → org-caldav, bidirectionnel.
+;;   - Google (personnel + familial partagé) : Google a fermé son point
+;;     d'accès CalDAV derrière OAuth2, et la doc d'org-caldav porte
+;;     elle-même l'avertissement « may be currently broken » pour Google,
+;;     avec la recommandation d'utiliser un autre fournisseur. On passe
+;;     donc par org-gcal, qui attaque l'API Calendar v3 directement.
+;;
+;; Deux outils pour trois calendriers, pas trois : org-gcal gère les deux
+;; calendriers Google dans une seule alist. Tout consolider chez un seul
+;; fournisseur a été étudié et écarté — Zoho ne partage un calendrier en
+;; écriture qu'avec des comptes Zoho (la famille est sur Google) et réserve
+;; le CalDAV des calendriers partagés à ses plans payants ; et déplacer le
+;; professionnel chez Google supposerait de changer l'adresse
+;; professionnelle. Le détail est dans docs/synchronisation-calendriers.org.
+;;
+;; ATTENTION : la synchronisation bidirectionnelle appose une propriété ID
+;; sur chaque entrée synchronisée, des deux côtés. C'est le seul moyen
+;; fiable d'apparier une entrée Org et un événement distant, et c'est
+;; irréversible en pratique. D'où le choix de fichiers dédiés sous
+;; Calendriers/ plutôt qu'un export depuis Aires/ : le périmètre reste net
+;; et les fichiers de notes existants restent intacts.
+
+(defun my/calendrier-file (nom)
+  "Chemin absolu du fichier calendrier NOM, sous `my/calendriers-directory'."
+  (expand-file-name nom my/calendriers-directory))
+
+;; Identifiants, URLs et secrets OAuth2 : hors du dépôt, qui est public.
+;; sops-nix les déchiffre au démarrage vers /run/secrets (cf.
+;; modules/nixos/calendrier.nix). `load-file' et non `load' : le fichier n'a
+;; pas d'extension .el, que `load' ajouterait d'office au chemin.
+;;
+;; Chargé inconditionnellement plutôt que paresseusement : ce ne sont que
+;; quelques setq, et les avoir tôt permet aux blocs use-package ci-dessous
+;; de s'y référer sans ordre de chargement subtil.
+(defvar my/calendrier-secrets "/run/secrets/calendrier-prive"
+  "Fichier elisp déchiffré par sops : URLs, identifiants et secrets OAuth2.")
+
+(if (file-readable-p my/calendrier-secrets)
+    (load-file my/calendrier-secrets)
+  (message "Calendriers : %s illisible — synchronisation non configurée"
+           my/calendrier-secrets))
+
+;; Le mot de passe d'application Zoho passe par auth-source : org-caldav
+;; s'authentifie via le paquet `url', qui ne sait consulter que lui. D'où ce
+;; netrc distinct du fichier elisp ci-dessus — ce n'est pas un doublon, les
+;; deux mécanismes de lecture sont imposés par les outils.
+(let ((netrc "/run/secrets/calendrier-authinfo"))
+  (when (file-readable-p netrc)
+    (require 'auth-source)
+    (add-to-list 'auth-sources netrc)))
+
+;; Fuseau du calendrier distant. À défaut, ox-icalendar exporte sans
+;; référence de fuseau et les événements se décalent de quelques heures.
+(setq org-icalendar-timezone "America/Toronto")
+
+;; Le dossier doit exister avant la première synchronisation : org-caldav
+;; comme org-gcal écrivent dedans sans le créer.
+(make-directory my/calendriers-directory t)
+
+;;;; Zoho — professionnel (org-caldav)
+
+(use-package org-caldav
+  :defer t
+  :commands (org-caldav-sync)
+  :init
+  ;; org-caldav-url et org-caldav-calendar-id viennent du fichier secret.
+  ;;
+  ;; org-caldav-files reste nil : l'inbox y est ajoutée d'office, et c'est
+  ;; ici le même fichier — il est à la fois source et destination.
+  (setq org-caldav-inbox (my/calendrier-file "pro-zoho.org")
+        org-caldav-files nil
+        ;; L'état de synchronisation vit à côté des fichiers org plutôt que
+        ;; dans ~/.config/emacs : s'ils sont un jour synchronisés entre
+        ;; machines, il doit voyager avec eux — sinon la seconde machine
+        ;; croirait tous les événements nouveaux et les dupliquerait.
+        org-caldav-save-directory my/calendriers-directory
+        ;; Demande confirmation des deux côtés plutôt que de supprimer en
+        ;; silence. À desserrer une fois la confiance établie.
+        org-caldav-delete-org-entries 'ask
+        org-caldav-delete-calendar-entries 'ask))
+
+;;;; Google — personnel et familial (org-gcal)
+
+(use-package org-gcal
+  :defer t
+  :commands (org-gcal-sync org-gcal-fetch org-gcal-post-at-point)
+  :init
+  ;; plstore sert de coffre au jeton OAuth2, chiffré par GPG. Sans ce
+  ;; réglage il redemande la passphrase à chaque accès, soit plusieurs fois
+  ;; par synchronisation.
+  (setq plstore-cache-passphrase-for-symmetric-encryption t)
+  :config
+  ;; Associe chaque calendrier distant à son fichier. Les identifiants
+  ;; viennent du fichier secret ; construit en :config pour que l'absence de
+  ;; celui-ci (machine non configurée) n'échoue qu'au premier usage réel.
+  (setq org-gcal-fetch-file-alist
+        `((,my/gcal-calendrier-perso   . ,(my/calendrier-file "perso-gmail.org"))
+          (,my/gcal-calendrier-famille . ,(my/calendrier-file "famille.org")))))
+
+;;;; Commande unifiée
+
+(defun my/calendriers-sync ()
+  "Synchronise les trois calendriers : Zoho via org-caldav, Google via org-gcal.
+Les deux outils sont appelés l'un après l'autre, chacun protégé : une
+panne d'un fournisseur ne doit pas empêcher l'autre de se synchroniser.
+
+org-gcal travaille de façon asynchrone : sa partie se termine après le
+retour de cette commande."
+  (interactive)
+  (condition-case err
+      (org-caldav-sync)
+    (error (message "Zoho (org-caldav) : %s" (error-message-string err))))
+  (condition-case err
+      (org-gcal-sync)
+    (error (message "Google (org-gcal) : %s" (error-message-string err)))))
+
+(global-set-key (kbd "C-c s") #'my/calendriers-sync)
+
+;;;; Capture de rendez-vous
+;;
+;; Remplace le template « r » d'origine, qui déposait les rendez-vous dans
+;; inbox.org — donc hors de tout calendrier synchronisé, et sans jamais
+;; atteindre le téléphone. Un template par calendrier, puisque la
+;; destination détermine le fichier.
+;;
+;; Côté Google, le template inscrit lui-même la propriété calendar-id :
+;; sans elle, org-gcal demande le calendrier à chaque publication. Le
+;; SCHEDULED plutôt qu'un timestamp nu est reconnu par org-gcal comme la
+;; date de l'événement, et il alimente l'agenda de la même façon.
+;;
+;; with-eval-after-load et non le bloc org plus haut : org-capture-templates
+;; y est posé par un setq, qui écraserait un ajout fait avant lui.
+
+(with-eval-after-load 'org
+  (dolist (tpl
+           (list
+            `("r" "Rendez-vous")
+
+            `("rp" "Rendez-vous professionnel (Zoho)" entry
+              (file ,(my/calendrier-file "pro-zoho.org"))
+              "* %^{Nom du rendez-vous}\n%^T\n%?")
+
+            `("rc" "Rendez-vous personnel (Google)" entry
+              (file ,(my/calendrier-file "perso-gmail.org"))
+              ,(concat "* %^{Nom du rendez-vous}\nSCHEDULED: %^T\n"
+                       ":PROPERTIES:\n:calendar-id: "
+                       (or (bound-and-true-p my/gcal-calendrier-perso) "")
+                       "\n:END:\n%?"))
+
+            `("rf" "Rendez-vous familial (Google partagé)" entry
+              (file ,(my/calendrier-file "famille.org"))
+              ,(concat "* %^{Nom du rendez-vous}\nSCHEDULED: %^T\n"
+                       ":PROPERTIES:\n:calendar-id: "
+                       (or (bound-and-true-p my/gcal-calendrier-famille) "")
+                       "\n:END:\n%?"))))
+    (add-to-list 'org-capture-templates tpl t)))
 
 ;;; Ouverture de fichiers externes
 ;; openwith intercepte l'ouverture globalement (dired, find-file, liens

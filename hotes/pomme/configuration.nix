@@ -11,6 +11,12 @@
     ../../modules/nixos
     ../../modules/nixos/gnome.nix
     ../../modules/nixos/syncthing.nix
+    # TEMPORAIRE — décommenter une fois les secrets `calendrier-authinfo' et
+    # `calendrier-prive' ajoutés à secrets/common/secrets.yaml (format exact
+    # dans docs/synchronisation-calendriers.org). sops-nix vérifie les clés dès
+    # `nixos-rebuild build' : tant qu'elles manquent, ce module fait échouer le
+    # build de la machine entière, pas seulement l'activation.
+    #../../modules/nixos/calendrier.nix
   ];
   
    # Créer l'entrée de session pour GDM

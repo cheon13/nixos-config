@@ -1,0 +1,236 @@
+#+TITLE: Synchronisation des calendriers avec org-mode
+#+OPTIONS: toc:2 num:nil
+#+STARTUP: showall
+
+Trois calendriers, synchronisés dans les deux sens avec Emacs :
+
+| Calendrier         | Fournisseur | Outil        | Fichier                                           |
+|--------------------+-------------+--------------+---------------------------------------------------|
+| Professionnel      | Zoho        | ~org-caldav~ | =~/Documents/Cerveau/Calendriers/pro-zoho.org=    |
+| Personnel          | Google      | ~org-gcal~   | =~/Documents/Cerveau/Calendriers/perso-gmail.org= |
+| Familial (partagé) | Google      | ~org-gcal~   | =~/Documents/Cerveau/Calendriers/famille.org=     |
+
+Chaque fichier est *à la fois* la source exportée vers le calendrier distant et
+la boîte de réception des événements créés ailleurs (téléphone, interface web,
+autre membre de la famille).
+
+Synchroniser : =C-c s= (~my/calendriers-sync~), qui enchaîne les deux outils.
+
+* Pourquoi deux outils
+
+C'est la question qu'on se repose dans six mois, alors voici le raisonnement
+complet.
+
+** Pourquoi pas org-caldav pour tout
+
+Google a fermé son point d'accès CalDAV derrière OAuth2. La documentation
+d'~org-caldav~ porte l'avertissement « /Using org-caldav with Google Calendar
+may be currently broken/ » ([[https://github.com/dengste/org-caldav/issues/284][issue #284]]) et ses mainteneurs écrivent, à propos
+de Google : « /I'd rather suggest you choose another service provider/ ».
+S'engager là-dessus, c'est s'engager sur un chemin que l'amont ne soutient pas.
+
+** Pourquoi ne pas tout consolider chez Zoho
+
+Étudié, écarté pour deux raisons indépendantes :
+
+1. Zoho n'accorde de droits d'édition sur un calendrier qu'à des détenteurs d'un
+   compte Zoho — toute la famille devrait en créer un. À défaut, le partage se
+   limite à une URL publique en lecture seule, que Google Calendar ne rafraîchit
+   que toutes les 12 à 24 h.
+2. Le CalDAV des calendriers *partagés* est réservé aux plans Zoho payants :
+   « /CalDAV sync for Shared, Subscribed, and Group Calendars is available only
+   for paid organization users and personal users/ ». Les calendriers
+   personnels, eux, fonctionnent sur le plan gratuit — d'où le professionnel qui
+   marche.
+
+** Pourquoi ne pas tout consolider chez Google
+
+Les invitations professionnelles arrivent sur l'adresse Zoho. Les déplacer
+supposerait de changer d'adresse professionnelle.
+
+** Pourquoi pas la chaîne Zoho → Google → Emacs
+
+La synchro Google native de Zoho ne fusionne pas deux calendriers : elle expose
+le calendrier Google /à côté/ du calendrier Zoho. Un événement créé depuis Emacs
+n'arriverait jamais dans le calendrier Zoho. Elle ne gère par ailleurs que le
+calendrier Google primaire, et semble réservée aux abonnés Zoho Mail Suite.
+
+Le résultat : deux outils pour trois calendriers (~org-gcal~ en gère deux), et
+chaque calendrier reste là où sa fonction sociale l'exige.
+
+* Ce que la synchronisation bidirectionnelle implique
+
+- *Chaque entrée synchronisée reçoit une propriété ~ID~.* C'est le seul moyen
+  fiable d'apparier une entrée Org et un événement distant, et c'est
+  irréversible en pratique. C'est la raison des fichiers dédiés sous
+  =Calendriers/= : les notes sous =Aires/= n'y sont pas soumises.
+- *Le format des fichiers diffère.* Un événement Google porte un tiroir
+  =:org-gcal:= et des propriétés ~ETag~/~calendar-id~ ; un événement Zoho porte
+  un ~ID~ et un timestamp Org ordinaire. L'agenda (=C-c a=) les unifie.
+- *Ne jamais basculer un calendrier entre sens unique et bidirectionnel.* La doc
+  d'~org-caldav~ est explicite : « /It is NOT safe to switch the same calendar
+  between 1-way and 2-way sync modes. Doing so may cause unexpected behavior,
+  such as deleting all events in the calendar./ » Changer d'avis suppose de
+  repartir d'un calendrier vide.
+- *Faire une sauvegarde des fichiers Org avant la toute première
+  synchronisation.* Recommandation explicite de l'amont.
+
+* Mise en place
+
+** Côté Zoho — mot de passe d'application et URL CalDAV
+
+1. Si la double authentification est active : *Security → App Passwords →
+   Generate New Password*. Noter le mot de passe généré.
+2. *Paramètres → Calendriers*, choisir le calendrier professionnel, section
+   *Integrate Calendar*, copier la *CalDAV URL*.
+3. Cette URL se découpe en deux pour ~org-caldav~ : le dernier segment du chemin
+   est l'identifiant du calendrier (~org-caldav-calendar-id~), tout ce qui
+   précède est l'URL de base (~org-caldav-url~). Par exemple, pour
+   =https://calendar.zoho.com/caldav/zzzzzz/events/abcdef/= :
+
+   - ~org-caldav-url~ → =https://calendar.zoho.com/caldav/zzzzzz/events=
+   - ~org-caldav-calendar-id~ → =abcdef=
+
+   Le domaine varie selon la région du compte (=.com=, =.eu=, =.au=…).
+4. Le nom d'utilisateur est l'*adresse e-mail* Zoho, pas le nom d'utilisateur.
+
+** Côté Google — client OAuth2
+
+Une seule fois, ~10 minutes, sur la [[https://console.cloud.google.com/][console Google Cloud]] :
+
+1. Créer un projet (n'importe quel nom).
+2. *APIs & Services → Library → Google Calendar API → Enable*.
+3. *APIs & Services → OAuth consent screen* : type /External/, remplir le
+   minimum. Pas besoin de faire vérifier l'application, un seul utilisateur s'en
+   servira — mais *passer le statut de publication en /In production/* plutôt
+   que de le laisser en /Testing/ : en mode /Testing/, Google expire les jetons
+   de rafraîchissement au bout de 7 jours et il faudrait réautoriser chaque
+   semaine. Un écran « Google hasn't verified this app » restera, c'est
+   normal : cliquer sur /Advanced/ pour passer outre à la première
+   autorisation.
+4. *Credentials → Create Credentials → OAuth client ID*, type *Desktop app*.
+   Noter le /Client ID/ et le /Client secret/.
+5. Récupérer les identifiants des deux calendriers dans Google Agenda :
+   *Paramètres → Paramètres de mes agendas →* le calendrier *→ Intégrer
+   l'agenda → ID de l'agenda*. Le personnel est en général l'adresse Gmail ; le
+   familial partagé est de la forme =xxxxx@group.calendar.google.com=.
+
+** Les deux secrets SOPS
+
+Ils sont déclarés dans =modules/nixos/calendrier.nix=, importé par =portable= et
+=pomme= seulement — le serveur n'a pas à les détenir.
+
+#+begin_quote
+*À faire avant toute reconstruction.* sops-nix vérifie la présence des clés dès
+=nixos-rebuild build= : un secret déclaré mais absent du fichier chiffré fait
+échouer le /build/ — pas seulement l'activation — avec le message =manifest is
+not valid: secret calendrier-authinfo … the key 'calendrier-authinfo' cannot be
+found=. Ajouter les deux entrées d'abord.
+#+end_quote
+
+#+begin_src bash
+sops secrets/common/secrets.yaml
+#+end_src
+
+Ajouter ces deux clés :
+
+#+begin_src yaml
+calendrier-authinfo: |
+    machine calendar.zoho.com:443 port https login MOI@EXEMPLE.COM password MOT-DE-PASSE-APPLICATION
+
+calendrier-prive: |
+    ;; -*- lexical-binding: t; -*-
+    (setq org-caldav-url "https://calendar.zoho.com/caldav/ZZZZZZ/events")
+    (setq org-caldav-calendar-id "ABCDEF")
+    (setq org-gcal-client-id "XXXXX.apps.googleusercontent.com")
+    (setq org-gcal-client-secret "YYYYY")
+    (defvar my/gcal-calendrier-perso "moi@gmail.com")
+    (defvar my/gcal-calendrier-famille "zzzzz@group.calendar.google.com")
+#+end_src
+
+Le format netrc du premier est imposé par ~auth-source~, seul mécanisme que
+sache consulter le paquet ~url~ dont dépend ~org-caldav~ : noter le port *deux
+fois* (=:443= dans =machine=, puis =port https=), ce n'est pas une erreur de
+frappe.
+
+Puis :
+
+#+begin_src bash
+sudo nixos-rebuild switch --flake ~/.dotfiles
+#+end_src
+
+Vérifier que les secrets sont en place :
+
+#+begin_src bash
+ls -l /run/secrets/calendrier-authinfo /run/secrets/calendrier-prive
+#+end_src
+
+** Première synchronisation
+
+Sauvegarder =~/Documents/Cerveau/= d'abord.
+
+Redémarrer Emacs (=systemctl --user restart emacs=), puis synchroniser chaque
+côté séparément la première fois, pour isoler un éventuel problème :
+
+- =M-x org-caldav-sync= — Zoho. Le premier passage peut être long. En cas
+  d'erreur (y compris des =409=), relancer : reprendre là où ça s'est arrêté est
+  le comportement prévu.
+- =M-x org-gcal-sync= — Google. Ouvre le navigateur pour l'autorisation OAuth2 à
+  la première exécution. Emacs demandera ensuite une passphrase pour le coffre
+  ~plstore~ qui gardera le jeton.
+
+Ensuite, =C-c s= fait les deux.
+
+* Usage
+
+| Raccourci   | Effet                                         |
+|-------------+-----------------------------------------------|
+| =C-c s=     | Synchronise les trois calendriers             |
+| =C-c c r p= | Nouveau rendez-vous professionnel (Zoho)      |
+| =C-c c r c= | Nouveau rendez-vous personnel (Google)        |
+| =C-c c r f= | Nouveau rendez-vous familial (Google partagé) |
+| =C-c a=     | Agenda — les trois calendriers confondus      |
+
+Un rendez-vous capturé par un de ces templates part vers le calendrier distant à
+la prochaine synchronisation. Pour publier immédiatement une entrée Google sans
+tout synchroniser : =M-x org-gcal-post-at-point= sur l'en-tête.
+
+* Dépannage
+
+** Les événements sont décalés de quelques heures
+
+Fuseau horaire : vérifier ~org-icalendar-timezone~ (fixé à =America/Toronto=
+dans =init.el=). Certains serveurs exigent ="UTC"= à la place.
+
+** Zoho redemande le mot de passe à chaque fois
+
+L'entrée netrc n'est pas trouvée. Vérifier que =/run/secrets/calendrier-authinfo=
+est lisible, que le =machine= correspond exactement au domaine de
+~org-caldav-url~, et que le port y figure bien deux fois. Diagnostic :
+
+#+begin_src elisp
+(auth-source-search :host "calendar.zoho.com:443")
+#+end_src
+
+** Google : invalid_grant, ou réautorisation hebdomadaire
+
+L'écran de consentement est resté en /Testing/. Le passer en /In production/
+(cf. [[*Côté Google — client OAuth2][Côté Google — client OAuth2]], étape 3).
+
+** État de synchronisation corrompu (org-caldav)
+
+=C-u M-x org-caldav-delete-everything= vide le calendrier distant et l'état,
+pour repartir des fichiers Org. Le préfixe est obligatoire, c'est volontaire.
+
+** Journal détaillé
+
+~org-caldav~ : tampon =*org-caldav-debug*=. ~org-gcal~ : =(setq org-gcal-debug t)=
+puis tampon =*org-gcal-debug*=.
+
+* Références
+
+- [[https://jackkamm.neocities.org/org-caldav-manual][Manuel org-caldav]]
+- [[https://github.com/telotortium/org-gcal.el][org-gcal.el (fork maintenu)]]
+- [[https://www.zoho.com/calendar/help/setup-caldav-sync.html][Zoho — configuration CalDAV]]
+- [[https://help.zoho.com/portal/en/kb/mail/calendar/articles/is-it-possible-to-share-my-calendar-with-a-non-zoho-user][Zoho — partage avec un non-utilisateur Zoho]]
+- [[https://developers.google.com/workspace/calendar/caldav/v2/guide][Google — guide CalDAV API]]

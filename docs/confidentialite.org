@@ -1,0 +1,41 @@
+#+TITLE: Politique de confidentialité
+#+OPTIONS: toc:nil num:nil
+
+Cette page décrit le traitement des données par l'application OAuth2 personnelle
+déclarée dans la console Google Cloud pour synchroniser Google Agenda avec
+Emacs org-mode, dans le cadre de cette configuration NixOS.
+
+* Nature de l'application
+
+Il s'agit d'une configuration personnelle, utilisée par une seule personne — son
+auteur — sur ses propres machines. Ce n'est ni un service, ni un produit, ni une
+application distribuée à des tiers. Le code intégral est consultable dans ce
+dépôt.
+
+* Données consultées
+
+L'application demande l'accès à Google Agenda (=https://www.googleapis.com/auth/calendar=)
+dans le seul but de lire et d'écrire les événements des agendas de son auteur,
+depuis son éditeur de texte.
+
+* Traitement et conservation
+
+- Les événements sont lus depuis l'API Google Calendar et écrits dans des
+  fichiers texte, sur les machines personnelles de l'auteur.
+- Les modifications faites dans ces fichiers sont renvoyées aux mêmes agendas.
+- Aucune donnée n'est transmise à un tiers, ni à aucun serveur autre que ceux de
+  Google. Il n'existe aucun serveur intermédiaire.
+- Aucune donnée n'est vendue, partagée, analysée ou utilisée à des fins
+  publicitaires.
+- Le jeton OAuth2 est conservé chiffré sur les machines de l'auteur, et nulle
+  part ailleurs.
+
+* Suppression des données
+
+L'accès peut être révoqué à tout moment depuis
+[[https://myaccount.google.com/permissions][les autorisations du compte Google]].
+Les fichiers locaux se suppriment en supprimant les fichiers.
+
+* Contact
+
+L'auteur, via le dépôt qui héberge cette page.
