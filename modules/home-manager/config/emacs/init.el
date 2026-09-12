@@ -445,6 +445,56 @@ chiffrée ; on l'appelle pour obtenir la chaîne."
 ;; comme org-gcal écrivent dedans sans le créer.
 (make-directory my/calendriers-directory t)
 
+;;;; Contournement : <DAV:prop/> vide
+;;
+;; Zoho répond aux PROPFIND d'org-caldav avec des éléments <D:prop /> vides —
+;; typiquement pour la collection elle-même, qui n'a pas d'etag à déclarer
+;; avant la liste des événements. Or url-dav, le client WebDAV d'Emacs, traite
+;; ce cas comme une erreur plutôt que comme une absence de propriétés :
+;;
+;;   (let ((children (xml-node-children node)) ...)
+;;     (when (not children)
+;;       (error "No child nodes in DAV:prop"))
+;;
+;; La synchronisation s'interrompt alors à « Updating EventDB from Cal », sans
+;; rien écrire. C'est un défaut connu et non corrigé en amont — org-caldav
+;; issues #126 (2017) et #239, cette dernière portant précisément sur Zoho.
+;;
+;; Un prop vide signifie « aucune propriété » : renvoyer nil est le
+;; comportement correct, et url-dav-process-DAV:propstat s'en accommode, son
+;; plist-put sur nil produisant une liste valide. On se garde donc de toucher
+;; au cas nominal — l'advice ne change rien quand il y a des enfants.
+
+(with-eval-after-load 'url-dav
+  (defun my/url-dav-tolere-prop-vide (fonction-origine node)
+    "Renvoie nil sur un <DAV:prop/> vide au lieu de lever une erreur."
+    (if (xml-node-children node)
+        (funcall fonction-origine node)
+      nil))
+  (advice-add 'url-dav-process-DAV:prop
+              :around #'my/url-dav-tolere-prop-vide))
+
+;; Second défaut, que le premier correctif met au jour : une fois les prop
+;; vides tolérées, les ressources sans etag parviennent jusqu'à
+;; org-caldav-get-icsfiles-etags-from-properties, qui ne s'en protège pas —
+;;
+;;   (let ((etag (plist-get (cdr prop) 'DAV:getetag)))
+;;     (when (string-match "\"\\(.*\\)\"" etag)     ; etag vaut nil ici
+;;
+;; d'où « Wrong type argument: stringp, nil ». Une ressource sans etag n'est
+;; de toute façon pas un événement — c'est la collection elle-même — donc on
+;; l'écarte en amont plutôt que d'aller réécrire la fonction.
+
+(with-eval-after-load 'org-caldav
+  (defun my/org-caldav-ecarte-sans-etag (fonction-origine properties)
+    "Retire de PROPERTIES les ressources dépourvues de DAV:getetag."
+    (funcall fonction-origine
+             (seq-filter (lambda (prop)
+                           (stringp (plist-get (cdr prop) 'DAV:getetag)))
+                         properties)))
+  (advice-add 'org-caldav-get-icsfiles-etags-from-properties
+              :around #'my/org-caldav-ecarte-sans-etag))
+
 ;;;; Zoho — professionnel (org-caldav)
 
 (use-package org-caldav
@@ -511,7 +561,49 @@ chiffrée ; on l'appelle pour obtenir la chaîne."
 
   (setq org-gcal-fetch-file-alist
         `((,my/gcal-perso   . ,(my/calendrier-file "perso-gmail.org"))
-          (,my/gcal-famille . ,(my/calendrier-file "famille.org")))))
+          (,my/gcal-famille . ,(my/calendrier-file "famille.org"))))
+
+  ;; Enregistre les tampons une fois la rafale d'événements passée.
+  (add-hook 'org-gcal-after-update-entry-functions
+            #'my/calendriers--programmer-enregistrement))
+
+;;;; Enregistrement des tampons
+;;
+;; org-gcal met à jour les tampons mais ne les enregistre pas : son seul
+;; appel à `save-buffer' est dans la fonction d'archivage. Sans ce qui suit,
+;; une synchronisation réussie laisse les événements en mémoire seulement —
+;; « Events fetched into … » s'affiche, le fichier sur disque ne bouge pas,
+;; et un redémarrage d'Emacs perd tout.
+
+(defun my/calendriers-enregistrer ()
+  "Enregistre les fichiers modifiés de `my/calendriers-directory'."
+  (interactive)
+  (let ((dossier (expand-file-name my/calendriers-directory))
+        (n 0))
+    (dolist (tampon (buffer-list))
+      (with-current-buffer tampon
+        (when (and buffer-file-name
+                   (buffer-modified-p)
+                   (file-in-directory-p buffer-file-name dossier))
+          (save-buffer)
+          (setq n (1+ n)))))
+    (when (> n 0)
+      (message "Calendriers : %d fichier(s) enregistré(s)" n))))
+
+(defvar my/calendriers--minuteur nil
+  "Minuteur d'enregistrement différé, réarmé à chaque événement reçu.")
+
+(defun my/calendriers--programmer-enregistrement (&rest _)
+  "Repousse l'enregistrement des fichiers calendrier de deux secondes.
+Branché sur `org-gcal-after-update-entry-functions', qui est appelé une fois
+par événement — d'où le report plutôt qu'un enregistrement immédiat : le
+minuteur est annulé et réarmé à chaque entrée, et ne se déclenche donc qu'une
+seule fois, la rafale terminée. C'est aussi la seule façon d'attendre la fin
+d'org-gcal, qui travaille de façon asynchrone et rend la main aussitôt."
+  (when (timerp my/calendriers--minuteur)
+    (cancel-timer my/calendriers--minuteur))
+  (setq my/calendriers--minuteur
+        (run-with-idle-timer 2 nil #'my/calendriers-enregistrer)))
 
 ;;;; Commande unifiée
 
@@ -526,6 +618,10 @@ retour de cette commande."
   (condition-case err
       (org-caldav-sync)
     (error (message "Zoho (org-caldav) : %s" (error-message-string err))))
+  ;; org-caldav est synchrone : à ce point son travail est terminé.
+  (my/calendriers-enregistrer)
+  ;; Rien à enregistrer après org-gcal : il vient seulement de démarrer, et
+  ;; c'est `my/calendriers--programmer-enregistrement' qui s'en chargera.
   (condition-case err
       (org-gcal-sync)
     (error (message "Google (org-gcal) : %s" (error-message-string err)))))

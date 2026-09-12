@@ -232,6 +232,70 @@ Un rendez-vous capturé par un de ces templates part vers le calendrier distant 
 la prochaine synchronisation. Pour publier immédiatement une entrée Google sans
 tout synchroniser : =M-x org-gcal-post-at-point= sur l'en-tête.
 
+* Contournements appliqués
+
+Trois défauts ont dû être contournés dans =init.el=. Aucun ne vient de la
+configuration : ce sont des bogues en amont, ou des choix de conception des
+paquets. Ils sont décrits ici parce qu'une mise à jour d'Emacs ou des paquets
+pourrait les rendre inutiles — ou les déplacer.
+
+** org-gcal n'enregistre pas les tampons
+
+~org-gcal~ met à jour les tampons Org mais ne les enregistre pas : son unique
+appel à ~save-buffer~ se trouve dans la fonction d'archivage. Une
+synchronisation affiche donc « Events fetched into … » pendant que le fichier
+sur disque reste inchangé, et un redémarrage d'Emacs perd tout.
+
+=init.el= branche ~my/calendriers--programmer-enregistrement~ sur
+~org-gcal-after-update-entry-functions~, appelé une fois par événement. La
+fonction réarme un minuteur d'inactivité à chaque appel, si bien que
+l'enregistrement n'a lieu qu'une fois la rafale terminée. C'est aussi la seule
+façon d'attendre la fin d'~org-gcal~, qui travaille de façon asynchrone et rend
+la main immédiatement.
+
+~org-caldav~ étant synchrone, ~my/calendriers-sync~ enregistre directement
+après lui.
+
+** url-dav échoue sur un <DAV:prop/> vide
+
+Zoho répond aux PROPFIND avec des éléments =<D:prop />= vides — typiquement
+pour la collection elle-même, qui n'a pas d'~etag~ à déclarer avant la liste
+des événements. ~url-dav~, le client WebDAV d'Emacs, traite ce cas comme une
+erreur fatale :
+
+#+begin_src elisp
+(let ((children (xml-node-children node)) ...)
+  (when (not children)
+    (error "No child nodes in DAV:prop"))
+#+end_src
+
+La synchronisation s'interrompt alors à « Updating EventDB from Cal » sans rien
+écrire, et sans message d'erreur visible ailleurs que dans
+=*org-caldav-debug*=. Défaut connu et non corrigé en amont :
+[[https://github.com/dengste/org-caldav/issues/126][issue #126]] (ouverte depuis 2017) et
+[[https://github.com/dengste/org-caldav/issues/239][issue #239]], cette dernière portant
+précisément sur Zoho.
+
+Un conseil =:around= renvoie ~nil~ dans ce cas — un prop vide signifie « aucune
+propriété », et ~url-dav-process-DAV:propstat~ s'en accommode. Le cas nominal
+n'est pas touché.
+
+** org-caldav suppose que chaque ressource a un etag
+
+Une fois les prop vides tolérées, les ressources dépourvues d'~etag~
+parviennent jusqu'à ~org-caldav-get-icsfiles-etags-from-properties~, qui ne
+s'en protège pas :
+
+#+begin_src elisp
+(let ((etag (plist-get (cdr prop) 'DAV:getetag)))
+  (when (string-match "\"\\(.*\\)\"" etag)   ; etag vaut nil ici
+#+end_src
+
+D'où =Wrong type argument: stringp, nil=. Ce second défaut n'apparaît que chez
+qui a déjà contourné le premier, ce qui explique qu'il ne soit documenté nulle
+part. Un conseil =:around= écarte en amont les ressources sans ~etag~ — ce ne
+sont pas des événements, mais la collection elle-même.
+
 * Dépannage
 
 ** Les événements sont décalés de quelques heures
