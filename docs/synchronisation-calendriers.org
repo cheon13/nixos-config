@@ -228,9 +228,34 @@ Ensuite, =C-c s= fait les deux.
 | =C-c c r f= | Nouveau rendez-vous familial (Google partagé) |
 | =C-c a=     | Agenda — les trois calendriers confondus      |
 
-Un rendez-vous capturé par un de ces templates part vers le calendrier distant à
-la prochaine synchronisation. Pour publier immédiatement une entrée Google sans
-tout synchroniser : =M-x org-gcal-post-at-point= sur l'en-tête.
+** Publication immédiate côté Google, différée côté Zoho
+
+Une capture dans =perso-gmail.org= ou =famille.org= est publiée *immédiatement*,
+sans attendre =C-c s=. org-gcal s'installe de lui-même sur deux hooks d'Org :
+
+#+begin_src elisp
+(with-eval-after-load 'org-capture
+  (add-hook 'org-capture-after-finalize-hook 'org-gcal--capture-post))
+(with-eval-after-load 'org-refile
+  (add-hook 'org-after-refile-insert-hook 'org-gcal--refile-post))
+#+end_src
+
+~org-gcal--capture-post~ compare le fichier de la capture à chaque entrée
+d'~org-gcal-fetch-file-alist~ ; en cas de correspondance, il pose la propriété
+=calendar-id= et appelle ~org-gcal-post-at-point~ dans la foulée.
+
+Trois conséquences :
+
+- *Zoho ne fait pas de même.* org-caldav n'a pas d'équivalent : une capture
+  =C-c c r p= reste locale jusqu'au prochain =C-c s=.
+- *Le refile publie aussi.* Déplacer une entrée vers un fichier Google avec
+  =C-c C-w= la publie sur-le-champ.
+- *Pas de brouillon dans ces deux fichiers.* Toute capture finalisée part.
+  Abandonner par =C-c C-k= ne publie rien, en revanche : le hook teste
+  ~org-note-abort~ avant toute chose.
+
+Pour publier une entrée Google écrite à la main, hors capture :
+=M-x org-gcal-post-at-point= sur l'en-tête.
 
 * Contournements appliqués
 
