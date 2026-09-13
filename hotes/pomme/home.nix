@@ -6,6 +6,7 @@
   imports =
     [ 
       ../../modules/home-manager
+      ../../modules/home-manager/courriel.nix
     ];
 
   home.stateVersion = "25.11";

@@ -1,0 +1,314 @@
+#+TITLE: Courriel dans Emacs avec mu4e
+#+OPTIONS: toc:2 num:nil
+#+STARTUP: showall
+
+Deux comptes IMAP, lus et écrits depuis Emacs :
+
+| Compte         | Fournisseur | Maildir local       | Contexte mu4e |
+|----------------+-------------+---------------------+---------------|
+| Professionnel  | Zoho        | =~/Courriel/zoho/=  | ~zoho~        |
+| Personnel      | Google      | =~/Courriel/gmail/= | ~gmail~       |
+
+Ouvrir mu4e : =C-c m=. La synchronisation est automatique toutes les cinq
+minutes ; =U= depuis l'écran principal la force.
+
+* La chaîne d'outils
+
+Un outil par étape, chacun ignorant des autres :
+
+| Outil            | Rôle                                  | Configuré dans                  |
+|------------------+---------------------------------------+---------------------------------|
+| ~mbsync~ (isync) | IMAP ↔ Maildir, dans les deux sens    | =modules/nixos/courriel.nix=    |
+| ~mu~             | Index Xapian du Maildir               | ~mu init~, via ~courriel-init~  |
+| ~mu4e~           | Interface Emacs, pilote les deux      | =init.el=, section « Courriel » |
+| ~msmtp~          | Envoi SMTP, appelé comme un sendmail  | =modules/nixos/courriel.nix=    |
+
+Contrairement aux calendriers, où Google impose ~org-gcal~ à côté
+d'~org-caldav~ (cf. [[file:synchronisation-calendriers.org][synchronisation-calendriers.org]]), *un seul jeu d'outils
+couvre les deux comptes* : en IMAP, Zoho et Google parlent le même protocole.
+
+** Pourquoi mbsync plutôt qu'OfflineIMAP
+
+~mbsync~ ne fait qu'une chose : réconcilier un serveur IMAP et un Maildir, de
+façon incrémentale et idempotente. Pas de démon, pas d'état caché, pas de base
+propriétaire — le même esprit qu'~org-caldav~ côté calendriers. OfflineIMAP,
+écrit en Python, est plus lent et historiquement plus fragile sur les gros
+dossiers.
+
+** Pourquoi mu4e plutôt que notmuch
+
+Les deux indexent du Maildir avec Xapian. Deux raisons ont tranché :
+
+1. Le compte Zoho est authentiquement organisé en *dossiers*. notmuch
+   plaquerait un modèle d'étiquettes par-dessus, et le retour vers le serveur
+   demanderait une pièce supplémentaire (~notmuch-tag-to-maildir~). mu4e
+   déplace réellement les fichiers dans le Maildir, et ~mbsync~ propage — la
+   boucle se ferme sans colle.
+2. mu4e s'intègre à Org : ~org-store-link~ dans un message produit un lien
+   ~mu://~ que =C-c C-o= rouvre. C'est ce qui relie le courriel au reste du
+   flux plutôt que d'en faire une île.
+
+** Pourquoi un mot de passe d'application et non OAuth2
+
+Google a fermé l'accès « applications moins sécurisées » en 2024, mais les
+mots de passe d'application restent délivrés aux comptes protégés par la
+validation en deux étapes, et fonctionnent en IMAP comme en SMTP.
+
+C'est le même mécanisme que le CalDAV de Zoho, déjà en place : une seule
+notion à connaître pour les deux services. Si Google venait à fermer cette
+porte, le repli est ~AuthMechs XOAUTH2~ dans ~mbsync~, avec le greffon
+~cyrus-sasl-xoauth2~ (présent dans nixpkgs) et un ~PassCmd~ qui rafraîchit le
+jeton — le client OAuth2 existe déjà pour ~org-gcal~. *Le coût de bascule se
+limite à deux lignes de =modules/nixos/courriel.nix=.*
+
+* Mise en place
+
+Cinq étapes, dans cet ordre. Les trois premières sont à faire une seule fois ;
+les deux dernières, une fois *par machine*.
+
+** 1. Activer IMAP et créer les mots de passe d'application
+
+*** Côté Zoho
+
+1. Dans Zoho Mail : /Paramètres → Comptes de messagerie → IMAP/, activer
+   l'accès IMAP.
+2. Dans Zoho Accounts : /Sécurité → Mots de passe d'application/, en générer
+   un nouveau nommé par exemple « emacs-mu4e ».
+
+Le mot de passe d'application du CalDAV *ne peut pas être réutilisé* : Zoho ne
+réaffiche jamais un mot de passe déjà généré. Il en faut un par usage.
+
+*** Côté Google
+
+1. Dans Gmail : /Paramètres → Transfert et POP/IMAP/, activer IMAP.
+2. La validation en deux étapes doit être active sur le compte ; sans elle,
+   Google ne propose pas les mots de passe d'application.
+3. Sur [[https://myaccount.google.com/apppasswords][myaccount.google.com/apppasswords]], en générer un.
+
+Google affiche le mot de passe en quatre groupes de quatre lettres. Les
+espaces sont décoratifs : les retirer avant de l'enregistrer.
+
+*** Créer l'étiquette Archive dans Gmail
+
+Gmail n'archive pas vers un dossier : il retire l'étiquette /Inbox/. Pour que
+la touche =r= (classer) de mu4e ait une destination, ~courriel-init~ crée un
+dossier =Archive= local que ~mbsync~ pousse ensuite vers Gmail sous forme
+d'étiquette. Rien à faire à la main, mais c'est la raison de son existence.
+
+** 2. Enregistrer les cinq valeurs dans sops
+
+#+begin_src bash
+sops secrets/common/secrets.yaml
+#+end_src
+
+Y ajouter, au même niveau que les entrées ~calendrier-*~ existantes :
+
+#+begin_src yaml
+courriel-nom: Prénom Nom
+courriel-zoho-adresse: adresse@exemple.ca
+courriel-zoho-motdepasse: <mot de passe d'application Zoho>
+courriel-gmail-adresse: adresse@gmail.com
+courriel-gmail-motdepasse: <mot de passe d'application Google>
+#+end_src
+
+Ces cinq valeurs sont de simples chaînes : aucune ne contient de code. Toute
+la logique reste dans =modules/nixos/courriel.nix= et =init.el=, qui se
+lisent intégralement sans rien déchiffrer.
+
+*Sans cette étape, le build échoue* — sops-nix vérifie dès la construction que
+chaque clé déclarée existe dans le fichier :
+
+#+begin_example
+manifest is not valid: secret courriel-gmail-adresse in
+/nix/store/…-secrets.yaml is not valid: the key 'courriel-gmail-adresse'
+cannot be found
+#+end_example
+
+** 3. Reconstruire
+
+#+begin_src bash
+nixos-rebuild build --flake .#portable   # valider d'abord
+./build.sh "courriel: intégration de mu4e"
+#+end_src
+
+À l'activation, sops-nix écrit deux fichiers de configuration dans
+=/run/secrets/rendered/= (tmpfs, mode 0400, propriété de =cheon=) :
+=mbsyncrc= et =msmtprc=. Leur contenu est écrit *en clair* dans
+=modules/nixos/courriel.nix= ; seules les valeurs y sont substituées. Ils ne
+touchent jamais le disque.
+
+** 4. Vérifier les noms de dossiers Gmail
+
+*Étape à ne pas sauter.* Gmail traduit ses noms de dossiers IMAP selon la
+langue du *compte*, pas celle du client. Un compte en français expose
+« ~[Gmail]/Messages envoyés~ » là où =modules/nixos/courriel.nix= écrit
+« ~[Gmail]/Sent Mail~ ».
+
+#+begin_src bash
+mbsync -c /run/secrets/rendered/mbsyncrc -l gmail
+#+end_src
+
+L'option ~-l~ (/list/) se contente d'énumérer les dossiers distants sans rien
+télécharger. Si les noms affichés diffèrent, corriger *aux deux endroits* :
+
+- la ligne ~Patterns~ du canal ~gmail~, dans =modules/nixos/courriel.nix= ;
+- les ~mu4e-sent-folder~, ~mu4e-drafts-folder~ et ~mu4e-trash-folder~ du
+  contexte ~gmail~, dans =init.el=.
+
+puis reconstruire.
+
+** 5. Première synchronisation et index
+
+#+begin_src bash
+courriel-init
+#+end_src
+
+Ce script, fourni par =modules/home-manager/courriel.nix=, enchaîne :
+
+1. la création de =~/Courriel= et des deux dossiers =Archive= ;
+2. ~mbsync -a~ — le premier passage peut être long ;
+3. ~mu init~ avec les deux adresses, puis ~mu index~.
+
+Les adresses sont lues dans =/run/secrets= plutôt que retapées : elles n'ont
+pas à transiter par l'historique du shell.
+
+~mu init~ est ce qui fixe la racine du Maildir. La variable ~mu4e-maildir~
+est obsolète depuis mu4e 1.3.8 et n'est donc réglée *nulle part* dans
+=init.el= : la valeur vient du serveur ~mu~.
+
+*Relancer =courriel-init= sur chaque machine* (portable et pomme). L'index mu
+est local et ne se synchronise pas.
+
+* Usage quotidien
+
+| Touche      | Effet                                            |
+|-------------+--------------------------------------------------|
+| =C-c m=     | Ouvrir mu4e                                      |
+| =U=         | Forcer une synchronisation                       |
+| =j= puis =z= / =g= | Aller à la boîte de réception Zoho / Gmail |
+| =j= puis =Z= / =G= | Aller aux archives Zoho / Gmail           |
+| =s=         | Rechercher                                       |
+| =b=         | Signets (non lus, aujourd'hui, cette semaine…)   |
+| =r=         | Classer dans =Archive=                           |
+| =C-c c= =m= | Capturer une tâche depuis le message courant     |
+
+Le contexte (~zoho~ ou ~gmail~) détermine l'adresse d'expédition, les
+dossiers, et le compte ~msmtp~ utilisé. Il est choisi automatiquement en
+répondant à un message ; pour un message neuf, mu4e le demande.
+
+** Le lien avec Org
+
+C'est le vrai gain de l'intégration. Depuis un message, =C-c c= puis =m=
+crée une tâche dans =inbox.org= :
+
+#+begin_example
+* TODO Répondre à la proposition de calendrier
+  [2026-09-13 dim. 14:22]
+  [[mu4e:msgid:...][Objet du message]]
+#+end_example
+
+Le corps du courriel n'est pas recopié : =C-c C-o= sur le lien rouvre le
+message dans mu4e. La tâche remonte ensuite dans l'agenda (=C-c a=) au même
+titre que les rendez-vous des calendriers.
+
+* Points d'attention
+
+** Le Maildir est hors de Syncthing, délibérément
+
+=~/Courriel= n'est pas sous =~/Documents/Cerveau=, le seul dossier partagé par
+Syncthing. Ce n'est pas un détail d'organisation.
+
+Un Maildir encode les drapeaux (lu, répondu, supprimé) dans le *nom* des
+fichiers. Deux machines qui modifient ces noms en parallèle produisent des
+fichiers de conflit que ~mbsync~ et ~mu~ prennent pour de vrais messages.
+*IMAP est la source de vérité* ; chaque machine synchronise de son côté, et
+les deux convergent par le serveur.
+
+** Pourquoi la liste des dossiers Gmail est explicite
+
+Le canal ~gmail~ énumère ses dossiers au lieu d'utiliser ~*~ suivi
+d'exclusions. Gmail n'a pas de dossiers mais des étiquettes, et
+« ~[Gmail]/All Mail~ » les contient *toutes* : avec ~*~, chaque message serait
+téléchargé deux fois et ~mu~ l'indexerait en double.
+
+Une liste positive a un second mérite : créer une étiquette côté Google ne
+fait pas silencieusement gonfler la synchronisation.
+
+** Supprimer n'a pas le même sens des deux côtés
+
+Chez Zoho, supprimer déplace vers la corbeille. Chez Gmail, supprimer un
+message d'une étiquette ne fait que retirer l'étiquette — le message survit
+dans « Tous les messages », que l'on ne synchronise pas. C'est le même client
+avec deux sémantiques : normal, et rien à corriger.
+
+** Pas de minuteur systemd pour mbsync
+
+C'est mu4e qui déclenche ~mbsync~ (~mu4e-get-mail-command~), et non un
+minuteur systemd. Raison technique : mu4e fait tourner un processus
+~mu server~ qui garde la base Xapian *verrouillée*. Un ~mu index~ lancé en
+parallèle échouerait sur ce verrou. Le daemon Emacs démarrant au login
+(cf. =modules/home-manager/emacs.nix=), la couverture est la même.
+
+** mu4e vient de Nix, jamais de MELPA
+
+mu4e n'est pas un paquet Emacs indépendant : c'est le code Emacs livré *avec*
+le binaire ~mu~, avec lequel il dialogue par un protocole qui change entre
+versions majeures. Une version MELPA dériverait de celle du binaire et
+casserait en silence. D'où le ~:ensure nil~ dans =init.el= et le
+~epkgs.mu4e~ de =modules/home-manager/courriel.nix= — même raison que pour
+~vterm~, mais plus contraignante encore.
+
+** ~mu4e-change-filenames-when-moving~ est obligatoire
+
+Réglé à ~t~ dans =init.el=. Sans lui, mu4e déplace un message sans renommer
+le fichier ; ~mbsync~ voit alors un fichier inchangé à un nouvel endroit et
+rétablit l'ancien — les messages supprimés réapparaissent à la
+synchronisation suivante.
+
+* Dépannage
+
+** ~mbsync~ : « Error: authentication failed »
+
+Le mot de passe d'application est erroné, ou l'accès IMAP n'est pas activé
+côté fournisseur. Vérifier la valeur déchiffrée :
+
+#+begin_src bash
+sops -d secrets/common/secrets.yaml | grep courriel-
+#+end_src
+
+Pour Google, vérifier aussi que les espaces du mot de passe ont bien été
+retirés.
+
+** ~mbsync~ : « Maildir error: cannot open … »
+
+Le dossier local nommé dans ~Patterns~ n'existe pas. Relancer
+~courriel-init~, qui recrée l'arborescence sans toucher aux messages déjà
+téléchargés.
+
+** mu4e : « mu4e-error: mu not found » ou un protocole incompatible
+
+Le binaire ~mu~ et le code ~mu4e~ ne viennent pas de la même dérivation.
+Vérifier qu'aucune copie MELPA ne traîne :
+
+#+begin_src bash
+ls ~/.config/emacs/elpa | grep mu4e   # ne doit rien afficher
+#+end_src
+
+Le cas échéant, supprimer le dossier et relancer Emacs.
+
+** msmtp : « cannot use a secure authentication method »
+
+Le port ou le mode TLS ne correspondent pas. Le 465 est du TLS implicite
+(~tls_starttls off~) ; c'est le 587 qui commence en clair avant de négocier
+STARTTLS. Le journal détaille chaque échange :
+
+#+begin_src bash
+tail ~/.local/state/msmtp.log
+#+end_src
+
+** Les messages envoyés apparaissent en double chez Gmail
+
+Gmail conserve lui-même une copie de tout message passé par son SMTP.
+~mu4e-sent-messages-behavior~ vaut donc ~delete~ dans le contexte ~gmail~ et
+~sent~ dans le contexte ~zoho~, qui ne le fait pas. Si le doublon persiste,
+c'est que le contexte actif n'était pas le bon au moment de l'envoi.

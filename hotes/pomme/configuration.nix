@@ -12,6 +12,7 @@
     ../../modules/nixos/gnome.nix
     ../../modules/nixos/syncthing.nix
     ../../modules/nixos/calendrier.nix
+    ../../modules/nixos/courriel.nix
   ];
   
    # Créer l'entrée de session pour GDM

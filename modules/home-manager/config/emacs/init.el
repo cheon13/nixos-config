@@ -353,6 +353,41 @@ distant et la boîte de réception des événements créés à distance.")
   (add-to-list 'writeroom-local-effects
                (lambda (arg) (mixed-pitch-mode (if (> arg 0) 1 -1)))))
 
+;;; Secrets (sops)
+;;
+;; Ce dépôt est public : adresses, identifiants de calendriers et mots de
+;; passe n'y figurent pas. sops-nix les déchiffre au démarrage vers
+;; /run/secrets (cf. modules/nixos/calendrier.nix et courriel.nix).
+;;
+;; Ce sont des VALEURS et non du code : un secret ne contient qu'une chaîne,
+;; jamais quelque chose qu'on exécute. Toute la logique reste dans ce
+;; fichier, qui se lit intégralement sans rien déchiffrer — seules les
+;; valeurs manquent à la lecture.
+;;
+;; Section partagée : les calendriers ci-dessous et le courriel plus bas
+;; puisent aux mêmes deux fonctions.
+
+(defun my/secret (nom)
+  "Contenu du secret NOM déchiffré par sops dans /run/secrets, ou nil.
+Le saut de ligne final que laissent la plupart des éditeurs est retiré :
+il casserait aussi bien une URL qu'un identifiant de calendrier ou une
+adresse de courriel."
+  (let ((fichier (expand-file-name nom "/run/secrets/")))
+    (when (file-readable-p fichier)
+      (string-trim
+       (with-temp-buffer
+         (insert-file-contents fichier)
+         (buffer-string))))))
+
+(defun my/auth (hote)
+  "Couple (IDENTIFIANT . SECRET) trouvé dans auth-source pour HOTE, ou nil.
+auth-source renvoie le secret sous forme de fonction quand la source est
+chiffrée ; on l'appelle pour obtenir la chaîne."
+  (when-let* ((entree (car (auth-source-search :host hote :max 1))))
+    (cons (plist-get entree :user)
+          (let ((secret (plist-get entree :secret)))
+            (if (functionp secret) (funcall secret) secret)))))
+
 ;;; Synchronisation des calendriers
 ;;
 ;; Trois calendriers, deux outils. La répartition ne vient pas d'une
@@ -386,44 +421,19 @@ distant et la boîte de réception des événements créés à distance.")
 
 ;;;; Identifiants
 ;;
-;; Ce dépôt est public : les identifiants de calendriers et les mots de passe
-;; n'y figurent pas. sops-nix les déchiffre au démarrage vers /run/secrets
-;; (cf. modules/nixos/calendrier.nix).
-;;
-;; Ce sont des VALEURS et non du code : un secret ne contient qu'une chaîne,
-;; jamais quelque chose qu'on exécute. Toute la logique reste ici, et cette
-;; section se lit intégralement sans rien déchiffrer — seules les valeurs
-;; manquent à la lecture.
-
-(defun my/calendrier-secret (nom)
-  "Contenu du secret NOM déchiffré par sops dans /run/secrets, ou nil.
-Le saut de ligne final que laissent la plupart des éditeurs est retiré :
-il casserait aussi bien une URL qu'un identifiant de calendrier."
-  (let ((fichier (expand-file-name nom "/run/secrets/")))
-    (when (file-readable-p fichier)
-      (string-trim
-       (with-temp-buffer
-         (insert-file-contents fichier)
-         (buffer-string))))))
-
-(defun my/calendrier-auth (hote)
-  "Couple (IDENTIFIANT . SECRET) trouvé dans auth-source pour HOTE, ou nil.
-auth-source renvoie le secret sous forme de fonction quand la source est
-chiffrée ; on l'appelle pour obtenir la chaîne."
-  (when-let* ((entree (car (auth-source-search :host hote :max 1))))
-    (cons (plist-get entree :user)
-          (let ((secret (plist-get entree :secret)))
-            (if (functionp secret) (funcall secret) secret)))))
+;; Les identifiants de calendriers n'étant pas dans ce dépôt public, ils sont
+;; lus dans /run/secrets par `my/secret' (cf. la section Secrets ci-dessus et
+;; modules/nixos/calendrier.nix).
 
 ;; Lus une fois au démarrage plutôt qu'à chaque usage : trois lectures de
 ;; fichiers minuscules, et les valeurs deviennent inspectables avec C-h v.
-(defvar my/zoho-calendar-id (my/calendrier-secret "calendrier-zoho-id")
+(defvar my/zoho-calendar-id (my/secret "calendrier-zoho-id")
   "Identifiant du calendrier professionnel, tiré de la CalDAV URL de Zoho.")
 
-(defvar my/gcal-perso (my/calendrier-secret "calendrier-gcal-perso")
+(defvar my/gcal-perso (my/secret "calendrier-gcal-perso")
   "Identifiant du calendrier Google personnel (en général l'adresse Gmail).")
 
-(defvar my/gcal-famille (my/calendrier-secret "calendrier-gcal-famille")
+(defvar my/gcal-famille (my/secret "calendrier-gcal-famille")
   "Identifiant du calendrier Google familial partagé.")
 
 (unless (and my/zoho-calendar-id my/gcal-perso my/gcal-famille)
@@ -555,7 +565,7 @@ chiffrée ; on l'appelle pour obtenir la chaîne."
 
   ;; Le client OAuth2 est une paire identifiant/secret : auth-source est
   ;; fait pour ça, inutile de lui inventer un autre rangement.
-  (when-let* ((client (my/calendrier-auth "org-gcal")))
+  (when-let* ((client (my/auth "org-gcal")))
     (setq org-gcal-client-id (car client)
           org-gcal-client-secret (cdr client)))
 
@@ -664,6 +674,182 @@ retour de cette commande."
                        ":PROPERTIES:\n:calendar-id: " (or my/gcal-famille "")
                        "\n:END:\n%?"))))
     (add-to-list 'org-capture-templates tpl t)))
+
+;;; Courriel (mu4e)
+;;
+;; Un outil par étape, chacun ignorant des autres :
+;;
+;;   mbsync (isync)   IMAP ↔ Maildir, dans les deux sens
+;;   mu               index Xapian du Maildir
+;;   mu4e             interface Emacs, qui pilote les deux précédents
+;;   msmtp            envoi SMTP, appelé comme un sendmail
+;;
+;; Deux comptes mais un seul jeu d'outils, contrairement aux calendriers
+;; plus haut où Google impose org-gcal à côté d'org-caldav : en IMAP, Zoho
+;; et Google parlent le même protocole. L'authentification passe des deux
+;; côtés par un mot de passe d'application (cf. modules/nixos/courriel.nix).
+;;
+;; mu4e vient du paquet Nix `mu' et JAMAIS de MELPA — d'où le `:ensure nil'
+;; ci-dessous. Ce n'est pas un paquet indépendant : c'est le code Emacs
+;; livré avec le binaire `mu', avec lequel il dialogue par un protocole qui
+;; change entre versions majeures (cf. modules/home-manager/courriel.nix).
+;;
+;; La racine du Maildir (~/Courriel) n'est délibérément réglée nulle part
+;; ici : `mu4e-maildir' est obsolète depuis mu4e 1.3.8 et la valeur vient
+;; désormais du serveur `mu', c'est-à-dire du `mu init --maildir' que le
+;; script `courriel-init' exécute une fois par machine.
+;;
+;; Mise en place complète : docs/courriel.org.
+
+(defvar my/courriel-nom (my/secret "courriel-nom")
+  "Nom affiché dans l'en-tête From des messages sortants.")
+
+(defvar my/courriel-zoho (my/secret "courriel-zoho-adresse")
+  "Adresse professionnelle Zoho.")
+
+(defvar my/courriel-gmail (my/secret "courriel-gmail-adresse")
+  "Adresse personnelle Gmail.")
+
+;; `:if' plutôt qu'un chargement inconditionnel : ce fichier est partagé par
+;; les trois machines (emacs.nix est un module commun), alors que
+;; courriel.nix n'est importé que par portable et pomme. Sur le serveur,
+;; mu4e n'est pas sur le load-path et toute la section est simplement sautée.
+(use-package mu4e
+  :ensure nil
+  :if (locate-library "mu4e")
+  :commands (mu4e mu4e-compose-new)
+  :bind ("C-c m" . mu4e)
+  :config
+
+  ;; Réglage OBLIGATOIRE avec mbsync. Un Maildir encode les drapeaux (lu,
+  ;; répondu, supprimé) dans le NOM du fichier : mbsync renomme donc les
+  ;; fichiers à chaque changement d'état. Si mu4e déplace un message sans
+  ;; renommer, mbsync voit un fichier inchangé à un nouvel endroit et
+  ;; rétablit l'ancien — les messages supprimés réapparaissent.
+  (setq mu4e-change-filenames-when-moving t)
+
+  ;; C'est mu4e qui déclenche mbsync, et non un minuteur systemd : le
+  ;; processus `mu server' garde la base Xapian verrouillée, et un `mu
+  ;; index' concurrent échouerait sur ce verrou. Le daemon Emacs démarrant
+  ;; au login, la couverture est la même (cf. modules/home-manager/courriel.nix).
+  (setq mu4e-get-mail-command "mbsync -c /run/secrets/rendered/mbsyncrc -a"
+        mu4e-update-interval 300
+        mu4e-index-cleanup t
+        mu4e-index-lazy-check t)
+
+  (setq mu4e-attachment-dir "~/Téléchargements"
+        mu4e-confirm-quit nil
+        mu4e-search-results-limit 500
+        mu4e-headers-date-format "%Y-%m-%d"
+        mu4e-headers-time-format "%H:%M")
+
+  ;; format=flowed : le texte se replie chez le destinataire selon la largeur
+  ;; de SA fenêtre, au lieu de porter des retours à la ligne durs à 72
+  ;; colonnes — ce qui compte pour les correspondants qui lisent au téléphone.
+  (setq mu4e-compose-format-flowed t)
+
+  ;; Envoi délégué à msmtp plutôt qu'au smtpmail intégré : un seul fichier
+  ;; décrit les deux comptes, et msmtp sait mettre en file d'attente — utile
+  ;; sur un portable qui perd le réseau en pleine rédaction. Emacs l'appelle
+  ;; par l'interface sendmail ; le compte est choisi par le « -a » que chaque
+  ;; contexte pose dans `message-sendmail-extra-arguments'.
+  (setq message-send-mail-function #'message-send-mail-with-sendmail
+        sendmail-program (or (executable-find "msmtp") "msmtp")
+        ;; Empêche message.el d'ajouter un « -f adresse » qui ferait double
+        ;; emploi avec le « -a compte » et pourrait le contredire.
+        message-sendmail-f-is-evil t
+        message-kill-buffer-on-exit t)
+
+  ;;;; Contextes
+  ;;
+  ;; `match-func' reçoit le message auquel on répond (ou nil pour un message
+  ;; neuf) et décide du compte d'envoi. Le test porte sur le dossier, dont
+  ;; le premier segment est le nom du Channel mbsync — /zoho ou /gmail.
+  ;;
+  ;; ATTENTION aux noms de dossiers Gmail ci-dessous : Gmail les traduit
+  ;; selon la langue du COMPTE, pas celle du client. Un compte en français
+  ;; expose « [Gmail]/Messages envoyés » plutôt que « [Gmail]/Sent Mail ».
+  ;; Ils doivent correspondre exactement à ce que mbsync a créé sous
+  ;; ~/Courriel/gmail/ — vérification décrite dans docs/courriel.org.
+  (setq mu4e-contexts
+        (list
+         (make-mu4e-context
+          :name "zoho"
+          :match-func
+          (lambda (msg)
+            (when msg
+              (string-prefix-p "/zoho" (mu4e-message-field msg :maildir))))
+          :vars `((user-full-name     . ,(or my/courriel-nom ""))
+                  (user-mail-address  . ,(or my/courriel-zoho ""))
+                  (mu4e-sent-folder   . "/zoho/Sent")
+                  (mu4e-drafts-folder . "/zoho/Drafts")
+                  (mu4e-trash-folder  . "/zoho/Trash")
+                  (mu4e-refile-folder . "/zoho/Archive")
+                  (message-sendmail-extra-arguments
+                   . ("-C" "/run/secrets/rendered/msmtprc" "-a" "zoho"))))
+
+         (make-mu4e-context
+          :name "gmail"
+          :match-func
+          (lambda (msg)
+            (when msg
+              (string-prefix-p "/gmail" (mu4e-message-field msg :maildir))))
+          :vars `((user-full-name     . ,(or my/courriel-nom ""))
+                  (user-mail-address  . ,(or my/courriel-gmail ""))
+                  (mu4e-sent-folder   . "/gmail/[Gmail]/Sent Mail")
+                  (mu4e-drafts-folder . "/gmail/[Gmail]/Drafts")
+                  (mu4e-trash-folder  . "/gmail/[Gmail]/Trash")
+                  (mu4e-refile-folder . "/gmail/Archive")
+                  (message-sendmail-extra-arguments
+                   . ("-C" "/run/secrets/rendered/msmtprc" "-a" "gmail"))))))
+
+  ;; Gmail conserve lui-même une copie de tout message envoyé par son SMTP :
+  ;; laisser mu4e en déposer une seconde dans le dossier des envois les
+  ;; duplique. Zoho ne le fait pas, d'où le réglage par contexte plutôt que
+  ;; global — `delete' signifie « ne pas garder de copie locale ».
+  (setq mu4e-sent-messages-behavior
+        (lambda ()
+          (if (equal "gmail" (when-let* ((ctx (mu4e-context-current)))
+                               (mu4e-context-name ctx)))
+              'delete 'sent)))
+
+  (setq mu4e-context-policy 'pick-first
+        mu4e-compose-context-policy 'ask-if-none)
+
+  (setq mu4e-maildir-shortcuts
+        '((:maildir "/zoho/INBOX"  :key ?z)
+          (:maildir "/gmail/INBOX" :key ?g)
+          (:maildir "/zoho/Archive"  :key ?Z)
+          (:maildir "/gmail/Archive" :key ?G)))
+
+  (setq mu4e-bookmarks
+        '((:name "Non lus" :query "flag:unread AND NOT flag:trashed" :key ?u)
+          (:name "Aujourd'hui" :query "date:today..now" :key ?t)
+          (:name "Cette semaine" :query "date:7d..now" :key ?s)
+          (:name "Avec pièce jointe" :query "flag:attach" :key ?p)))
+
+  ;;;; Lien avec Org
+  ;;
+  ;; C'est ici que le courriel cesse d'être une île. mu4e-org apprend à
+  ;; `org-store-link' à produire un lien vers un message précis, que C-c C-o
+  ;; rouvre dans mu4e. La capture ci-dessous s'en sert : la tâche atterrit
+  ;; dans inbox.org avec un renvoi vers le courriel, sans en copier le corps.
+  (require 'mu4e-org)
+
+  ;; Ajoutée ici et non dans la section Org : `org-capture-templates' y est
+  ;; posé par un setq qui écraserait un ajout fait avant lui — même raison
+  ;; que pour les templates de rendez-vous. %a insère le lien stocké.
+  ;;
+  ;; Accrochée à `org-capture' et non à `org' : c'est org-capture.el qui
+  ;; définit `org-capture-templates'. Sur `org', le hook peut se déclencher
+  ;; immédiatement — (require 'mu4e-org) ci-dessus charge org — alors que la
+  ;; variable n'existe pas encore, et add-to-list échoue sur un symbole vide.
+  (with-eval-after-load 'org-capture
+    (add-to-list 'org-capture-templates
+                 '("m" "Tâche depuis un courriel" entry
+                   (file+headline "~/Documents/Cerveau/inbox.org" "Tâches")
+                   "* TODO %?\n  %U\n  %a")
+                 t)))
 
 ;;; Ouverture de fichiers externes
 ;; openwith intercepte l'ouverture globalement (dired, find-file, liens
