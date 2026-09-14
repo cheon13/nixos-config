@@ -38,7 +38,11 @@ let
     zoho=$(cat /run/secrets/courriel-zoho-adresse)
     gmail=$(cat /run/secrets/courriel-gmail-adresse)
 
-    mkdir -p "$HOME/Courriel"
+    # La RACINE de chaque magasin Maildir doit préexister : mbsync crée les
+    # sous-dossiers d'un magasin (« Create Both »), jamais le magasin
+    # lui-même. Sans ces deux dossiers, la synchronisation s'arrête sur
+    # « Maildir error: cannot open store ».
+    mkdir -p "$HOME/Courriel/zoho" "$HOME/Courriel/gmail"
 
     # Dossier de classement Gmail, cible de la touche « r » dans mu4e. Créé
     # ici parce que Gmail archive en retirant l'étiquette Inbox, sans dossier

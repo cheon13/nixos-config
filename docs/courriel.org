@@ -353,11 +353,24 @@ désigne la ligne fautive du fichier rendu :
 sed -n '12p' /run/secrets/rendered/mbsyncrc
 #+end_src
 
-** ~mbsync~ : « Maildir error: cannot open … »
+** ~mbsync~ : « Maildir error: cannot open store … »
 
-Le dossier local nommé dans ~Patterns~ n'existe pas. Relancer
-~courriel-init~, qui recrée l'arborescence sans toucher aux messages déjà
-téléchargés.
+La *racine* du magasin Maildir nommé dans le message n'existe pas. mbsync crée
+les sous-dossiers d'un magasin — c'est le rôle de ~Create Both~ — mais jamais
+le magasin lui-même.
+
+#+begin_src bash
+mkdir -p ~/Courriel/zoho ~/Courriel/gmail
+#+end_src
+
+~courriel-init~ s'en charge normalement. Le cas se présente si on lance
+~mbsync~ directement, par exemple pour ~-l~ (cf. étape 4), avant la première
+initialisation.
+
+Un canal peut échouer sur cette erreur pendant que l'autre se synchronise
+normalement — la sortie affiche alors =C: 1/2=, un seul des deux canaux
+traité. L'index n'est pas construit pour autant : ~courriel-init~ s'arrête
+avant, mbsync ayant terminé en erreur.
 
 ** mu4e : « mu4e-error: mu not found » ou un protocole incompatible
 
