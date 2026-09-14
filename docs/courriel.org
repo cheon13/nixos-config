@@ -217,6 +217,27 @@ est obsolète depuis mu4e 1.3.8 et n'est donc réglée *nulle part* dans
 *Relancer =courriel-init= sur chaque machine* (portable et pomme). L'index mu
 est local et ne se synchronise pas.
 
+*Redémarrer ensuite le démon Emacs* :
+
+#+begin_src bash
+systemctl --user restart emacs.service
+#+end_src
+
+Ce n'est pas facultatif et une bascule ne le fait pas à votre place : elle met
+à jour le fichier d'unité — dont l'~ExecStart~ pointe déjà vers le bon paquet
+— sans relancer le processus. Or l'ajout de ~mu4e~ par ~extraPackages~ produit
+un nouveau ~load-path~, que seul un processus neuf connaît. Recharger
+=init.el= à la main n'y suffirait pas : le ~:if (locate-library "mu4e")~
+retournerait ~nil~ et la section Courriel serait simplement sautée.
+
+Vérification :
+
+#+begin_src bash
+emacsclient --eval '(locate-library "mu4e")'
+#+end_src
+
+Un chemin plutôt que ~nil~ : =C-c m= est opérationnel.
+
 * Usage quotidien
 
 | Touche      | Effet                                            |
