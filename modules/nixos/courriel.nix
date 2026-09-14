@@ -15,6 +15,22 @@
 # l'activation. Le fichier rendu vit dans /run/secrets/rendered (tmpfs,
 # mode 0400, propriété de cheon) et ne touche jamais le disque.
 #
+# Les MOTS DE PASSE ne passent pas par ces gabarits : ils sont lus à
+# l'exécution dans /run/secrets par PassCmd (mbsync) et passwordeval
+# (msmtp). Ce n'est pas une précaution de style, c'est une nécessité — les
+# deux outils analysent leur fichier de configuration et traitent le
+# guillemet double comme un délimiteur. Un mot de passe d'application Zoho
+# en contenant un faisait échouer mbsync dès la lecture du fichier :
+#
+#   /run/secrets/rendered/mbsyncrc:12: missing closing quote
+#
+# Échapper la valeur est impossible ici : la substitution est faite par
+# sops-install-secrets à l'activation, en texte brut, bien après
+# l'évaluation Nix. Déléguer la lecture à une commande contourne le
+# parseur entièrement, quel que soit le contenu du mot de passe — et a
+# pour effet secondaire heureux qu'aucun mot de passe ne figure plus dans
+# les fichiers rendus, qui ne contiennent que les adresses.
+#
 # Les cinq valeurs, toutes de simples chaînes :
 #
 #   courriel-nom                Nom affiché dans l'en-tête From.
@@ -81,7 +97,7 @@ in
       Host imap.zohocloud.ca
       Port 993
       User ${ph "courriel-zoho-adresse"}
-      Pass ${ph "courriel-zoho-motdepasse"}
+      PassCmd "cat /run/secrets/courriel-zoho-motdepasse"
       TLSType IMAPS
 
       IMAPStore zoho-distant
@@ -101,11 +117,12 @@ in
       Expunge Both
       SyncState *
 
-      # « Archive » n'est le nom d'aucun dossier natif chez Zoho, et Gmail
-      # archive en retirant l'étiquette Inbox — sans dossier où déposer le
-      # message. Le dossier est donc créé LOCALEMENT par `courriel-init',
-      # puis poussé vers les deux serveurs par le « Create Both » ci-dessus.
-      # C'est la cible de l'action de classement de mu4e (touche « r »).
+      # Zoho possède déjà un dossier « Archive » — il arrive par le « * »
+      # ci-dessus. Gmail non : il archive en retirant l'étiquette Inbox, sans
+      # dossier où déposer le message. Le dossier Gmail est donc créé
+      # LOCALEMENT par `courriel-init', puis poussé vers le serveur par le
+      # « Create Both ». Des deux côtés, c'est la cible de l'action de
+      # classement de mu4e (touche « r »).
 
       # ── Google — personnel ────────────────────────────────────────────
       #
@@ -117,19 +134,19 @@ in
       # la création d'une étiquette côté Google fasse silencieusement gonfler
       # la synchronisation.
       #
-      # ATTENTION : Gmail traduit ces noms IMAP selon la langue du COMPTE, pas
-      # celle du client — un compte en français expose « [Gmail]/Messages
-      # envoyés », « [Gmail]/Corbeille », etc. Vérifier avant la première
-      # synchronisation avec :
+      # Les noms sont en FRANÇAIS parce que Gmail traduit ses dossiers IMAP
+      # selon la langue du COMPTE, pas celle du client. Relevés sur le compte
+      # avec « mbsync -l gmail » — ne pas les remplacer par les noms anglais
+      # que donne la documentation de Gmail.
       #
-      #   mbsync -c /run/secrets/rendered/mbsyncrc -l gmail
-      #
-      # (cf. docs/courriel.org, qui détaille cette étape.)
+      # Le compte expose aussi des dossiers Drafts/Sent/Queue/Unwanted à la
+      # racine, laissés par un autre client (Geary). Ils sont ignorés : les
+      # dossiers canoniques de Gmail sont ceux sous [Gmail]/.
       IMAPAccount gmail
       Host imap.gmail.com
       Port 993
       User ${ph "courriel-gmail-adresse"}
-      Pass ${ph "courriel-gmail-motdepasse"}
+      PassCmd "cat /run/secrets/courriel-gmail-motdepasse"
       TLSType IMAPS
 
       IMAPStore gmail-distant
@@ -143,7 +160,7 @@ in
       Channel gmail
       Far :gmail-distant:
       Near :gmail-local:
-      Patterns "INBOX" "Archive" "[Gmail]/Sent Mail" "[Gmail]/Drafts" "[Gmail]/Trash" "[Gmail]/Spam"
+      Patterns "INBOX" "Archive" "[Gmail]/Messages envoyés" "[Gmail]/Brouillons" "[Gmail]/Corbeille" "[Gmail]/Pourriel"
       Create Both
       Remove Both
       Expunge Both
@@ -173,14 +190,14 @@ in
       port     465
       from     ${ph "courriel-zoho-adresse"}
       user     ${ph "courriel-zoho-adresse"}
-      password ${ph "courriel-zoho-motdepasse"}
+      passwordeval cat /run/secrets/courriel-zoho-motdepasse
 
       account gmail
       host     smtp.gmail.com
       port     465
       from     ${ph "courriel-gmail-adresse"}
       user     ${ph "courriel-gmail-adresse"}
-      password ${ph "courriel-gmail-motdepasse"}
+      passwordeval cat /run/secrets/courriel-gmail-motdepasse
 
       # Filet de sécurité : un message envoyé sans « -a » part du compte
       # professionnel plutôt que d'échouer.

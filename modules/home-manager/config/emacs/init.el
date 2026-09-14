@@ -766,11 +766,12 @@ retour de cette commande."
   ;; neuf) et décide du compte d'envoi. Le test porte sur le dossier, dont
   ;; le premier segment est le nom du Channel mbsync — /zoho ou /gmail.
   ;;
-  ;; ATTENTION aux noms de dossiers Gmail ci-dessous : Gmail les traduit
-  ;; selon la langue du COMPTE, pas celle du client. Un compte en français
-  ;; expose « [Gmail]/Messages envoyés » plutôt que « [Gmail]/Sent Mail ».
-  ;; Ils doivent correspondre exactement à ce que mbsync a créé sous
-  ;; ~/Courriel/gmail/ — vérification décrite dans docs/courriel.org.
+  ;; Les noms de dossiers sont en FRANÇAIS des DEUX côtés : Zoho comme Gmail
+  ;; traduisent leurs dossiers IMAP selon la langue du COMPTE, pas celle du
+  ;; client. Relevés avec « mbsync -l », et à garder identiques à la ligne
+  ;; Patterns de modules/nixos/courriel.nix — les deux décrivent la même
+  ;; arborescence. Ne pas les remplacer par les noms anglais des docs
+  ;; officielles.
   (setq mu4e-contexts
         (list
          (make-mu4e-context
@@ -781,9 +782,9 @@ retour de cette commande."
               (string-prefix-p "/zoho" (mu4e-message-field msg :maildir))))
           :vars `((user-full-name     . ,(or my/courriel-nom ""))
                   (user-mail-address  . ,(or my/courriel-zoho ""))
-                  (mu4e-sent-folder   . "/zoho/Sent")
-                  (mu4e-drafts-folder . "/zoho/Drafts")
-                  (mu4e-trash-folder  . "/zoho/Trash")
+                  (mu4e-sent-folder   . "/zoho/Envoyé")
+                  (mu4e-drafts-folder . "/zoho/Brouillon")
+                  (mu4e-trash-folder  . "/zoho/Poubelle")
                   (mu4e-refile-folder . "/zoho/Archive")
                   (message-sendmail-extra-arguments
                    . ("-C" "/run/secrets/rendered/msmtprc" "-a" "zoho"))))
@@ -796,9 +797,9 @@ retour de cette commande."
               (string-prefix-p "/gmail" (mu4e-message-field msg :maildir))))
           :vars `((user-full-name     . ,(or my/courriel-nom ""))
                   (user-mail-address  . ,(or my/courriel-gmail ""))
-                  (mu4e-sent-folder   . "/gmail/[Gmail]/Sent Mail")
-                  (mu4e-drafts-folder . "/gmail/[Gmail]/Drafts")
-                  (mu4e-trash-folder  . "/gmail/[Gmail]/Trash")
+                  (mu4e-sent-folder   . "/gmail/[Gmail]/Messages envoyés")
+                  (mu4e-drafts-folder . "/gmail/[Gmail]/Brouillons")
+                  (mu4e-trash-folder  . "/gmail/[Gmail]/Corbeille")
                   (mu4e-refile-folder . "/gmail/Archive")
                   (message-sendmail-extra-arguments
                    . ("-C" "/run/secrets/rendered/msmtprc" "-a" "gmail"))))))

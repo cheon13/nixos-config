@@ -78,6 +78,12 @@ les deux dernières, une fois *par machine*.
 Le mot de passe d'application du CalDAV *ne peut pas être réutilisé* : Zoho ne
 réaffiche jamais un mot de passe déjà généré. Il en faut un par usage.
 
+Un mot de passe d'application Zoho *n'est pas cloisonné par protocole* : le
+nom qu'on lui donne en le créant n'est qu'une étiquette, et la valeur vaut
+pour IMAP, POP, SMTP, CalDAV et CardDAV indifféremment. Un échec
+d'authentification vient donc du mot de passe lui-même, ou de l'accès IMAP
+resté désactivé — jamais d'un mot de passe « prévu pour autre chose ».
+
 *** Côté Google
 
 1. Dans Gmail : /Paramètres → Transfert et POP/IMAP/, activer IMAP.
@@ -137,23 +143,55 @@ nixos-rebuild build --flake .#portable   # valider d'abord
 =modules/nixos/courriel.nix= ; seules les valeurs y sont substituées. Ils ne
 touchent jamais le disque.
 
-** 4. Vérifier les noms de dossiers Gmail
+** 4. Vérifier les noms de dossiers
 
-*Étape à ne pas sauter.* Gmail traduit ses noms de dossiers IMAP selon la
-langue du *compte*, pas celle du client. Un compte en français expose
-« ~[Gmail]/Messages envoyés~ » là où =modules/nixos/courriel.nix= écrit
-« ~[Gmail]/Sent Mail~ ».
+*Les deux fournisseurs traduisent leurs dossiers IMAP selon la langue du
+COMPTE, pas celle du client.* Sur ces deux comptes, ils sont donc en
+français — c'est ce que =modules/nixos/courriel.nix= et =init.el= déclarent.
+Ne pas les remplacer par les noms anglais que donnent les documentations
+officielles.
+
+| Rôle             | Zoho          | Google                      |
+|------------------+---------------+-----------------------------|
+| Réception        | ~INBOX~       | ~INBOX~                     |
+| Messages envoyés | ~Envoyé~      | ~[Gmail]/Messages envoyés~  |
+| Brouillons       | ~Brouillon~   | ~[Gmail]/Brouillons~        |
+| Corbeille        | ~Poubelle~    | ~[Gmail]/Corbeille~         |
+| Indésirables     | ~Spam~        | ~[Gmail]/Pourriel~          |
+| Classement       | ~Archive~     | ~Archive~ (créé, voir plus bas) |
+
+Zoho expose en plus ~Modèle~, ~Newsletter~, ~Notification~ et ~Snoozed~, qui
+arrivent par le ~Patterns *~ du canal. Google expose ~[Gmail]/Tous les
+messages~, délibérément *non* synchronisé (cf. /Points d'attention/), ainsi
+que des dossiers ~Drafts~, ~Sent~, ~Queue~ et ~Unwanted~ à la racine, laissés
+par un autre client (Geary) et ignorés — les dossiers canoniques de Gmail
+sont ceux sous ~[Gmail]/~.
+
+*Le dossier ~Archive~ est asymétrique.* Zoho en possède un nativement. Gmail
+non : il archive en retirant l'étiquette /Inbox/, sans dossier de
+destination. ~courriel-init~ crée donc un ~Archive~ local côté Gmail
+seulement, que ~mbsync~ pousse ensuite vers le serveur sous forme
+d'étiquette. Des deux côtés, c'est la cible de la touche =r= dans mu4e.
+
+Pour relever ces noms à nouveau — après un changement de langue du compte, ou
+lors d'une mise en place sur une nouvelle adresse :
 
 #+begin_src bash
+mkdir -p ~/Courriel/gmail ~/Courriel/zoho
 mbsync -c /run/secrets/rendered/mbsyncrc -l gmail
+mbsync -c /run/secrets/rendered/mbsyncrc -l zoho
 #+end_src
 
-L'option ~-l~ (/list/) se contente d'énumérer les dossiers distants sans rien
-télécharger. Si les noms affichés diffèrent, corriger *aux deux endroits* :
+L'option ~-l~ (/list/) énumère les dossiers distants sans rien télécharger.
+Le ~mkdir~ n'est pas décoratif : ~-l~ ouvre aussi le magasin *local* et
+échoue sans lui, avec =Maildir error: cannot open store=. ~courriel-init~
+crée ces dossiers, mais il s'exécute à l'étape suivante.
 
-- la ligne ~Patterns~ du canal ~gmail~, dans =modules/nixos/courriel.nix= ;
+Si les noms diffèrent, corriger *aux deux endroits* :
+
+- la ligne ~Patterns~ du canal concerné, dans =modules/nixos/courriel.nix= ;
 - les ~mu4e-sent-folder~, ~mu4e-drafts-folder~ et ~mu4e-trash-folder~ du
-  contexte ~gmail~, dans =init.el=.
+  contexte correspondant, dans =init.el=.
 
 puis reconstruire.
 
@@ -249,6 +287,31 @@ minuteur systemd. Raison technique : mu4e fait tourner un processus
 parallèle échouerait sur ce verrou. Le daemon Emacs démarrant au login
 (cf. =modules/home-manager/emacs.nix=), la couverture est la même.
 
+** Les mots de passe ne sont pas dans les fichiers rendus
+
+~mbsyncrc~ et ~msmtprc~ ne contiennent que les *adresses*. Les mots de passe
+sont lus à l'exécution dans =/run/secrets= :
+
+#+begin_example
+PassCmd "cat /run/secrets/courriel-zoho-motdepasse"      # mbsync
+passwordeval cat /run/secrets/courriel-zoho-motdepasse   # msmtp
+#+end_example
+
+Ce n'est pas un raffinement : les deux outils analysent leur fichier de
+configuration et traitent le *guillemet double comme un délimiteur*. Un mot
+de passe d'application Zoho en contenant un fait échouer mbsync dès la
+lecture :
+
+#+begin_example
+/run/secrets/rendered/mbsyncrc:12: missing closing quote
+#+end_example
+
+Échapper la valeur est impossible : la substitution est faite en texte brut
+par ~sops-install-secrets~ à l'activation, bien après l'évaluation Nix.
+Déléguer la lecture à une commande contourne le parseur quel que soit le
+contenu du mot de passe. Effet secondaire heureux : plus aucun mot de passe
+ne figure dans les fichiers rendus.
+
 ** mu4e vient de Nix, jamais de MELPA
 
 mu4e n'est pas un paquet Emacs indépendant : c'est le code Emacs livré *avec*
@@ -278,6 +341,17 @@ sops -d secrets/common/secrets.yaml | grep courriel-
 
 Pour Google, vérifier aussi que les espaces du mot de passe ont bien été
 retirés.
+
+** ~mbsync~ : « missing closing quote »
+
+Une valeur substituée dans =mbsyncrc= contient un guillemet double. Les mots
+de passe n'y passent plus (cf. /Points d'attention/), mais une *adresse* qui
+en contiendrait un poserait le même problème. Le numéro de ligne du message
+désigne la ligne fautive du fichier rendu :
+
+#+begin_src bash
+sed -n '12p' /run/secrets/rendered/mbsyncrc
+#+end_src
 
 ** ~mbsync~ : « Maildir error: cannot open … »
 

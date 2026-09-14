@@ -40,15 +40,12 @@ let
 
     mkdir -p "$HOME/Courriel"
 
-    # Dossier de classement, cible de la touche « r » dans mu4e. Créé ici
-    # parce qu'il n'existe nativement chez aucun des deux fournisseurs :
-    # Zoho n'a pas d'« Archive » par défaut, et Gmail archive en retirant
-    # l'étiquette Inbox, sans dossier de destination. mbsync le pousse
-    # ensuite vers les deux serveurs grâce à « Create Both ».
-    for compte in zoho gmail; do
-      for sous in cur new tmp; do
-        mkdir -p "$HOME/Courriel/$compte/Archive/$sous"
-      done
+    # Dossier de classement Gmail, cible de la touche « r » dans mu4e. Créé
+    # ici parce que Gmail archive en retirant l'étiquette Inbox, sans dossier
+    # de destination ; mbsync le pousse ensuite vers le serveur grâce à
+    # « Create Both ». Rien à faire pour Zoho, qui a déjà son « Archive ».
+    for sous in cur new tmp; do
+      mkdir -p "$HOME/Courriel/gmail/Archive/$sous"
     done
 
     echo "→ Première synchronisation (peut être longue)…"
