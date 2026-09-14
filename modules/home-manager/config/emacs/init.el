@@ -852,15 +852,74 @@ retour de cette commande."
                    "* TODO %?\n  %U\n  %a")
                  t)))
 
+;;; Lecture des PDF (pdf-tools)
+;; Une seule visionneuse pour tous les PDF, où qu'ils arrivent : fichier
+;; ouvert dans dired, lien org, pièce jointe de courriel. Auparavant zathura
+;; s'en chargeait par openwith (ci-dessous) — mais openwith ne voit que les
+;; fichiers, jamais les pièces jointes, qui retombaient sur doc-view et son
+;; appel à ghostscript, absent du système.
+;;
+;; pdf-tools rend les pages par epdfinfo, un serveur C lié à poppler, ce qui
+;; apporte en prime ce que doc-view n'a pas : recherche plein texte (le PDF
+;; répond à isearch), liens cliquables, table des matières, annotations.
+;;
+;; :ensure nil, même raison que vterm : le paquet vient de Nix
+;; (extraPackages dans modules/home-manager/emacs.nix) et non de MELPA, qui
+;; tenterait de compiler epdfinfo à la volée.
+
+(use-package pdf-tools
+  :ensure nil
+  :demand t
+  :config
+  ;; Installe pdf-view-mode dans `auto-mode-alist' (sur .pdf) et dans
+  ;; `magic-mode-alist' (sur les octets « %PDF », donc même sans extension).
+  ;; L'argument no-query : sans lui, un epdfinfo jugé absent déclencherait une
+  ;; question — puis une compilation dans ~/.config/emacs. Ici Nix l'a déjà
+  ;; construit, la question n'a donc pas de réponse utile.
+  (pdf-tools-install :no-query)
+
+  ;; Les pièces jointes ne passent NI par l'une NI par l'autre de ces deux
+  ;; listes : gnus (sous mu4e) écrit la partie MIME dans un tampon sans nom de
+  ;; fichier, puis appelle le visualiseur que `mailcap-mime-info' désigne. Or
+  ;; la table intégrée de mailcap.el propose doc-view-mode AVANT pdf-view-mode
+  ;; pour application/pdf, et le premier dont le test passe l'emporte.
+  ;;
+  ;; `mailcap-user-mime-data' est la liste que `mailcap-mime-info' consulte
+  ;; AVANT tout le reste : y déposer pdf-view-mode suffit, l'ordre de la table
+  ;; intégrée cesse de compter. Un tampon sans fichier ne gêne pas
+  ;; pdf-view-mode, qui le recopie dans un fichier temporaire avant
+  ;; d'interroger epdfinfo.
+  ;;
+  ;; Deux pièges évités ici, l'un et l'autre silencieux :
+  ;;
+  ;;   La fonction `mailcap-add' semblerait toute désignée, mais elle écrit
+  ;;   dans cette variable une structure imbriquée par type majeur/mineur, que
+  ;;   `mailcap-select-preferred-viewer' ne sait pas relire — elle y cherche
+  ;;   une liste plate d'entrées. Son second dépôt, dans la table calculée,
+  ;;   est quant à lui effacé au premier `mailcap-parse-mailcaps' de gnus.
+  ;;
+  ;;   D'où `customize-set-variable' et non `setq' : la valeur lisible
+  ;;   ci-dessous est convertie vers la forme interne par le :set du
+  ;;   defcustom. Un `setq' la laisserait telle quelle, et mailcap
+  ;;   l'ignorerait. Le `require' préalable n'est pas décoratif : sans lui le
+  ;;   :set n'est pas encore posé, et la conversion n'aurait pas lieu.
+  (require 'mailcap)
+  (customize-set-variable 'mailcap-user-mime-data
+                          '((pdf-view-mode "application/pdf"))))
+
 ;;; Ouverture de fichiers externes
 ;; openwith intercepte l'ouverture globalement (dired, find-file, liens
 ;; org) — plus large qu'org-file-apps qui ne couvre que les liens org.
+;;
+;; Ne reste ici que ce qu'Emacs ne sait pas afficher lui-même. Les PDF en
+;; sont sortis au profit de pdf-tools (section précédente) ; zathura demeure
+;; installé et reste la visionneuse du bureau hors Emacs
+;; (xdg.mimeApps dans modules/home-manager/default.nix).
 
 (use-package openwith
   :config
   (setq openwith-associations
-        '(("\\.pdf\\'" "zathura" (file))
-          ("\\.\\(ods\\|odt\\|odp\\|docx\\|xlsx\\|pptx\\)\\'" "libreoffice" (file))))
+        '(("\\.\\(ods\\|odt\\|odp\\|docx\\|xlsx\\|pptx\\)\\'" "libreoffice" (file))))
   (openwith-mode 1))
 
 ;;; Terminal (vterm)

@@ -51,11 +51,19 @@ in
     package = pkgs.emacs-pgtk;
 
     # Paquets Emacs fournis par Nix plutôt que par package.el/MELPA.
-    # Réservé aux paquets qui embarquent du code natif : vterm compile un
-    # module C contre libvterm, ce que package.el ne peut pas faire ici
-    # (il chercherait cmake/libtool/libvterm à l'exécution). Le paquet Nix
-    # livre le .so déjà compilé. Le reste de la config reste sur MELPA.
-    extraPackages = epkgs: [ epkgs.vterm ];
+    # Réservé aux paquets qui embarquent du code natif, que package.el ne
+    # saurait pas produire ici (il chercherait cmake, pkg-config et les
+    # en-têtes des bibliothèques à l'exécution) :
+    #
+    #   vterm      module C lié à libvterm, livré en .so déjà compilé
+    #   pdf-tools  epdfinfo, un serveur C lié à poppler qui rend les pages
+    #              PDF. nixpkgs le compile et le dépose DANS le dossier des
+    #              .el (recipe :files ("lisp/pdf-*.el" "server/epdfinfo")) ;
+    #              `pdf-info-epdfinfo-program' cherche justement le binaire
+    #              à côté de pdf-info.el, donc rien à régler dans init.el.
+    #
+    # Le reste de la config reste sur MELPA.
+    extraPackages = epkgs: [ epkgs.vterm epkgs.pdf-tools ];
   };
 
   # Démarre le daemon Emacs au login (service utilisateur systemd).

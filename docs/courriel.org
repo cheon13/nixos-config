@@ -420,3 +420,27 @@ Gmail conserve lui-même une copie de tout message passé par son SMTP.
 ~mu4e-sent-messages-behavior~ vaut donc ~delete~ dans le contexte ~gmail~ et
 ~sent~ dans le contexte ~zoho~, qui ne le fait pas. Si le doublon persiste,
 c'est que le contexte actif n'était pas le bon au moment de l'envoi.
+
+** Une pièce jointe PDF : « Conversion utility "gs" not available »
+
+Symptôme d'origine, corrigé depuis : l'ouverture d'un PDF joint échouait sur
+cette erreur, après un message =Viewing with doc-view-mode=.
+
+Gnus, qui affiche les parties MIME sous mu4e, n'écrit pas la pièce jointe dans
+un fichier nommé : elle atterrit dans un tampon anonyme. Ni ~auto-mode-alist~
+(qui va par l'extension) ni ~openwith~ (qui n'intercepte que les fichiers) ne
+s'y appliquent — c'est ~mailcap~ qui désigne le visualiseur, et sa table
+intégrée nommait ~doc-view-mode~, lequel réclame ~ghostscript~, absent d'ici.
+
+La correction remplace la visionneuse partout plutôt que d'ajouter
+~ghostscript~ : ~pdf-tools~ rend les pages par ~epdfinfo~, un serveur C lié à
+poppler, et sert désormais aussi bien les fichiers que les pièces jointes. Le
+détail tient en deux endroits :
+
+- =modules/home-manager/emacs.nix= — le paquet, qui embarque du code natif et
+  vient donc de Nix et non de MELPA ;
+- =modules/home-manager/config/emacs/init.el=, section « Lecture des PDF » —
+  l'inscription dans ~mailcap-user-mime-data~, seule liste que
+  ~mailcap-mime-info~ consulte avant sa table intégrée.
+
+~zathura~ reste installé et demeure la visionneuse du bureau hors Emacs.
