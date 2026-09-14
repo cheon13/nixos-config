@@ -28,6 +28,13 @@ sudo nixos-rebuild switch --flake .#pomme
 nixos-rebuild switch --flake .#serveur --target-host cheon@serveur --sudo --ask-sudo-password
 nixos-rebuild switch --flake .#pomme --target-host cheon@pomme --sudo --ask-sudo-password
 
+# Après TOUT déploiement distant : init.el est un lien hors-store vers le dépôt
+# de la machine cible, que --target-host ne met pas à jour. Sans ces deux
+# lignes, la cible continue de charger un init.el périmé, silencieusement.
+# Le -A transmet l'agent SSH : les machines n'ont pas de clé pour GitHub.
+ssh -A cheon@pomme git -C ~/.dotfiles pull
+ssh cheon@pomme systemctl --user restart emacs.service
+
 # Tester sans appliquer
 nixos-rebuild build --flake .#portable
 

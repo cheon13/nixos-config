@@ -6,6 +6,18 @@
 # il pointe directement vers le dépôt ~/.dotfiles, donc éditer init.el ne
 # nécessite PAS de relancer `home-manager switch`.
 #
+# REVERS, qui se paie au déploiement distant : le lien vise le dépôt de LA
+# MACHINE. `nixos-rebuild --target-host' copie la clôture système mais ne
+# touche jamais à la copie de travail git de la cible, qui continue donc de
+# lire son propre init.el, parfois vieux de plusieurs commits — sans la
+# moindre erreur, puisque le fichier est valide. Après tout déploiement
+# distant :
+#
+#   ssh -A cheon@<machine> git -C ~/.dotfiles pull
+#   ssh cheon@<machine> systemctl --user restart emacs.service
+#
+# Le -A transmet l'agent SSH : les machines n'ont pas de clé pour GitHub.
+#
 # Le reste de ~/.config/emacs (elpa/, eln-cache/, backups…) reste un vrai
 # dossier hors dépôt : Emacs y écrit ses fichiers d'exécution et télécharge
 # les paquets depuis MELPA/ELPA au premier lancement.
