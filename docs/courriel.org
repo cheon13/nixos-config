@@ -444,3 +444,25 @@ détail tient en deux endroits :
   ~mailcap-mime-info~ consulte avant sa table intégrée.
 
 ~zathura~ reste installé et demeure la visionneuse du bureau hors Emacs.
+
+** Une pièce jointe bureautique ne propose que l'enregistrement
+
+Même chaîne que ci-dessus, autre symptôme. Gnus ne sait ouvrir une pièce
+jointe que si ~mailcap~ nomme un visualiseur pour le type MIME annoncé ;
+faute d'entrée, il ne reste que l'enregistrement sur disque.
+
+~openwith~ ne comble pas ce vide : il n'intercepte que les vrais fichiers,
+jamais un tampon MIME. La section « Pièces jointes des courriels » d'=init.el=
+inscrit donc LibreOffice dans ~mailcap-user-mime-data~ pour les trois familles
+de formats — OpenDocument, OOXML, et les formats hérités =.doc= / =.xls= /
+=.ppt= / =.rtf=.
+
+Un ajout de format se fait à cet endroit, et nulle part ailleurs. Deux points
+à garder en tête :
+
+- le champ du type est une expression régulière ancrée entre ~^~ et ~$~ ;
+- l'entrée est ignorée en silence si le binaire est introuvable dans le
+  ~PATH~ du démon Emacs.
+
+Le fichier remis à LibreOffice est temporaire et disparaît à la fermeture du
+message : pour retravailler un document, l'enregistrer d'abord ailleurs.

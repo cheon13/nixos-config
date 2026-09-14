@@ -878,34 +878,24 @@ retour de cette commande."
   ;; construit, la question n'a donc pas de réponse utile.
   (pdf-tools-install :no-query)
 
-  ;; Les pièces jointes ne passent NI par l'une NI par l'autre de ces deux
-  ;; listes : gnus (sous mu4e) écrit la partie MIME dans un tampon sans nom de
-  ;; fichier, puis appelle le visualiseur que `mailcap-mime-info' désigne. Or
-  ;; la table intégrée de mailcap.el propose doc-view-mode AVANT pdf-view-mode
-  ;; pour application/pdf, et le premier dont le test passe l'emporte.
+  ;; Le routage des pièces jointes vers pdf-view-mode ne se fait pas ici mais
+  ;; dans la section « Pièces jointes des courriels » plus bas : il relève de
+  ;; mailcap, et non de pdf-tools.
+
+  ;; Les modes globaux activés plus haut (numéros de ligne, ligne courante)
+  ;; n'ont aucun sens devant une image de page : la numérotation décale le
+  ;; rendu et le surlignage barre la page d'une bande de couleur. pdf-view
+  ;; tient d'ailleurs la liste de ceux qui le gênent (`pdf-view-incompatible-
+  ;; modes') et avertit quand il en trouve un actif — il se contente
+  ;; d'avertir, jamais de les désactiver, d'où ce crochet.
   ;;
-  ;; `mailcap-user-mime-data' est la liste que `mailcap-mime-info' consulte
-  ;; AVANT tout le reste : y déposer pdf-view-mode suffit, l'ordre de la table
-  ;; intégrée cesse de compter. Un tampon sans fichier ne gêne pas
-  ;; pdf-view-mode, qui le recopie dans un fichier temporaire avant
-  ;; d'interroger epdfinfo.
-  ;;
-  ;; Deux pièges évités ici, l'un et l'autre silencieux :
-  ;;
-  ;;   La fonction `mailcap-add' semblerait toute désignée, mais elle écrit
-  ;;   dans cette variable une structure imbriquée par type majeur/mineur, que
-  ;;   `mailcap-select-preferred-viewer' ne sait pas relire — elle y cherche
-  ;;   une liste plate d'entrées. Son second dépôt, dans la table calculée,
-  ;;   est quant à lui effacé au premier `mailcap-parse-mailcaps' de gnus.
-  ;;
-  ;;   D'où `customize-set-variable' et non `setq' : la valeur lisible
-  ;;   ci-dessous est convertie vers la forme interne par le :set du
-  ;;   defcustom. Un `setq' la laisserait telle quelle, et mailcap
-  ;;   l'ignorerait. Le `require' préalable n'est pas décoratif : sans lui le
-  ;;   :set n'est pas encore posé, et la conversion n'aurait pas lieu.
-  (require 'mailcap)
-  (customize-set-variable 'mailcap-user-mime-data
-                          '((pdf-view-mode "application/pdf"))))
+  ;; Le contrôle part sur un minuteur d'une seconde après l'entrée dans le
+  ;; mode : ce crochet, lui, s'exécute aussitôt, et trouve donc le terrain
+  ;; déjà net. Même remède que pour vterm plus bas.
+  (add-hook 'pdf-view-mode-hook
+            (lambda ()
+              (display-line-numbers-mode -1)
+              (setq-local global-hl-line-mode nil))))
 
 ;;; Ouverture de fichiers externes
 ;; openwith intercepte l'ouverture globalement (dired, find-file, liens
@@ -921,6 +911,47 @@ retour de cette commande."
   (setq openwith-associations
         '(("\\.\\(ods\\|odt\\|odp\\|docx\\|xlsx\\|pptx\\)\\'" "libreoffice" (file))))
   (openwith-mode 1))
+
+;;; Pièces jointes des courriels (mailcap)
+;; Une pièce jointe n'emprunte AUCUN des chemins réglés ci-dessus. gnus, qui
+;; affiche les parties MIME sous mu4e, écrit la pièce dans un tampon sans nom
+;; de fichier : ni `auto-mode-alist' ni `magic-mode-alist' (qui vont par
+;; l'extension ou les premiers octets) ni openwith (qui n'intercepte que les
+;; vrais fichiers) n'ont prise dessus. Seul compte le visualiseur que
+;; `mailcap-mime-info' désigne pour le type MIME annoncé dans le message.
+;;
+;; Faute d'entrée pour un type, gnus n'a plus rien à proposer que
+;; l'enregistrement — c'est ce qui arrivait aux documents bureautiques.
+;;
+;; `mailcap-user-mime-data' est la liste consultée AVANT la table intégrée de
+;; mailcap.el, et elle survit au `mailcap-parse-mailcaps' que gnus déclenche à
+;; son premier affichage. C'est le seul point d'entrée fiable ; deux voisines
+;; ne le sont pas :
+;;
+;;   `mailcap-add' écrit dans cette même variable une structure imbriquée par
+;;   type majeur/mineur, que `mailcap-select-preferred-viewer' ne sait pas
+;;   relire — elle y cherche une liste plate. Son second dépôt, dans la table
+;;   calculée, est effacé par le premier `mailcap-parse-mailcaps'.
+;;
+;;   `setq' laisserait la valeur sous la forme lisible ci-dessous, que mailcap
+;;   ignore : c'est le :set du defcustom qui la convertit vers la forme
+;;   interne, d'où `customize-set-variable'. Le `require' préalable n'est pas
+;;   décoratif — sans lui ce :set n'est pas encore posé.
+;;
+;; Le champ « type » est une expression régulière implicitement ancrée entre
+;; ^ et $. Une commande externe reçoit le fichier à la place de %s ; Emacs
+;; l'écrit dans un fichier temporaire qu'il efface à la fermeture du message,
+;; donc éditer depuis LibreOffice suppose d'enregistrer ailleurs d'abord.
+
+(require 'mailcap)
+(customize-set-variable
+ 'mailcap-user-mime-data
+ '((pdf-view-mode "application/pdf")
+   ;; Formats OpenDocument (.odt .ods .odp) et OOXML (.docx .xlsx .pptx).
+   ("libreoffice %s" "application/vnd\\.oasis\\.opendocument\\..*")
+   ("libreoffice %s" "application/vnd\\.openxmlformats-officedocument\\..*")
+   ;; Formats hérités : .doc, .xls, .ppt, .rtf.
+   ("libreoffice %s" "application/\\(msword\\|rtf\\|vnd\\.ms-\\(excel\\|powerpoint\\)\\)")))
 
 ;;; Terminal (vterm)
 ;; Vrai émulateur de terminal (liaison C vers libvterm), contrairement à
