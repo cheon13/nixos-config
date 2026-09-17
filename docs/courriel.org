@@ -250,10 +250,32 @@ Un chemin plutôt que ~nil~ : =C-c m= est opérationnel.
 | =b=         | Signets (non lus, aujourd'hui, cette semaine…)   |
 | =r=         | Classer dans =Archive=                           |
 | =C-c c= =m= | Capturer une tâche depuis le message courant     |
+| =C-c ;=     | Changer d'expéditeur dans un brouillon           |
 
 Le contexte (~zoho~ ou ~gmail~) détermine l'adresse d'expédition, les
-dossiers, et le compte ~msmtp~ utilisé. Il est choisi automatiquement en
-répondant à un message ; pour un message neuf, mu4e le demande.
+dossiers, et le compte ~msmtp~ utilisé. En réponse comme en transfert, il est
+choisi tout seul : le ~match-func~ du contexte lit le ~:maildir~ du message
+d'origine.
+
+*Un message neuf, lui, part toujours de Zoho.* ~mu4e-compose-context-policy~
+vaut ~ask-if-none~, qui ne pose la question que s'il n'existe aucun contexte
+courant — or ~mu4e-context-policy~ vaut ~pick-first~, donc ~zoho~ est installé
+dès le démarrage et la question n'arrive jamais. Pour expédier depuis Gmail,
+frapper =C-c ;= (~mu4e-compose-context-switch~) dans le brouillon : l'en-tête
+~From~, la signature et le ~-a~ passé à ~msmtp~ suivent. Le brouillon, lui,
+reste dans le dossier du contexte de départ — sans conséquence, sauf à
+abandonner le message en cours de route.
+
+*Le manuel info de mu4e 1.12.13 se trompe sur cette touche.* Son nœud
+/Composer Keybindings/ annonce =C-c C-;=, séquence qui n'apparaît nulle part
+dans le code et ne fait donc rien — d'où un « undefined » plutôt qu'une
+erreur, ce qui égare. La liaison réelle est =C-c ;=, posée dans
+~mu4e-compose.el~.
+
+Passer ~mu4e-compose-context-policy~ à ~ask~ ferait poser la question à chaque
+message neuf, sans rien changer aux réponses. À envisager si l'envoi depuis
+Gmail devient fréquent ; à éviter sous la forme ~always-ask~, qui court-circuite
+les ~match-func~ et interroge jusque sur une simple réponse.
 
 ** Le lien avec Org
 
