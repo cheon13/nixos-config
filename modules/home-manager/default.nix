@@ -252,10 +252,31 @@
       "image/webp"               = "imv.desktop";
       "image/svg+xml"            = "imv.desktop";
       "image/tiff"               = "imv.desktop";
-      "application/vnd.openxmlformats-officedocument.wordprocessingml.document" = "writer.desktop";
-      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"       = "calc.desktop";
-      "application/msword"       = "writer.desktop";
-      "application/vnd.ms-excel" = "calc.desktop";
+      # Bureautique : les trois mêmes familles que la table mailcap d'Emacs
+      # (init.el, section « Pièces jointes des courriels »), pour qu'un même
+      # document s'ouvre au même endroit qu'il arrive par courriel, par un
+      # lien org ou par E dans dired.
+      #
+      # La liste doit être complète : les formats OpenDocument et le RTF
+      # retombaient sur AbiWord, faute d'entrée ici — le mimeinfo.cache
+      # tranchait, comme décrit plus haut.
+
+      # OOXML (.docx .xlsx .pptx)
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.document"   = "writer.desktop";
+      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"         = "calc.desktop";
+      "application/vnd.openxmlformats-officedocument.presentationml.presentation" = "impress.desktop";
+
+      # OpenDocument (.odt .ods .odp)
+      "application/vnd.oasis.opendocument.text"         = "writer.desktop";
+      "application/vnd.oasis.opendocument.spreadsheet"  = "calc.desktop";
+      "application/vnd.oasis.opendocument.presentation" = "impress.desktop";
+
+      # Formats hérités (.doc .xls .ppt .rtf)
+      "application/msword"            = "writer.desktop";
+      "application/vnd.ms-excel"      = "calc.desktop";
+      "application/vnd.ms-powerpoint" = "impress.desktop";
+      "application/rtf"               = "writer.desktop";
+
       "application/pdf"          = "org.pwmt.zathura.desktop";
 
       # Texte et markdown

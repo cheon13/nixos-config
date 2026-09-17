@@ -497,8 +497,23 @@ configuration supplémentaire.
 
 Un =.pptx= n'ayant d'entrée ni dans ~org-file-apps~ ni dans ~auto-mode-alist~,
 le lien org descend jusqu'à cette dernière ligne de ~org-file-apps-gnu~ et
-consulte la même table que les pièces jointes. Une seule liste à tenir à jour,
-donc, dans la section « Pièces jointes des courriels » d'=init.el=.
+consulte la même table que les pièces jointes.
+
+*La touche =E= est l'exception* : ~dired-do-open~ ne consulte pas ~mailcap~
+mais ~shell-command-guess-open~, c'est-à-dire ~xdg-open~ — donc le bureau, et
+non Emacs. Deux listes doivent donc rester d'accord, et elles couvrent les
+mêmes trois familles de formats :
+
+- ~mailcap-user-mime-data~, section « Pièces jointes des courriels »
+  d'=init.el=, pour ce qui passe par Emacs ;
+- ~xdg.mimeApps~ dans =modules/home-manager/default.nix=, pour =E= et pour le
+  bureau.
+
+Ajouter un format demande de l'inscrire aux deux endroits. Une entrée oubliée
+du côté xdg ne produit pas d'erreur : le ~mimeinfo.cache~ tranche à sa place,
+et pas toujours comme on voudrait — les formats OpenDocument et le RTF y
+désignaient AbiWord, alors qu'une pièce jointe de même type s'ouvrait dans
+LibreOffice.
 
 Le seul changement d'habitude est dans dired : =RET= sur un =.pptx= ouvre
 maintenant un tampon d'octets illisible, là où ~openwith~ lançait LibreOffice.
