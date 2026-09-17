@@ -427,10 +427,10 @@ Symptôme d'origine, corrigé depuis : l'ouverture d'un PDF joint échouait sur
 cette erreur, après un message =Viewing with doc-view-mode=.
 
 Gnus, qui affiche les parties MIME sous mu4e, n'écrit pas la pièce jointe dans
-un fichier nommé : elle atterrit dans un tampon anonyme. Ni ~auto-mode-alist~
-(qui va par l'extension) ni ~openwith~ (qui n'intercepte que les fichiers) ne
-s'y appliquent — c'est ~mailcap~ qui désigne le visualiseur, et sa table
-intégrée nommait ~doc-view-mode~, lequel réclame ~ghostscript~, absent d'ici.
+un fichier nommé : elle atterrit dans un tampon anonyme, sur lequel
+~auto-mode-alist~ (qui va par l'extension) n'a pas prise — c'est ~mailcap~ qui
+désigne le visualiseur, et sa table intégrée nommait ~doc-view-mode~, lequel
+réclame ~ghostscript~, absent d'ici.
 
 La correction remplace la visionneuse partout plutôt que d'ajouter
 ~ghostscript~ : ~pdf-tools~ rend les pages par ~epdfinfo~, un serveur C lié à
@@ -451,10 +451,8 @@ Même chaîne que ci-dessus, autre symptôme. Gnus ne sait ouvrir une pièce
 jointe que si ~mailcap~ nomme un visualiseur pour le type MIME annoncé ;
 faute d'entrée, il ne reste que l'enregistrement sur disque.
 
-~openwith~ ne comble pas ce vide : il n'intercepte que les vrais fichiers,
-jamais un tampon MIME. La section « Pièces jointes des courriels » d'=init.el=
-inscrit donc LibreOffice dans ~mailcap-user-mime-data~ pour les trois familles
-de formats — OpenDocument, OOXML, et les formats hérités =.doc= / =.xls= /
+La section « Pièces jointes des courriels » d'=init.el= inscrit donc
+LibreOffice dans ~mailcap-user-mime-data~ pour les trois familles de formats — OpenDocument, OOXML, et les formats hérités =.doc= / =.xls= /
 =.ppt= / =.rtf=.
 
 Un ajout de format se fait à cet endroit, et nulle part ailleurs. Deux points
@@ -466,3 +464,42 @@ Un ajout de format se fait à cet endroit, et nulle part ailleurs. Deux points
 
 Le fichier remis à LibreOffice est temporaire et disparaît à la fermeture du
 message : pour retravailler un document, l'enregistrer d'abord ailleurs.
+
+** L'envoi s'interrompt et LibreOffice ouvre la pièce jointe
+
+Symptôme, corrigé depuis : un document bureautique joint à un message, puis
+=C-c C-c=. LibreOffice s'ouvrait sur le document et le courriel restait dans
+son tampon, non envoyé, sur =Opened X in external program=.
+
+Le coupable était ~openwith~, qui servait alors à ouvrir les documents
+bureautiques depuis dired et les liens org. Contrairement à ce qu'on suppose,
+~openwith-mode~ ne pose pas un crochet sur ~find-file~ : il ajoute une entrée
+~("" . openwith-file-handler)~ à ~file-name-handler-alist~, déclarée pour
+l'opération ~insert-file-contents~ de *tous* les fichiers. Le gestionnaire
+s'active quand le tampon courant est vide et non modifié.
+
+Or c'est exactement la situation au moment de l'envoi : ~mml~ lit le fichier à
+joindre par ~mm-insert-file-contents~ dans un tampon temporaire vide. Le
+gestionnaire lançait donc LibreOffice, tuait ce tampon de travail et
+interrompait l'encodage par une erreur. Le défaut n'a rien de propre au
+courriel — toute lecture programmée d'un fichier associé était détournée de la
+même façon.
+
+La correction retire ~openwith~ plutôt que de le contourner : ~mailcap~ tenait
+déjà le rôle pour les pièces jointes, et couvre les deux autres chemins sans
+configuration supplémentaire.
+
+| Chemin       | Ce qui ouvre le document                                |
+|--------------+---------------------------------------------------------|
+| Pièce jointe | ~mailcap-user-mime-data~, section « Pièces jointes »    |
+| Lien org     | ~org-open-file~ → ~(t . mailcap)~ d'~org-file-apps-gnu~ |
+| Dans dired   | =E= (~dired-do-open~), intégré à Emacs 30               |
+
+Un =.pptx= n'ayant d'entrée ni dans ~org-file-apps~ ni dans ~auto-mode-alist~,
+le lien org descend jusqu'à cette dernière ligne de ~org-file-apps-gnu~ et
+consulte la même table que les pièces jointes. Une seule liste à tenir à jour,
+donc, dans la section « Pièces jointes des courriels » d'=init.el=.
+
+Le seul changement d'habitude est dans dired : =RET= sur un =.pptx= ouvre
+maintenant un tampon d'octets illisible, là où ~openwith~ lançait LibreOffice.
+C'est =E= qu'il faut frapper.

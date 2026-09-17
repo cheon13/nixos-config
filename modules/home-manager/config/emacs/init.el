@@ -855,9 +855,9 @@ retour de cette commande."
 ;;; Lecture des PDF (pdf-tools)
 ;; Une seule visionneuse pour tous les PDF, où qu'ils arrivent : fichier
 ;; ouvert dans dired, lien org, pièce jointe de courriel. Auparavant zathura
-;; s'en chargeait par openwith (ci-dessous) — mais openwith ne voit que les
-;; fichiers, jamais les pièces jointes, qui retombaient sur doc-view et son
-;; appel à ghostscript, absent du système.
+;; s'en chargeait par openwith (depuis retiré, voir plus bas) — mais openwith
+;; ne voyait que les fichiers, jamais les pièces jointes, qui retombaient sur
+;; doc-view et son appel à ghostscript, absent du système.
 ;;
 ;; pdf-tools rend les pages par epdfinfo, un serveur C lié à poppler, ce qui
 ;; apporte en prime ce que doc-view n'a pas : recherche plein texte (le PDF
@@ -898,26 +898,38 @@ retour de cette commande."
               (setq-local global-hl-line-mode nil))))
 
 ;;; Ouverture de fichiers externes
-;; openwith intercepte l'ouverture globalement (dired, find-file, liens
-;; org) — plus large qu'org-file-apps qui ne couvre que les liens org.
+;; Rien à régler ici : la table mailcap de la section suivante suffit, et
+;; sert désormais les trois chemins d'un même fichier bureautique.
 ;;
-;; Ne reste ici que ce qu'Emacs ne sait pas afficher lui-même. Les PDF en
-;; sont sortis au profit de pdf-tools (section précédente) ; zathura demeure
-;; installé et reste la visionneuse du bureau hors Emacs
+;;   Lien org — `org-open-file' ne trouve pour un .pptx ni entrée dans
+;;   `org-file-apps' ni mode dans `auto-mode-alist', et retombe sur le
+;;   `(t . mailcap)' d'`org-file-apps-gnu', donc sur cette même table.
+;;
+;;   Dans dired — E (`dired-do-open') passe le fichier au programme du
+;;   bureau sans ouvrir de tampon. Intégré à Emacs 30, rien à installer.
+;;
+;;   Pièce jointe — section suivante.
+;;
+;; openwith tenait ce rôle jusqu'ici ; il est retiré parce qu'il empêchait
+;; d'ENVOYER une pièce jointe bureautique. `openwith-mode' ne pose pas un
+;; crochet sur find-file mais une entrée ("" . openwith-file-handler) dans
+;; `file-name-handler-alist', pour l'opération `insert-file-contents' de
+;; TOUS les fichiers. Or mml lit la pièce à joindre par
+;; `mm-insert-file-contents' dans un tampon temporaire vide — précisément la
+;; condition que ce gestionnaire guette (tampon non modifié et de taille
+;; nulle). C-c C-c lançait donc LibreOffice, tuait le tampon de travail et
+;; interrompait l'envoi sur « Opened X in external program ». Le défaut est
+;; général, pas propre au courriel : toute lecture programmée d'un fichier
+;; associé serait détournée de la même façon.
+;;
+;; zathura demeure installé et reste la visionneuse du bureau hors Emacs
 ;; (xdg.mimeApps dans modules/home-manager/default.nix).
 
-(use-package openwith
-  :config
-  (setq openwith-associations
-        '(("\\.\\(ods\\|odt\\|odp\\|docx\\|xlsx\\|pptx\\)\\'" "libreoffice" (file))))
-  (openwith-mode 1))
-
 ;;; Pièces jointes des courriels (mailcap)
-;; Une pièce jointe n'emprunte AUCUN des chemins réglés ci-dessus. gnus, qui
-;; affiche les parties MIME sous mu4e, écrit la pièce dans un tampon sans nom
-;; de fichier : ni `auto-mode-alist' ni `magic-mode-alist' (qui vont par
-;; l'extension ou les premiers octets) ni openwith (qui n'intercepte que les
-;; vrais fichiers) n'ont prise dessus. Seul compte le visualiseur que
+;; Une pièce jointe n'est jamais un fichier : gnus, qui affiche les parties
+;; MIME sous mu4e, écrit la pièce dans un tampon sans nom, sur lequel ni
+;; `auto-mode-alist' ni `magic-mode-alist' (qui vont par l'extension ou les
+;; premiers octets) n'ont prise. Seul compte le visualiseur que
 ;; `mailcap-mime-info' désigne pour le type MIME annoncé dans le message.
 ;;
 ;; Faute d'entrée pour un type, gnus n'a plus rien à proposer que
