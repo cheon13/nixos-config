@@ -105,6 +105,7 @@ distant et la boîte de réception des événements créés à distance.")
 (global-hl-line-mode 1)
 (global-set-key [remap list-buffers] 'ibuffer)
 (global-set-key (kbd "M-o") 'other-window)
+(global-set-key (kbd "C-'") 'duplicate-dwim)
 
 ;; Police : Adwaita Mono à 12pt (chasse fixe — important pour l'alignement
 ;; des tableaux org et du code). Ajustement à la volée : C-x C-+, C-x C--.
