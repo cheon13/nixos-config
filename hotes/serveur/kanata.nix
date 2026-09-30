@@ -78,7 +78,7 @@
 
           (deflayer navnum
                          @y @u @i @o  
-           _ _  _ _ _ _  @h @j @k @l _
+           _ _  _ _ _ _  @h @j @k @l
              _  _ _ _ _  _  _  _   _
            _ _
           )
