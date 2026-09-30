@@ -16,8 +16,8 @@
         config = ''
           (defsrc
                               y u i o           
-           esc caps  a s d f  h j k l ;
-           < z            /
+           esc caps  a s d f  h j k l
+                  <  z x c v    m , . /
            lalt lmet spc rmet ralt
           )
 
@@ -39,29 +39,29 @@
            i pgup
            o end
            ;; home row
-           hr-a (tap-hold $tap-time $hold-time a lmet)
-           hr-s (tap-hold $tap-time $hold-time s lalt)
-           hr-d (tap-hold $tap-time $hold-time d lctrl)
+           hr-z (tap-hold $tap-time $hold-time z lmet)
+           hr-x (tap-hold $tap-time $hold-time x lalt)
+           hr-c (tap-hold $tap-time $hold-time c lctrl)
            hr-f (tap-hold $tap-time $hold-time f lshift)
+           hr-v (tap-hold $tap-time $hold-time v lshift)
            hr-j (tap-hold $tap-time $hold-time j rshift)
-           hr-k (tap-hold $tap-time $hold-time k rctrl)
-           hr-l (tap-hold $tap-time $hold-time l lalt)
-           hr-sc (tap-hold $tap-time $hold-time ; rmet)
-           z (tap-hold $tap-time $hold-time z lctrl) 
-           / (tap-hold $tap-time $hold-time / rctrl)
+           hr-m (tap-hold $tap-time $hold-time m rshift)
+           hr-comma (tap-hold $tap-time $hold-time , rctrl)
+           hr-dot (tap-hold $tap-time $hold-time . lalt)
+           / (tap-hold $tap-time $hold-time / rmet)
            < (tap-hold $tap-time $hold-time < lshift)
           )
 
           (deflayer base
-                                              y u i o     
-           caps esc  @hr-a @hr-s @hr-d @hr-f  _ @hr-j @hr-k @hr-l @hr-sc
-           @< @z          @/
+                                                y     u     i         o     
+           caps esc  _     _     _     @hr-f    _     @hr-j _         _  
+                @<   @hr-z @hr-x @hr-c @hr-v          @hr-m @hr-comma @hr-dot @/
            lmet lalt @spc ralt rmet
           )
 
           (deflayer navnum
                          @y @u @i @o  
-           _ _  _ _ _ _  @h @j @k @l _
+           _ _  _ _ _ _  @h @j @k @l
            _ _          _
            _ _  _  _ _
           )
