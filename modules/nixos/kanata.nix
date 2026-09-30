@@ -39,9 +39,9 @@
            i pgup
            o end
            ;; home row
-           hr-z (tap-hold $tap-time $hold-time a lmet)
-           hr-x (tap-hold $tap-time $hold-time s lalt)
-           hr-c (tap-hold $tap-time $hold-time d lctrl)
+           hr-z (tap-hold $tap-time $hold-time z lmet)
+           hr-x (tap-hold $tap-time $hold-time x lalt)
+           hr-c (tap-hold $tap-time $hold-time c lctrl)
            hr-f (tap-hold $tap-time $hold-time f lshift)
            hr-v (tap-hold $tap-time $hold-time v lshift)
            hr-j (tap-hold $tap-time $hold-time j rshift)
