@@ -46,8 +46,11 @@
   # blacklist similar modules to avoid collision
   boot.blacklistedKernelModules = [ "b43" "bcma" ];
   
+  # Le nom du paquet inclut la version du noyau : on la dérive de
+  # boot.kernelPackages pour ne plus avoir à l'éditer à chaque mise à jour
+  # du noyau (sinon l'évaluation échoue avec « marked as insecure »).
   nixpkgs.config.permittedInsecurePackages = [
-    "broadcom-sta-6.30.223.271-59-6.18.49"
+    "broadcom-sta-6.30.223.271-59-${config.boot.kernelPackages.kernel.version}"
   ];
   # Extraire et installer le firmware nécessaire pour la caméra du macbook air 2014
   hardware.facetimehd.enable = true;

@@ -1,6 +1,6 @@
 # default.nix pour nixos
 
-{ config, pkgs, pkgs-unstable, claudePkg, ... }:
+{ config, pkgs, claudePkg, ... }:
 
 {
   imports = [
@@ -210,8 +210,6 @@
     xclip
     nitrogen
     wlr-randr
-    pkgs-unstable.noctalia-shell
-    #pkgs-unstable.quickshell
   ];
 
   # Installation d'un package pour ricer nixos
