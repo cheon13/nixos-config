@@ -243,6 +243,17 @@
   #   enableSSHSupport = true;
   # };
 
+  # Côté client : sans ces deux réglages, ssh ne détecte pas la disparition
+  # du pair. Si la machine distante tombe du réseau pendant un transfert, la
+  # connexion TCP reste ouverte côté noyau et ssh attend indéfiniment — c'est
+  # ce qui faisait « geler » nixos-rebuild --target-host sur pomme (wifi
+  # broadcom instable) au lieu d'échouer. Ici la connexion rend la main au
+  # bout d'une minute.
+  programs.ssh.extraConfig = ''
+    ServerAliveInterval 15
+    ServerAliveCountMax 4
+  '';
+
   # List services that you want to enable:
 
   # Enable the OpenSSH daemon.
