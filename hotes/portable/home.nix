@@ -27,6 +27,13 @@
     #jan
   ];
 
+  # Contournement temporaire : l'image officielle de netbrain/zwift a perdu
+  # libegl1 (commit amont 37c2418), indispensable à Wine sous Wayland.
+  # localhost/zwift-egl = image officielle + libegl1/libegl-mesa0, construite
+  # localement. DONT_UPDATE=1 évite de chercher cette image sur Docker Hub.
+  # À retirer quand https://github.com/netbrain/zwift/issues/415 sera réglée.
+  programs.bash.shellAliases.zwift-egl = "IMAGE=localhost/zwift-egl DONT_UPDATE=1 zwift";
+
   xsession = {
       enable = true;
       profileExtra = ''
