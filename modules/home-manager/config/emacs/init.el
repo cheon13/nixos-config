@@ -236,6 +236,8 @@ distant et la boîte de réception des événements créés à distance.")
   (setf (plist-get (alist-get 'dvisvgm org-preview-latex-process-alist)
                    :latex-compiler)
         '("dvilualatex -interaction nonstopmode -output-directory %o %f"))
+  ;; Équations un peu plus grandes que le texte (1.0 par défaut).
+  (setq org-format-latex-options (plist-put org-format-latex-options :scale 1.5))
   (setq org-export-with-toc nil)
   ;; Ménage automatique des fichiers auxiliaires après un export PDF réussi
   ;; (.aux, .log, .out, .fls…) ; « tex » s'ajoute à la liste par défaut pour
