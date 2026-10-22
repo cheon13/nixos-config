@@ -227,6 +227,15 @@ distant et la boîte de réception des événements créés à distance.")
   ;; personnalisée (marges 3cm, sections non numérotées).
   (require 'ox-latex)
   (setq org-latex-compiler "lualatex")
+  ;; Aperçu LaTeX (org-latex-preview) : avec lualatex, Org ajoute fontspec aux
+  ;; paquets par défaut, que le « latex » (pdfTeX) de l'aperçu refuse ; aucun
+  ;; .dvi n'est produit. On compile donc l'aperçu avec dvilualatex (LuaTeX en
+  ;; sortie DVI), converti en SVG par dvisvgm (dvipng ne gère pas les polices
+  ;; OpenType).
+  (setq org-preview-latex-default-process 'dvisvgm)
+  (setf (plist-get (alist-get 'dvisvgm org-preview-latex-process-alist)
+                   :latex-compiler)
+        '("dvilualatex -interaction nonstopmode -output-directory %o %f"))
   (setq org-export-with-toc nil)
   ;; Ménage automatique des fichiers auxiliaires après un export PDF réussi
   ;; (.aux, .log, .out, .fls…) ; « tex » s'ajoute à la liste par défaut pour
