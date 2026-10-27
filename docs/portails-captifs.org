@@ -1,0 +1,122 @@
+#+TITLE: Connexion aux portails captifs (wifi d'hôtel, de gare, etc.)
+#+OPTIONS: toc:nil num:nil
+
+Un portail captif est la page web qu'un réseau wifi public impose avant de
+donner accès à internet (numéro de chambre, conditions à accepter, bouton
+« Connect »). GNOME l'ouvre normalement tout seul ; quand il ne le fait pas,
+ou que la connexion wifi elle-même échoue, suivre cette procédure.
+
+Rédigé à partir d'un cas réel sur =pomme= (octobre 2026, réseau
+=RUBY-HOTEL=).
+
+* Diagnostic rapide
+
+#+begin_src bash
+nmcli                                    # état des interfaces
+nmcli -f SSID,SECURITY,SIGNAL dev wifi list
+nmcli -f IP4.ADDRESS,IP4.GATEWAY,IP4.DNS device show wlp3s0
+#+end_src
+
+Deux cas bien distincts :
+
+| Symptôme                                     | Cause probable                          | Section                              |
+|----------------------------------------------+-----------------------------------------+--------------------------------------|
+| =wlp3s0= reste « déconnecté », échec         | La connexion échoue avant le portail    | [[*La connexion wifi échoue (OWE)][La connexion wifi échoue]]             |
+| =wlp3s0= a une adresse IP, mais pas de page  | Le portail ne s'affiche pas             | [[*Ouvrir le portail à la main][Ouvrir le portail à la main]]          |
+
+Les journaux de NetworkManager aident à trancher :
+
+#+begin_src bash
+journalctl -u NetworkManager -f
+#+end_src
+
+* La connexion wifi échoue (OWE)
+
+Beaucoup de réseaux « ouverts » récents utilisent l'OWE (/Opportunistic
+Wireless Encryption/, ou « Enhanced Open »), qui chiffre même les réseaux sans
+mot de passe. =nmcli dev wifi list= les affiche avec la sécurité ~OWE~ ou
+~OWE-TM~ (mode de transition : un réseau ouvert classique et un réseau OWE
+caché sous le même nom).
+
+Le pilote propriétaire Broadcom ~wl~ de =pomme= (BCM4360) ne gère
+vraisemblablement pas l'OWE : NetworkManager tente l'OWE et échoue. La
+solution est de créer à la main un profil *ouvert*, sans section de sécurité :
+
+#+begin_src bash
+nmcli con add type wifi ifname wlp3s0 con-name "<SSID>" ssid "<SSID>" \
+    wifi.cloned-mac-address permanent ipv6.method disabled
+nmcli con up "<SSID>"
+#+end_src
+
+- ~wifi.cloned-mac-address permanent~ : utilise la vraie adresse MAC de la
+  carte au lieu d'une adresse aléatoire. Les portails mémorisent l'appareil
+  autorisé par son adresse MAC ; si elle change, il faut se réauthentifier.
+- ~ipv6.method disabled~ : évite qu'un trafic IPv6 contourne le portail et
+  embrouille la détection.
+
+Le profil reste enregistré dans NetworkManager (pas dans ce dépôt). Le
+supprimer en partant :
+
+#+begin_src bash
+nmcli connection delete "<SSID>"
+#+end_src
+
+* Ouvrir le portail à la main
+
+** Débrancher le partage de connexion du téléphone
+
+Point essentiel : si le téléphone est branché en USB (partage de connexion),
+NetworkManager le voit comme une connexion filaire, de métrique 100, alors que
+le wifi a une métrique 600. Tout le trafic internet passe donc par le
+téléphone, et le navigateur n'atteint jamais le portail de l'hôtel.
+
+*Débrancher le téléphone* le temps de l'authentification. Une session
+Claude Code coupée se reprend ensuite avec =claude --continue=.
+
+** Ouvrir une page en http
+
+Dans Firefox, taper l'adresse complète, *avec* =http://= :
+
+- =http://neverssl.com=
+- =http://detectportal.firefox.com=
+- ou l'adresse de la passerelle : =http://<IP4.GATEWAY>=
+
+Le réseau redirige vers sa page de connexion. Une page en https ne peut pas
+être redirigée (le certificat ne correspond pas) : le navigateur bloque ou
+attend indéfiniment.
+
+** Si Firefox ne charge toujours rien
+
+Firefox peut transformer de lui-même =http://= en =https://=, que le portail
+ne sert pas. Dans Paramètres → Vie privée et sécurité :
+
+- *Mode HTTPS uniquement* → « Ne pas activer »
+- *DNS via HTTPS* → « Désactivé »
+
+Si un avertissement HTTPS s'affiche, choisir « Continuer vers le site HTTP ».
+Remettre ces réglages une fois connecté.
+
+** Vérifier depuis le terminal
+
+Sans passer par le navigateur, =curl= montre si le portail répond et vers où
+il redirige (=--interface= force le passage par le wifi même si le téléphone
+est branché) :
+
+#+begin_src bash
+curl -s --interface wlp3s0 -o /dev/null -w "%{http_code} -> %{redirect_url}\n" http://<IP4.GATEWAY>/
+#+end_src
+
+#+begin_example
+302 -> http://hotspot.ruby-hotels.com/login
+#+end_example
+
+* Vérifier que l'accès est ouvert
+
+#+begin_src bash
+curl -s --interface wlp3s0 http://detectportal.firefox.com/success.txt
+nmcli networking connectivity check     # « full » si tout va bien, « portal » sinon
+#+end_src
+
+La première commande doit afficher =success=. Certains portails redemandent
+l'authentification régulièrement (par exemple chaque jour) : refaire alors
+l'étape [[*Ouvrir une page en http][Ouvrir une page en http]].
