@@ -830,7 +830,7 @@ retour de cette commande."
               'delete 'sent)))
 
   (setq mu4e-context-policy 'pick-first
-        mu4e-compose-context-policy 'ask-if-none)
+        mu4e-compose-context-policy 'ask)
 
   (setq mu4e-maildir-shortcuts
         '((:maildir "/zoho/INBOX"  :key ?z)
