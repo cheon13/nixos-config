@@ -114,6 +114,9 @@ distant et la boîte de réception des événements créés à distance.")
 (setq split-height-threshold nil
       split-width-threshold 100)
 
+;; Raccourci pour ouvrir vterm dans un autre fenêtre
+(define-key ctl-x-4-map (kbd "t") #'vterm-other-window)
+
 ;; Police : Adwaita Mono à 12pt (chasse fixe — important pour l'alignement
 ;; des tableaux org et du code). Ajustement à la volée : C-x C-+, C-x C--.
 (set-face-attribute 'default nil :font "Adwaita Mono-12")
