@@ -48,6 +48,8 @@
     lua
     lazygit
     nixfmt # formateur pour les fichiers nix dans nvim
+    clang-tools # clangd, serveur LSP C/C++ utilisé par eglot dans Emacs
+    nil # serveur LSP Nix utilisé par eglot dans Emacs
 
     # Pour la musique
     pavucontrol

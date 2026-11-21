@@ -1059,6 +1059,38 @@ retour de cette commande."
 (use-package nix-mode
   :mode ("\\.nix\\'" . nix-mode))
 
+;;; LSP (eglot)
+;; eglot est intégré à Emacs depuis la 29 : rien à télécharger. Il connaît
+;; déjà clangd pour c-mode et c++-mode, et nil pour nix-mode
+;; (`eglot-server-programs'), il suffit donc de le démarrer à l'ouverture du
+;; fichier. Les deux serveurs viennent de Nix (clang-tools et nil dans
+;; modules/home-manager/default.nix).
+;;
+;; clangd trouve les options de compilation d'un projet dans un
+;; compile_commands.json à sa racine (CMake : -DCMAKE_EXPORT_COMPILE_COMMANDS=ON,
+;; Make : bear -- make). Sans lui, il analyse chaque fichier avec des options
+;; par défaut : la bibliothèque standard est vue, les en-têtes du projet non.
+;;
+;; Diagnostics par flymake, complétion par completion-preview (ci-dessous).
+
+(use-package eglot
+  :ensure nil
+  :hook ((c-mode c++-mode nix-mode) . eglot-ensure))
+
+;;; Complétion automatique (completion-preview)
+;; Intégré à Emacs 30 : en tapant, le premier candidat s'affiche en grisé
+;; après le curseur. TAB l'accepte, M-n / M-p passent aux suivants, M-i
+;; ouvre la liste complète. Il n'a pas de sources à lui : il affiche ce que
+;; renvoie `completion-at-point', c'est-à-dire eglot en C, C++ et Nix, et la
+;; complétion native d'Emacs en Elisp — d'où rien de propre à chaque langage.
+
+(use-package completion-preview
+  :ensure nil
+  :hook (prog-mode . completion-preview-mode)
+  :bind (:map completion-preview-active-mode-map
+              ("M-n" . completion-preview-next-candidate)
+              ("M-p" . completion-preview-prev-candidate)))
+
 ;;; init.el ends here
 (put 'upcase-region 'disabled nil)
 (put 'downcase-region 'disabled nil)
