@@ -775,6 +775,8 @@ retour de cette commande."
         message-sendmail-f-is-evil t
         message-kill-buffer-on-exit t)
 
+  ;; Ajustement pour mettre mu4e mail-user-agent par défaut
+  (setq mail-user-agent 'mu4e-user-agent)
   ;;;; Contextes
   ;;
   ;; `match-func' reçoit le message auquel on répond (ou nil pour un message
